@@ -94,7 +94,7 @@ fun WelcomePage() {
             }
             item {
                 Text(
-                    text = "Item Unggulan",
+                    text = "Percakapan Terakhir",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
                 )
@@ -111,7 +111,7 @@ fun WelcomePage() {
                         supportingContent = { Text("Deskripsi singkat item ${index + 1}") },
                         leadingContent = {
                             Icon(
-                                Icons.Filled.ShoppingCart,
+                                Icons.Filled.Chat,
                                 contentDescription = "Item",
                                 modifier = Modifier.size(40.dp)
                             )
@@ -186,8 +186,8 @@ fun QuickAccessItem(imageResId: Int, label: String) {
 data class QuickAccessItemData(val imageResId: Int, val label: String)
 
 val quickAccessItems = listOf(
-    QuickAccessItemData(R.drawable.placeholder_image, "Custom Item 1"),
-    QuickAccessItemData(R.drawable.placeholder_image, "Custom Item with Long Name 2"),
-    QuickAccessItemData(R.drawable.placeholder_image, "Custom 3"),
-    QuickAccessItemData(R.drawable.placeholder_image, "Custom Item 4")
+    QuickAccessItemData(R.drawable.android_logo, "Custom Item 1"),
+    QuickAccessItemData(R.drawable.android_logo, "Custom Item with Long Name 2"),
+    QuickAccessItemData(R.drawable.android_logo, "Custom 3"),
+    QuickAccessItemData(R.drawable.android_logo, "Custom Item 4")
 )
