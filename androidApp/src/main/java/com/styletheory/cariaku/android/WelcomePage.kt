@@ -1,6 +1,8 @@
 package com.styletheory.cariaku.android
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -52,6 +54,7 @@ fun WelcomePage() {
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             SearchBar(
                 modifier = Modifier
@@ -122,14 +125,28 @@ fun ItemList() {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        // Add a list of items here. For now, we'll just add placeholder text.
         repeat(5) {
-            Text(
-                text = "Item ${it + 1}",
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            )
+                    .padding(vertical = 8.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        Icons.Filled.ShoppingBag,
+                        contentDescription = "Item",
+                        modifier = Modifier.size(40.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(text = "Item ${it + 1}", fontSize = 16.sp)
+                }
+            }
         }
     }
 }
