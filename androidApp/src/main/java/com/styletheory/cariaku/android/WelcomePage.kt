@@ -1,12 +1,11 @@
 package com.styletheory.cariaku.android
 
-import android.content.res.Resources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -14,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -110,7 +108,7 @@ fun WelcomePage() {
                         supportingContent = { Text("Deskripsi singkat item ${index + 1}") },
                         leadingContent = {
                             Icon(
-                                Icons.Filled.Chat,
+                                Icons.Filled.Edit,
                                 contentDescription = "Item",
                                 modifier = Modifier.size(40.dp)
                             )
@@ -139,7 +137,7 @@ fun QuickAccessSection() {
             modifier = Modifier.height(120.dp) // Set a fixed height for the grid
         ) {
             items(quickAccessItems) { item ->
-                QuickAccessItem(icon = R.drawable.android_logo, label = item.label)
+                QuickAccessItem(imageResId = item.imageResId, label = item.label)
             }
         }
     }
