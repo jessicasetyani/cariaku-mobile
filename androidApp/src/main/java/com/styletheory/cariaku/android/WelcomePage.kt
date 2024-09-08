@@ -132,17 +132,11 @@ fun WelcomePage() {
                     elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface)
                 ) {
-                    ListItem(
-                        headlineContent = { Text("Item ${index + 1}") },
-                        supportingContent = { Text("Deskripsi singkat item ${index + 1}") },
-                        leadingContent = {
-                            Icon(
-                                Icons.Filled.Edit,
-                                contentDescription = "Item",
-                                modifier = Modifier.size(40.dp)
-                            )
-                        },
-                        modifier = Modifier.padding(8.dp)
+                    Text(
+                        text = "Item ${index + 1}",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
                     )
                 }
             }
