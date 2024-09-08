@@ -7,8 +7,4 @@ plugins {
     alias(libs.plugins.compose.compiler).apply(false)
 }
 
-buildscript {
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.2.0") // Updated to version compatible with Gradle 8.7
-    }
-}
+// Remove the buildscript block as it's not needed
