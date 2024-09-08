@@ -137,7 +137,7 @@ fun QuickAccessSection() {
             modifier = Modifier.height(120.dp) // Set a fixed height for the grid
         ) {
             items(quickAccessItems) { item ->
-                QuickAccessItem(imageResId = item.imageResId, label = item.label)
+                QuickAccessItem(icon = R.drawable.ic_android_accessible, label = item.label)
             }
         }
     }
@@ -183,8 +183,8 @@ fun QuickAccessItem(imageResId: Int, label: String) {
 data class QuickAccessItemData(val imageResId: Int, val label: String)
 
 val quickAccessItems = listOf(
-    QuickAccessItemData(R.drawable.android_logo, "Custom Item 1"),
-    QuickAccessItemData(R.drawable.android_logo, "Custom Item with Long Name 2"),
-    QuickAccessItemData(R.drawable.android_logo, "Custom 3"),
-    QuickAccessItemData(R.drawable.android_logo, "Custom Item 4")
+    QuickAccessItemData(R.drawable.ic_android_accessible, "Percakapan"),
+    QuickAccessItemData(R.drawable.ic_android_accessible, "Kontak"),
+    QuickAccessItemData(R.drawable.ic_android_accessible, "Custom 3"),
+    QuickAccessItemData(R.drawable.ic_android_accessible, "Custom Item 4")
 )
