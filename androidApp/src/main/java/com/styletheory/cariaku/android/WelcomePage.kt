@@ -11,19 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomePage() {
     var selectedTab by remember { mutableStateOf(0) }
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            LargeTopAppBar(
                 title = { Text("Cariaku") },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             )
         },
@@ -63,8 +63,7 @@ fun WelcomePage() {
             )
             Text(
                 text = "Welcome, User!",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(16.dp)
             )
             QuickAccessSection()
@@ -77,15 +76,20 @@ fun WelcomePage() {
 @Composable
 fun SearchBar(modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf("") }
+    var active by remember { mutableStateOf(false) }
 
-    OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
-        modifier = modifier,
+    androidx.compose.material3.SearchBar(
+        query = text,
+        onQueryChange = { text = it },
+        onSearch = { active = false },
+        active = active,
+        onActiveChange = { active = it },
         placeholder = { Text("Search...") },
         leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-        singleLine = true
-    )
+        modifier = modifier
+    ) {
+        // Search suggestions can be added here
+    }
 }
 
 @Composable
@@ -111,8 +115,13 @@ fun QuickAccessSection() {
 @Composable
 fun QuickAccessItem(icon: ImageVector, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Icon(icon, contentDescription = label, modifier = Modifier.size(48.dp))
-        Text(text = label, fontSize = 14.sp)
+        FilledIconButton(
+            onClick = { /* Handle click */ },
+            modifier = Modifier.size(56.dp)
+        ) {
+            Icon(icon, contentDescription = label, modifier = Modifier.size(24.dp))
+        }
+        Text(text = label, style = MaterialTheme.typography.labelMedium)
     }
 }
 
@@ -121,31 +130,27 @@ fun ItemList() {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = "Featured Items",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         repeat(5) {
-            Card(
+            ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
             ) {
-                Row(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        Icons.Filled.ShoppingBag,
-                        contentDescription = "Item",
-                        modifier = Modifier.size(40.dp)
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(text = "Item ${it + 1}", fontSize = 16.sp)
-                }
+                ListItem(
+                    headlineContent = { Text("Item ${it + 1}") },
+                    leadingContent = {
+                        Icon(
+                            Icons.Filled.ShoppingBag,
+                            contentDescription = "Item",
+                            modifier = Modifier.size(40.dp)
+                        )
+                    },
+                    modifier = Modifier.padding(8.dp)
+                )
             }
         }
     }
