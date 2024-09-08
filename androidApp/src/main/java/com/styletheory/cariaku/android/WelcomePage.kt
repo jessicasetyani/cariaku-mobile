@@ -58,7 +58,7 @@ fun WelcomePage() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Cariaku") },
+                title = { Text("CariAku") },
                 actions = {
                     SearchBar(
                         query = searchQuery,
@@ -66,7 +66,7 @@ fun WelcomePage() {
                         onSearch = { /* Handle search */ },
                         active = false,
                         onActiveChange = { /* Handle active change */ },
-                        placeholder = { Text("Cari di sini...") },
+                        placeholder = { Text("CariAku") },
                         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                         modifier = Modifier.fillMaxWidth()
                     ) {

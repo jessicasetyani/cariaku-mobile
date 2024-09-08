@@ -12,7 +12,7 @@ xcuserdata
 # Gradle files
 .gradle
 build
-gradle/
+gradle
 
 # Build output
 captures
@@ -26,4 +26,4 @@ local.properties
 venv
 
 # Ignore Kotlin metadata and session files
-.kotlin/
+.kotlin
