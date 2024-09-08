@@ -18,12 +18,27 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun WelcomePage() {
     var selectedTab by remember { mutableStateOf(0) }
+    var searchQuery by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
-            LargeTopAppBar(
+            TopAppBar(
                 title = { Text("Cariaku") },
-                colors = TopAppBarDefaults.largeTopAppBarColors(
+                actions = {
+                    SearchBar(
+                        query = searchQuery,
+                        onQueryChange = { searchQuery = it },
+                        onSearch = { /* Handle search */ },
+                        active = false,
+                        onActiveChange = { /* Handle active change */ },
+                        placeholder = { Text("Cari Aku") },
+                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        // Search suggestions can be added here
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant,
                     titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -58,11 +73,6 @@ fun WelcomePage() {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            SearchBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
             Text(
                 text = "Welcome, User!",
                 style = MaterialTheme.typography.headlineMedium,
@@ -74,25 +84,6 @@ fun WelcomePage() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SearchBar(modifier: Modifier = Modifier) {
-    var text by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
-
-    androidx.compose.material3.SearchBar(
-        query = text,
-        onQueryChange = { text = it },
-        onSearch = { active = false },
-        active = active,
-        onActiveChange = { active = it },
-        placeholder = { Text("Search...") },
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-        modifier = modifier
-    ) {
-        // Search suggestions can be added here
-    }
-}
 
 @Composable
 fun QuickAccessSection() {
@@ -103,29 +94,48 @@ fun QuickAccessSection() {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(4),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            QuickAccessItem(icon = Icons.Filled.Favorite, label = "Favorites")
-            QuickAccessItem(icon = Icons.Filled.ShoppingCart, label = "Cart")
-            QuickAccessItem(icon = Icons.Filled.Person, label = "Profile")
+            items(quickAccessItems) { item ->
+                QuickAccessItem(icon = item.icon, label = item.label)
+            }
         }
     }
 }
 
 @Composable
 fun QuickAccessItem(icon: ImageVector, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        FilledIconButton(
-            onClick = { /* Handle click */ },
-            modifier = Modifier.size(56.dp)
+    Card(
+        modifier = Modifier
+            .aspectRatio(1f)
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Icon(icon, contentDescription = label, modifier = Modifier.size(24.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = label, style = MaterialTheme.typography.labelSmall)
         }
-        Text(text = label, style = MaterialTheme.typography.labelMedium)
     }
 }
+
+data class QuickAccessItemData(val icon: ImageVector, val label: String)
+
+val quickAccessItems = listOf(
+    QuickAccessItemData(Icons.Filled.Favorite, "Favorites"),
+    QuickAccessItemData(Icons.Filled.ShoppingCart, "Cart"),
+    QuickAccessItemData(Icons.Filled.Person, "Profile"),
+    QuickAccessItemData(Icons.Filled.Settings, "Settings")
+)
 
 @Composable
 fun ItemList() {
