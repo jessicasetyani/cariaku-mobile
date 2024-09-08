@@ -140,7 +140,7 @@ fun QuickAccessSection() {
             modifier = Modifier.height(120.dp) // Set a fixed height for the grid
         ) {
             items(quickAccessItems) { item ->
-                QuickAccessItem(icon = item.icon, label = item.label)
+                QuickAccessItem(icon = R.drawable.android_logo, label = item.label)
             }
         }
     }
