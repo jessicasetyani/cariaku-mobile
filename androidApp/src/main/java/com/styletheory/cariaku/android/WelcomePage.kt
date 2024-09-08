@@ -135,7 +135,6 @@ fun WelcomePage() {
                     Text(
                         text = "Item ${index + 1}",
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(16.dp)
                     )
                 }
