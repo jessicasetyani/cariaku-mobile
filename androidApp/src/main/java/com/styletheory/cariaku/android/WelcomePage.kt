@@ -129,8 +129,7 @@ fun WelcomePage() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp),
-                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
-                    backgroundColor = MaterialTheme.colorScheme.surface
+                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
                 ) {
                     ListItem(
                         headlineContent = { Text("Item ${index + 1}") },
