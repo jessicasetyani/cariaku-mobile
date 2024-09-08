@@ -3,7 +3,11 @@
 .idea
 .DS_Store
 xcuserdata
-.aider*
+
+# Aider files
+.aider.tags.cache.v3
+.aider.chat.history.md
+.aider.input.history
 
 # Gradle files
 .gradle
@@ -20,4 +24,3 @@ local.properties
 
 # Virtual environments
 venv
-.env
