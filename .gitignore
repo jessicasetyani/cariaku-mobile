@@ -1,13 +1,23 @@
+# IDE files
 *.iml
-.gradle
 .idea
 .DS_Store
+xcuserdata
+.aider*
+
+# Gradle files
+.gradle
 build
+gradle/
+
+# Build output
 captures
 .externalNativeBuild
 .cxx
+
+# Local configuration
 local.properties
-xcuserdata
-.aider*
+
+# Virtual environments
 venv
 .env
