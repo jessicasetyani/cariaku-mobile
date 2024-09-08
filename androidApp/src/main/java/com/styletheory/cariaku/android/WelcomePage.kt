@@ -133,7 +133,7 @@ fun WelcomePage() {
                     colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface)
                 ) {
                     Text(
-                        text = "Item xzgfhgjhghfghdfsdfaghfgjghfgdfgfdghfdgsdgfgjhghfg ${index + 1}",
+                        text = "Item ${index + 1}",
                         modifier = Modifier
                             .padding(16.dp),
                         maxLines = 1,
