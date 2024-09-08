@@ -135,7 +135,9 @@ fun WelcomePage() {
                     Text(
                         text = "Item xzgfhgjhghfghdfsdfaghfgjghfgdfgfdghfdgsdgfgjhghfg ${index + 1}",
                         modifier = Modifier
-                            .padding(16.dp)
+                            .padding(16.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }
