@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +38,7 @@ fun WelcomePage() {
                     onClick = { selectedTab = 0 }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Chat, contentDescription = "Chat") },
+                    icon = { Icon(Icons.Filled.Info, contentDescription = "Chat") },
                     label = { Text("Chat") },
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 }
@@ -145,7 +146,7 @@ fun ItemList() {
                     headlineContent = { Text("Item ${it + 1}") },
                     leadingContent = {
                         Icon(
-                            Icons.Filled.ShoppingBag,
+                            Icons.Filled.ShoppingCart,
                             contentDescription = "Item",
                             modifier = Modifier.size(40.dp)
                         )
