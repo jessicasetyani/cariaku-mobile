@@ -1,5 +1,6 @@
 package com.styletheory.cariaku.android
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -15,7 +16,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -142,7 +147,7 @@ fun QuickAccessSection() {
 }
 
 @Composable
-fun QuickAccessItem(icon: ImageVector, label: String) {
+fun QuickAccessItem(imageResId: Int, label: String) {
     Card(
         modifier = Modifier
             .aspectRatio(1f)
@@ -157,18 +162,32 @@ fun QuickAccessItem(icon: ImageVector, label: String) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Icon(icon, contentDescription = label, modifier = Modifier.size(24.dp))
+            Image(
+                painter = painterResource(id = imageResId),
+                contentDescription = label,
+                modifier = Modifier
+                    .size(48.dp)
+                    .weight(1f),
+                contentScale = ContentScale.Fit
+            )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = label, style = MaterialTheme.typography.labelSmall)
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(0.5f)
+            )
         }
     }
 }
 
-data class QuickAccessItemData(val icon: ImageVector, val label: String)
+data class QuickAccessItemData(val imageResId: Int, val label: String)
 
 val quickAccessItems = listOf(
-    QuickAccessItemData(Icons.Filled.Favorite, "Favorit"),
-    QuickAccessItemData(Icons.Filled.ShoppingCart, "Keranjang"),
-    QuickAccessItemData(Icons.Filled.Person, "Profil"),
-    QuickAccessItemData(Icons.Filled.Settings, "Pengaturan")
+    QuickAccessItemData(R.drawable.placeholder_image, "Custom Item 1"),
+    QuickAccessItemData(R.drawable.placeholder_image, "Custom Item with Long Name 2"),
+    QuickAccessItemData(R.drawable.placeholder_image, "Custom 3"),
+    QuickAccessItemData(R.drawable.placeholder_image, "Custom Item 4")
 )
