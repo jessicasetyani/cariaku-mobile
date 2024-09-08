@@ -70,27 +70,55 @@ fun WelcomePage() {
             }
         }
     ) { innerPadding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
         ) {
-            Text(
-                text = "Welcome, User!",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(16.dp)
-            )
-            QuickAccessSection()
-            ItemList()
+            item {
+                Text(
+                    text = "Welcome, User!",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            item {
+                QuickAccessSection()
+            }
+            item {
+                Text(
+                    text = "Featured Items",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
+                )
+            }
+            items(5) { index ->
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
+                ) {
+                    ListItem(
+                        headlineContent = { Text("Item ${index + 1}") },
+                        leadingContent = {
+                            Icon(
+                                Icons.Filled.ShoppingCart,
+                                contentDescription = "Item",
+                                modifier = Modifier.size(40.dp)
+                            )
+                        },
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+            }
         }
     }
 }
 
-
 @Composable
 fun QuickAccessSection() {
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
             text = "Quick Access",
             fontSize = 18.sp,
@@ -100,7 +128,8 @@ fun QuickAccessSection() {
         LazyVerticalGrid(
             columns = GridCells.Fixed(4),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.height(120.dp) // Set a fixed height for the grid
         ) {
             items(quickAccessItems) { item ->
                 QuickAccessItem(icon = item.icon, label = item.label)
@@ -139,34 +168,3 @@ val quickAccessItems = listOf(
     QuickAccessItemData(Icons.Filled.Person, "Profile"),
     QuickAccessItemData(Icons.Filled.Settings, "Settings")
 )
-
-@Composable
-fun ItemList() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = "Featured Items",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        repeat(5) {
-            ElevatedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
-            ) {
-                ListItem(
-                    headlineContent = { Text("Item ${it + 1}") },
-                    leadingContent = {
-                        Icon(
-                            Icons.Filled.ShoppingCart,
-                            contentDescription = "Item",
-                            modifier = Modifier.size(40.dp)
-                        )
-                    },
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
-        }
-    }
-}
