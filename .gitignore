@@ -24,3 +24,6 @@ local.properties
 
 # Virtual environments
 venv
+
+# Ignore Kotlin metadata and session files
+.kotlin/
