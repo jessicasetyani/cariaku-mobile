@@ -35,7 +35,7 @@ fun WelcomePage() {
                         onSearch = { /* Handle search */ },
                         active = false,
                         onActiveChange = { /* Handle active change */ },
-                        placeholder = { Text("Cari Aku") },
+                        placeholder = { Text("Cari di sini...") },
                         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -51,20 +51,20 @@ fun WelcomePage() {
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
-                    label = { Text("Home") },
+                    icon = { Icon(Icons.Filled.Home, contentDescription = "Beranda") },
+                    label = { Text("Beranda") },
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Info, contentDescription = "Chat") },
-                    label = { Text("Chat") },
+                    icon = { Icon(Icons.Filled.Info, contentDescription = "Obrolan") },
+                    label = { Text("Obrolan") },
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Search, contentDescription = "Discover") },
-                    label = { Text("Discover") },
+                    icon = { Icon(Icons.Filled.Search, contentDescription = "Jelajahi") },
+                    label = { Text("Jelajahi") },
                     selected = selectedTab == 2,
                     onClick = { selectedTab = 2 }
                 )
@@ -78,7 +78,7 @@ fun WelcomePage() {
         ) {
             item {
                 Text(
-                    text = "Welcome, User!",
+                    text = "Selamat datang, Pengguna!",
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.padding(16.dp)
                 )
@@ -88,7 +88,7 @@ fun WelcomePage() {
             }
             item {
                 Text(
-                    text = "Featured Items",
+                    text = "Item Unggulan",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
                 )
@@ -102,6 +102,7 @@ fun WelcomePage() {
                 ) {
                     ListItem(
                         headlineContent = { Text("Item ${index + 1}") },
+                        supportingContent = { Text("Deskripsi singkat item ${index + 1}") },
                         leadingContent = {
                             Icon(
                                 Icons.Filled.ShoppingCart,
@@ -121,7 +122,7 @@ fun WelcomePage() {
 fun QuickAccessSection() {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
-            text = "Quick Access",
+            text = "Akses Cepat",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -145,7 +146,8 @@ fun QuickAccessItem(icon: ImageVector, label: String) {
         modifier = Modifier
             .aspectRatio(1f)
             .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(16.dp)
     ) {
         Column(
             modifier = Modifier
@@ -164,8 +166,8 @@ fun QuickAccessItem(icon: ImageVector, label: String) {
 data class QuickAccessItemData(val icon: ImageVector, val label: String)
 
 val quickAccessItems = listOf(
-    QuickAccessItemData(Icons.Filled.Favorite, "Favorites"),
-    QuickAccessItemData(Icons.Filled.ShoppingCart, "Cart"),
-    QuickAccessItemData(Icons.Filled.Person, "Profile"),
-    QuickAccessItemData(Icons.Filled.Settings, "Settings")
+    QuickAccessItemData(Icons.Filled.Favorite, "Favorit"),
+    QuickAccessItemData(Icons.Filled.ShoppingCart, "Keranjang"),
+    QuickAccessItemData(Icons.Filled.Person, "Profil"),
+    QuickAccessItemData(Icons.Filled.Settings, "Pengaturan")
 )
