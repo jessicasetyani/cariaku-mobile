@@ -49,8 +49,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.sp
 import com.styletheory.cariaku.CarouselItemData
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -243,19 +252,69 @@ fun CariAkuApaHariIniSection() {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
+
+        val carouselItems = listOf(
+            CarouselItemData(android.R.drawable.ic_menu_report_image, "Cara hemat uang jajan? CariAku tau nih!"),
+            CarouselItemData(android.R.drawable.ic_menu_report_image, "Bingung mau masak apa? CariAku punya ide!"),
+            CarouselItemData(android.R.drawable.ic_menu_report_image, "Butuh hiburan? CariAku rekomendasi film!")
+        )
+
+        Carousel(items = carouselItems)
+    }
+}
+
+@Composable
+fun Carousel(
+    items: List<CarouselItemData>,
+    modifier: Modifier = Modifier
+) {
+    val offsetX = remember { mutableStateOf(0f) }
+    val cardWidth = 250.dp
+    val spacing = 8.dp
+
+    Box(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
-                .horizontalScroll(rememberScrollState())
-                .padding(bottom = 16.dp)
+                .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+                .draggable(
+                    orientation = Orientation.Horizontal,
+                    state = rememberDraggableState { delta ->
+                        offsetX.value += delta
+                    }
+                )
         ) {
-            val carouselItems = listOf(
-                CarouselItemData(android.R.drawable.ic_menu_report_image, "Cara hemat uang jajan? CariAku tau nih!"),
-                CarouselItemData(android.R.drawable.ic_menu_report_image, "Bingung mau masak apa? CariAku punya ide!"),
-                CarouselItemData(android.R.drawable.ic_menu_report_image, "Butuh hiburan? CariAku rekomendasi film!")
-            )
-            carouselItems.forEach { item ->
-                CarouselCard(item)
+            items.forEach { item ->
+                CarouselCard(item, cardWidth, spacing)
             }
+        }
+    }
+}
+
+@Composable
+fun CarouselCard(item: CarouselItemData, cardWidth: Dp, spacing: Dp) {
+    Card(
+        modifier = Modifier
+            .padding(end = spacing)
+            .width(cardWidth),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = item.iconResId),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = item.question,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }
