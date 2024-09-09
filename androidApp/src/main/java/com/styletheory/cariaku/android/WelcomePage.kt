@@ -133,6 +133,11 @@ fun WelcomePage() {
         "Chat 2: Movie recommendations?",
         "Chat 3: Room decoration ideas?",
         "Chat 4: Best restaurants nearby?",
+        "Chat 5: Workout routines?",
+        "Chat 1: How to save money?",
+        "Chat 2: Movie recommendations?",
+        "Chat 3: Room decoration ideas?",
+        "Chat 4: Best restaurants nearby?",
         "Chat 5: Workout routines?"
     )
     val colors1 = SearchBarDefaults.colors()
