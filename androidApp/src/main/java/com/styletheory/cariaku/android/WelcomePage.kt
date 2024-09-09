@@ -117,6 +117,7 @@ fun WelcomePage() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
+                .weight(1f)
                 .padding(innerPadding)
         ) {
             item {
@@ -199,6 +200,7 @@ fun QuickAccessSection() {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
+                .height(200.dp) // Set a fixed height
                 .padding(vertical = 8.dp)
         ) {
             items(quickAccessItems) { item ->
