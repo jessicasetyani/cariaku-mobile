@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,7 @@ fun QuickAccessSection(assistants: List<String>) {
                         .width(100.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_assistant), // Replace with actual icon resource
+                        painter = painterResource(id = R.drawable.ic_actual_assistant), // Replace with actual icon resource
                         contentDescription = null,
                         modifier = Modifier
                             .size(64.dp)
