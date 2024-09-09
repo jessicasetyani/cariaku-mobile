@@ -171,6 +171,9 @@ fun WelcomePage() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+
+        Spacer(modifier = Modifier.height(24.dp))
+
         TopicSuggestionsSection(topics = topicSuggestions)
 
         Spacer(modifier = Modifier.height(24.dp))
