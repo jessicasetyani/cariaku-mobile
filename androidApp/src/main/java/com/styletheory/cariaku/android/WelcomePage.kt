@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -216,6 +217,14 @@ fun QuickAccessItem(imageResId: Int, label: String) {
                 modifier = Modifier.weight(0.5f)
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WelcomePagePreview() {
+    CariakuTheme {
+        WelcomePage()
     }
 }
 
