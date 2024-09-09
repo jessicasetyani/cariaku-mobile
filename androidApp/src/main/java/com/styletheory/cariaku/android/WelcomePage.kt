@@ -82,7 +82,7 @@ fun WelcomePage() {
             TopAppBar(
                 title = { Text("CariAku") },
                 actions = {
-                    SearchBar(
+                    SearchBar (
                         query = searchQuery,
                         onQueryChange = { searchQuery = it },
                         onSearch = { /* Handle search */ },
