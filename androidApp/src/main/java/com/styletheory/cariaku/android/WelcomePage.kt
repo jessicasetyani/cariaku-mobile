@@ -24,7 +24,7 @@ import androidx.compose.runtime.setValue
 @Composable
 fun QuickAccessSection(assistants: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        Text(text = "Quick Access (Asisten Andalan)", style = MaterialTheme.typography.h6)
+        Text(text = "Quick Access (Asisten Andalan)", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow {
             items(assistants) { assistant ->
