@@ -61,32 +61,19 @@ fun TopicSuggestionsSection(topics: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Text(text = "CariAku Apa Hari Ini?", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
-        LazyRow(
-            state = listState,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        Column(
             modifier = Modifier.fillMaxWidth()
         ) {
-            items(topics) { topic ->
-                Column(
+            topics.forEach { topic ->
+                Text(
+                    text = topic,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black,
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
-                        .width(IntrinsicSize.Min)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(IntrinsicSize.Min)
-                            .padding(bottom = 4.dp)
-                    ) {
-                        Text(
-                            text = topic,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = Color.Black,
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        )
-                    }
-                }
+                        .width(0.75f * LocalConfiguration.current.screenWidthDp.dp)
+                )
             }
         }
     }
