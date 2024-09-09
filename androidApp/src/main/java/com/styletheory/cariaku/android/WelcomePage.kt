@@ -188,29 +188,6 @@ fun WelcomePage() {
         Spacer(modifier = Modifier.height(24.dp))
 
         RecentChatsSection(chats = recentChats)
-
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        TopicSuggestionsSection(topics = topicSuggestions)
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        RecentChatsSection(chats = recentChats)
-
-        Text(
-            text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        QuickAccessSection(assistants = topAssistants)
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        TopicSuggestionsSection(topics = topicSuggestions)
     }
 }
 
