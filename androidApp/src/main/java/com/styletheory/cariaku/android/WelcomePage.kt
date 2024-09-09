@@ -201,14 +201,14 @@ fun QuickAccessSection() {
                 .padding(vertical = 8.dp)
         ) {
             items(quickAccessItems) { item ->
-                QuickAccessItem(item.imageResId, item.label)
+                QuickAccessItem(item)
             }
         }
     }
 }
 
 @Composable
-fun QuickAccessItem(imageResId: Int, label: String) {
+fun QuickAccessItem(item: QuickAccessItemData) {
     Card(
         modifier = Modifier
             .aspectRatio(1f)
@@ -224,8 +224,8 @@ fun QuickAccessItem(imageResId: Int, label: String) {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = imageResId),
-                contentDescription = label,
+                painter = painterResource(id = item.imageResId),
+                contentDescription = item.label,
                 modifier = Modifier
                     .size(48.dp)
                     .weight(1f),
@@ -233,7 +233,7 @@ fun QuickAccessItem(imageResId: Int, label: String) {
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = label,
+                text = item.label,
                 style = MaterialTheme.typography.labelSmall,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
