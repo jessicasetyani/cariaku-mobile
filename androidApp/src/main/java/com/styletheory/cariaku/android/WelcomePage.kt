@@ -19,7 +19,7 @@ import androidx.compose.material.icons.filled.Search
 @Composable
 fun QuickAccessSection(assistants: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        Text(text = "Quick Access (Asisten Andalan)", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Asisten Andalan", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow {
             items(assistants) { assistant ->
