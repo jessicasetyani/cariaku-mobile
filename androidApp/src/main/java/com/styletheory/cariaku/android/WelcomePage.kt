@@ -143,12 +143,20 @@ fun WelcomePage() {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = "Item ${index + 1}",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.weight(1f)
-                        )
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Judul Percakapan ${index + 1}", // Replace with actual title
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "Ringkasan percakapan dengan AI...", // Replace with actual summary
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
                         Image(
                             painter = painterResource(id = android.R.drawable.ic_menu_report_image), // Replace with your agent image resource
                             contentDescription = "Agent Image",
