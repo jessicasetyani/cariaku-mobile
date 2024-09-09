@@ -23,35 +23,32 @@ fun QuickAccessSection(assistants: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Text(text = "Cari Asisten Favorit Kamu", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(assistants) { assistant ->
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            assistants.forEach { assistant ->
                 Column(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with assistant */ })
-                        .width(IntrinsicSize.Min)
+                        .width(IntrinsicSize.Min),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row(
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
+                        contentDescription = null,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(IntrinsicSize.Min)
+                            .size(48.dp)
+                            .clip(MaterialTheme.shapes.small)
                             .padding(bottom = 4.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(48.dp)
-                                .clip(MaterialTheme.shapes.small)
-                                .padding(end = 8.dp)
-                        )
-                        Text(
-                            text = assistant,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = Color.Black,
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        )
-                    }
+                    )
+                    Text(
+                        text = assistant,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Black,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
                 }
             }
         }
@@ -82,14 +79,6 @@ fun TopicSuggestionsSection(topics: List<String>) {
                             .height(IntrinsicSize.Min)
                             .padding(bottom = 4.dp)
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with CariAku logo/mascot
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(48.dp)
-                                .clip(MaterialTheme.shapes.small)
-                                .padding(end = 8.dp)
-                        )
                         Text(
                             text = topic,
                             style = MaterialTheme.typography.bodyLarge,
