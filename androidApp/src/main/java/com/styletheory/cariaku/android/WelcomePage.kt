@@ -57,9 +57,11 @@ fun WelcomePage() {
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
     val colors1 = SearchBarDefaults.colors()
 
-    Column {
-        QuickAccessSection(assistants = topAssistants)
-        
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         SearchBar(
             inputField = {
                 SearchBarDefaults.InputField(
@@ -88,6 +90,10 @@ fun WelcomePage() {
                 // Search suggestions can be added here
             }
         )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        QuickAccessSection(assistants = topAssistants)
     }
 }
 
