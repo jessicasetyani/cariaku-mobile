@@ -30,7 +30,7 @@ fun QuickAccessSection(assistants: List<String>) {
                         .width(100.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_actual_assistant), // Replace with actual icon resource
+                        painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with actual icon resource
                         contentDescription = null,
                         modifier = Modifier
                             .size(64.dp)
