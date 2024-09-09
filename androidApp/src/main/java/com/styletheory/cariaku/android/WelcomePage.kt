@@ -62,6 +62,15 @@ import kotlin.math.roundToInt
 
 data class CarouselItemData(val iconResId: Int, val question: String)
 
+data class QuickAccessItemData(val imageResId: Int, val label: String)
+
+val quickAccessItems = listOf(
+    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Percakapan"),
+    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Kontak"),
+    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Custom 3"),
+    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Custom Item 4")
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomePage() {
@@ -333,12 +342,3 @@ fun WelcomePagePreview() {
         WelcomePage()
     }
 }
-
-data class QuickAccessItemData(val imageResId: Int, val label: String)
-
-val quickAccessItems = listOf(
-    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Percakapan"),
-    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Kontak"),
-    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Custom 3"),
-    QuickAccessItemData(android.R.drawable.ic_menu_report_image, "Custom Item 4")
-)
