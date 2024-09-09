@@ -193,14 +193,14 @@ fun QuickAccessSection() {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(4),
+        LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.height(120.dp) // Set a fixed height for the grid
+            modifier = Modifier
+                .height(180.dp)
+                .padding(vertical = 8.dp)
         ) {
-            items(quickAccessItems) { item ->
-                QuickAccessItem(imageResId = android.R.drawable.ic_menu_report_image, label = item.label)
+            items(carouselItems) { item ->
+                CarouselCard(item)
             }
         }
     }
