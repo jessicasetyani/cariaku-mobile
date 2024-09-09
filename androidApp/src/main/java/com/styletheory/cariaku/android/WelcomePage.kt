@@ -8,8 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,13 +21,13 @@ fun QuickAccessSection(assistants: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Text(text = "Asisten Andalan", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
-        LazyRow {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             items(assistants) { assistant ->
                 Column(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable { /* Start conversation with assistant */ }
-                        .width(100.dp)
+                        .width(IntrinsicSize.Min)
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with actual icon resource
