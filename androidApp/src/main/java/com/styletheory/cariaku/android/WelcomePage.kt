@@ -1,6 +1,7 @@
 package com.styletheory.cariaku.android
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +31,7 @@ fun QuickAccessSection(assistants: List<String>) {
                 Text(
                     text = assistant,
                     modifier = Modifier.padding(8.dp),
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
