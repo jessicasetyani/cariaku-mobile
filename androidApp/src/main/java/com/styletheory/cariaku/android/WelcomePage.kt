@@ -132,13 +132,25 @@ fun WelcomePage() {
                     elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface)
                 ) {
-                    Text(
-                        text = "Item ${index + 1}",
+                    Row(
                         modifier = Modifier
+                            .fillMaxWidth()
                             .padding(16.dp),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Item ${index + 1}",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Image(
+                            painter = painterResource(id = android.R.drawable.ic_menu_report_image), // Replace with your agent image resource
+                            contentDescription = "Agent Image",
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
                 }
             }
         }
