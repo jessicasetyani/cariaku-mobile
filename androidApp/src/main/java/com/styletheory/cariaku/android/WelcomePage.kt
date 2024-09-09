@@ -156,6 +156,11 @@ fun WelcomePage() {
                                 overflow = TextOverflow.Ellipsis,
                                 style = MaterialTheme.typography.bodySmall
                             )
+                            Text(
+                                text = "10:30 AM", // Replace with actual time
+                                style = MaterialTheme.typography.caption,
+                                modifier = Modifier.align(Alignment.End)
+                            )
                         }
                         Image(
                             painter = painterResource(id = android.R.drawable.ic_menu_report_image), // Replace with your agent image resource
