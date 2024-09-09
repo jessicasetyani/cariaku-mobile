@@ -20,6 +20,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -150,8 +153,37 @@ fun RecentChatsSection(chats: List<String>) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun BottomNavigationBar(
+    items: List<BottomNavigationItem>,
+    selectedItemIndex: Int,
+    onItemClick: (Int) -> Unit
+) {
+    BottomNavigation(
+        modifier = Modifier.fillMaxWidth(),
+        backgroundColor = MaterialTheme.colorScheme.primary,
+        contentColor = Color.White
+    ) {
+        items.forEachIndexed { index, item ->
+            BottomNavigationItem(
+                icon = { Icon(item.icon, contentDescription = item.label) },
+                label = { Text(item.label) },
+                selected = index == selectedItemIndex,
+                onClick = { onItemClick(index) },
+                alwaysShowLabel = false
+            )
+        }
+    }
+}
+
+data class BottomNavigationItem(
+    val icon: ImageVector,
+    val label: String
+)
+
+@Composable
 fun WelcomePage() {
     var searchQuery by remember { mutableStateOf("") }
+    var selectedItemIndex by remember { mutableStateOf(0) }
 
     val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
     val topicSuggestions = listOf(
@@ -174,6 +206,12 @@ fun WelcomePage() {
     val colors1 = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
+    val bottomNavigationItems = listOf(
+        BottomNavigationItem(icon = Icons.Default.Home, label = "Home"),
+        BottomNavigationItem(icon = Icons.Default.Favorite, label = "Favorites"),
+        BottomNavigationItem(icon = Icons.Default.Person, label = "Profile")
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -181,7 +219,7 @@ fun WelcomePage() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 72.dp) // Adjust this value based on the height of the SearchBar
+                .padding(top = 72.dp, bottom = 56.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 Spacer(modifier = Modifier.height(24.dp))
@@ -228,6 +266,12 @@ fun WelcomePage() {
             content = {
                 // Search suggestions can be added here
             }
+        )
+
+        BottomNavigationBar(
+            items = bottomNavigationItems,
+            selectedItemIndex = selectedItemIndex,
+            onItemClick = { selectedItemIndex = it }
         )
     }
 }
