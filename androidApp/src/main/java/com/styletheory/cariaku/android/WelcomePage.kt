@@ -41,7 +41,7 @@ private fun SearchBarDefaults.InputField(
 fun WelcomePage() {
     var searchQuery by remember { mutableStateOf("") }
 
-    val onActiveChange = { /* Handle active change */ }
+    val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
     val colors1 = SearchBarDefaults.colors()
     // Search suggestions can be added here
     SearchBar(
@@ -51,7 +51,7 @@ fun WelcomePage() {
                 onQueryChange = { searchQuery = it },
                 onSearch = { /* Handle search */ },
                 expanded = false,
-                onExpandedChange = onActiveChange,
+                onExpandedChange = { onActiveChange(it) },
                 enabled = true,
                 placeholder = { Text("Cari Apa Nih? CariAku") },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
