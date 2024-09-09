@@ -87,6 +87,7 @@ model: deepseek/deepseek-coder
 
 ## Specify the model to use for commit messages and chat history summarization (default depends on --model)
 #weak-model: command-r-plus
+#weak-model: deepseek/deepseek-chat
 
 ## Only work with models that have meta-data available (default: True)
 #show-model-warnings: true
