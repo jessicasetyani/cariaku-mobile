@@ -37,6 +37,7 @@ fun QuickAccessSection(assistants: List<String>) {
         }
     }
 }
+@OptIn(ExperimentalMaterial3Api::class)
 private fun SearchBarDefaults.InputField(
     query: String,
     onQueryChange: (String) -> Unit,
