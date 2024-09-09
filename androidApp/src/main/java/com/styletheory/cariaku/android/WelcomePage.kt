@@ -62,10 +62,10 @@ fun TopicSuggestionsSection(topics: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Text(text = "CariAku Apa Hari Ini?", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
-        Column(
+        LazyRow(
             modifier = Modifier.fillMaxWidth()
         ) {
-            topics.forEach { topic ->
+            items(topics) { topic ->
                 Text(
                     text = topic,
                     style = MaterialTheme.typography.bodyLarge,
@@ -74,6 +74,7 @@ fun TopicSuggestionsSection(topics: List<String>) {
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
                         .width((0.75f * LocalConfiguration.current.screenWidthDp).dp)
+                        .padding(end = 8.dp)
                 )
             }
         }
