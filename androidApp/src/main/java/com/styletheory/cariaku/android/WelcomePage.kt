@@ -246,18 +246,18 @@ fun QuickAccessItem(imageResId: Int, label: String) {
 
 @Composable
 fun CariAkuApaHariIniSection() {
+    val carouselItems = listOf(
+        CarouselItemData(android.R.drawable.ic_menu_report_image, "Cara hemat uang jajan? CariAku tau nih!"),
+        CarouselItemData(android.R.drawable.ic_menu_report_image, "Bingung mau masak apa? CariAku punya ide!"),
+        CarouselItemData(android.R.drawable.ic_menu_report_image, "Butuh hiburan? CariAku rekomendasi film!")
+    )
+
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
             text = "CariAku Apa Hari Ini?",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        val carouselItems = listOf(
-            CarouselItemData(android.R.drawable.ic_menu_report_image, "Cara hemat uang jajan? CariAku tau nih!"),
-            CarouselItemData(android.R.drawable.ic_menu_report_image, "Bingung mau masak apa? CariAku punya ide!"),
-            CarouselItemData(android.R.drawable.ic_menu_report_image, "Butuh hiburan? CariAku rekomendasi film!")
         )
 
         Carousel(items = carouselItems)
