@@ -88,7 +88,7 @@ fun WelcomePage() {
                         onSearch = { /* Handle search */ },
                         active = false,
                         onActiveChange = { /* Handle active change */ },
-                        placeholder = { Text("CariAku") },
+                        placeholder = { Text("Cari Apa Nih?") },
                         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -147,7 +147,7 @@ fun WelcomePage() {
                 }
                 item {
                     Text(
-                        text = "Percakapan Terakhir",
+                        text = "Obrolan Terakhir",
                         style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
                     )
@@ -202,7 +202,7 @@ fun WelcomePage() {
 fun QuickAccessSection() {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
-            text = "Akses Cepat",
+            text = "Asisten Andalan",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -269,7 +269,7 @@ fun CariAkuApaHariIniSection() {
 
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(
-            text = "CariAku Apa Hari Ini?",
+            text = "Topik Hari Ini",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
