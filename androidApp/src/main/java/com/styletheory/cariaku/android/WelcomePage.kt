@@ -159,8 +159,8 @@ fun WelcomePage() {
                             )
                             Text(
                                 text = "10:30 AM", // Replace with actual time
-                                style = MaterialTheme.typography.captions,
-                                modifier = Modifier.align(Alignment.End)
+                                style = MaterialTheme.typography.caption,
+                                modifier = Modifier.align(Alignment.Start)
                             )
                         }
                         Image(
