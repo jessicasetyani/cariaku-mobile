@@ -58,8 +58,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.sp
-import com.styletheory.cariaku.CarouselItemData
 import kotlin.math.roundToInt
+
+data class CarouselItemData(val iconResId: Int, val question: String)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
