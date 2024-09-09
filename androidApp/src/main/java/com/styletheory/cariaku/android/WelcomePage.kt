@@ -55,7 +55,6 @@ fun WelcomePage() {
 
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
     val colors1 = SearchBarDefaults.colors()
-    val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
     QuickAccessSection(assistants = topAssistants)
     SearchBar(
         inputField = {
@@ -85,6 +84,7 @@ fun WelcomePage() {
             // Search suggestions can be added here
         }
     )
+    val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
 }
 
 @Preview(showBackground = true)
