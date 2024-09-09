@@ -4,6 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.zIndex
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
@@ -135,11 +138,34 @@ fun WelcomePage() {
     val colors1 = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(top = 72.dp) // Adjust this value based on the height of the SearchBar
+        ) {
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(vertical = 16.dp)
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            QuickAccessSection(assistants = topAssistants)
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            TopicSuggestionsSection(topics = topicSuggestions)
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            RecentChatsSection(chats = recentChats)
+        }
+
         SearchBar(
             inputField = {
                 SearchBarDefaults.InputField(
@@ -158,7 +184,9 @@ fun WelcomePage() {
             },
             expanded = false,
             onExpandedChange = onActiveChange,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .zIndex(1f),
             shape = SearchBarDefaults.inputFieldShape,
             colors = colors1,
             tonalElevation = SearchBarDefaults.TonalElevation,
@@ -168,26 +196,6 @@ fun WelcomePage() {
                 // Search suggestions can be added here
             }
         )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        QuickAccessSection(assistants = topAssistants)
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        TopicSuggestionsSection(topics = topicSuggestions)
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        RecentChatsSection(chats = recentChats)
     }
 }
 
