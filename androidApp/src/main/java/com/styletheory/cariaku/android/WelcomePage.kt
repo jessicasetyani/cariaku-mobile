@@ -62,8 +62,8 @@ fun WelcomePage() {
         },
         expanded = false,
         onExpandedChange = onActiveChange,
-        modifier = Modifier.fillMaxWidth()
-        shape = SearchBarDefaults.inputFieldShape,
+        modifier = Modifier.fillMaxWidth(),
+        shape = SearchBarDefaults.inputFieldShape(),
         colors = colors1,
         tonalElevation = SearchBarDefaults.TonalElevation,
         shadowElevation = SearchBarDefaults.ShadowElevation,
