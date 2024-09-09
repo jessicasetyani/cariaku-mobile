@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.platform.LocalConfiguration
 
 @Composable
 fun QuickAccessSection(assistants: List<String>) {
