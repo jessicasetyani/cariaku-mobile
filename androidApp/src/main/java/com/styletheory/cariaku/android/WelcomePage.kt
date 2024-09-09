@@ -200,8 +200,8 @@ fun QuickAccessSection() {
                 .height(180.dp)
                 .padding(vertical = 8.dp)
         ) {
-            items(carouselItems) { item ->
-                CarouselCard(item)
+            items(quickAccessItems) { item ->
+                QuickAccessItem(item.imageResId, item.label)
             }
         }
     }
