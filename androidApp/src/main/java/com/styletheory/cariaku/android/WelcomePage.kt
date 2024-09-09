@@ -91,7 +91,15 @@ fun WelcomePage() {
             }
         )
         
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        Text(
+            text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
+        
+        Spacer(modifier = Modifier.height(24.dp))
         
         QuickAccessSection(assistants = topAssistants)
     }
