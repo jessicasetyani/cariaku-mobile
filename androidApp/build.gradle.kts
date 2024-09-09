@@ -44,6 +44,5 @@ dependencies {
     implementation(libs.compose.material.icon)
     implementation(libs.compose.material.icon.extended)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.foundation.layout.android) // Add this line
     debugImplementation(libs.compose.ui.tooling)
 }
