@@ -146,7 +146,7 @@ fun WelcomePage() {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
                 .padding(top = 72.dp) // Adjust this value based on the height of the SearchBar
         ) {
