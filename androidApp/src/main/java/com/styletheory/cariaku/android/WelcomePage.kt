@@ -116,8 +116,8 @@ fun WelcomePage() {
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize()
+                .padding(innerPadding)
         ) {
             item {
                 Text(
