@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,31 +18,39 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 
 @Composable
-fun QuickAccessSection(assistants: List<String>) {
+fun TopicSuggestionsSection(topics: List<String>) {
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        Text(text = "Asisten Andalan", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "CariAku Apa Hari Ini?", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(assistants) { assistant ->
+            items(topics) { topic ->
                 Column(
                     modifier = Modifier
                         .padding(8.dp)
-                        .clickable { /* Start conversation with assistant */ }
+                        .clickable(onClick = { /* Start conversation with topic suggestion */ })
                         .width(IntrinsicSize.Min)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with actual icon resource
-                        contentDescription = null,
+                    Row(
                         modifier = Modifier
-                            .size(64.dp)
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min)
                             .padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = assistant,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with CariAku logo/mascot
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(MaterialTheme.shapes.small)
+                                .padding(end = 8.dp)
+                        )
+                        Text(
+                            text = topic,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.Black,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
                 }
             }
         }
@@ -54,6 +63,11 @@ fun WelcomePage() {
     var searchQuery by remember { mutableStateOf("") }
 
     val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
+    val topicSuggestions = listOf(
+        "Cara hemat uang jajan? CariAku tau nih!",
+        "Mau tau rekomendasi film seru buat ditonton?",
+        "Pengen dapet inspirasi buat dekorasi kamar?"
+    )
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
     val colors1 = SearchBarDefaults.colors()
 
@@ -90,18 +104,22 @@ fun WelcomePage() {
                 // Search suggestions can be added here
             }
         )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
             text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(vertical = 16.dp)
         )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         QuickAccessSection(assistants = topAssistants)
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        TopicSuggestionsSection(topics = topicSuggestions)
     }
 }
 
