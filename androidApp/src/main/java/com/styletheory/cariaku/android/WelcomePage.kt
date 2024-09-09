@@ -122,7 +122,7 @@ fun RecentChatsSection(chats: List<String>) {
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
         Spacer(modifier = Modifier.height(8.dp))
-        chats.take(5).forEach { chat ->
+        chats.take(10).forEach { chat ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
