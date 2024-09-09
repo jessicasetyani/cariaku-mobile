@@ -53,6 +53,7 @@ fun QuickAccessSection(assistants: List<String>) {
 fun WelcomePage() {
     var searchQuery by remember { mutableStateOf("") }
 
+    val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
     val colors1 = SearchBarDefaults.colors()
     QuickAccessSection(assistants = topAssistants)
