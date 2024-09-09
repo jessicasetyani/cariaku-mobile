@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.tooling.preview.Preview
 
