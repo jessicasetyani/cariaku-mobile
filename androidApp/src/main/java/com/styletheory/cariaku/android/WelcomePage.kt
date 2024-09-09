@@ -201,7 +201,7 @@ fun QuickAccessSection() {
                 .padding(vertical = 8.dp)
         ) {
             items(quickAccessItems) { item ->
-                QuickAccessItem(item)
+                QuickAccessItem(item.imageResId, item.label)
             }
         }
     }
@@ -297,35 +297,6 @@ fun CarouselCard(item: CarouselItemData, cardWidth: Dp, spacing: Dp) {
         modifier = Modifier
             .padding(end = spacing)
             .width(cardWidth),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = item.iconResId),
-                contentDescription = null,
-                modifier = Modifier.size(32.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = item.question,
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-}
-
-@Composable
-fun CarouselCard(item: CarouselItemData) {
-    Card(
-        modifier = Modifier
-            .padding(end = 8.dp)
-            .width(250.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
