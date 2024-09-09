@@ -133,6 +133,7 @@ fun WelcomePage() {
         "Chat 5: Workout routines?"
     )
     val colors1 = SearchBarDefaults.colors()
+    val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
     Column(
         modifier = Modifier
@@ -167,6 +168,10 @@ fun WelcomePage() {
                 // Search suggestions can be added here
             }
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        TopicSuggestionsSection(topics = topicSuggestions)
 
         Spacer(modifier = Modifier.height(24.dp))
 
