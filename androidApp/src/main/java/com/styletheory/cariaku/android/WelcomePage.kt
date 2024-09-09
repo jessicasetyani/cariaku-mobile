@@ -1,6 +1,7 @@
 package com.styletheory.cariaku.android
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
@@ -14,6 +15,26 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
+@OptIn(ExperimentalMaterial3Api::class)
+private fun SearchBarDefaults.InputField(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onSearch: (String) -> Unit,
+    expanded: Boolean,
+    onExpandedChange: () -> Unit,
+    enabled: Boolean,
+    placeholder: @Composable () -> Unit,
+    leadingIcon: @Composable () -> Unit,
+    trailingIcon: Nothing?,
+    colors: TextFieldColors,
+    interactionSource: Nothing?
+) {
+
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
