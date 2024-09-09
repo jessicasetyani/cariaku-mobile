@@ -223,7 +223,7 @@ fun QuickAccessItem(imageResId: Int, label: String) {
 @Preview(showBackground = true)
 @Composable
 fun WelcomePagePreview() {
-    CariakuTheme {
+    MyApplicationTheme {
         WelcomePage()
     }
 }
