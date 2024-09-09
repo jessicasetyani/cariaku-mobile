@@ -183,6 +183,7 @@ data class BottomNavigationItem(
     val label: String
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomePage() {
     var searchQuery by remember { mutableStateOf("") }
