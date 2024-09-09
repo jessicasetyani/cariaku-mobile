@@ -25,7 +25,8 @@
 
 ## Specify the model to use for the main chat
 #model: gemini/gemini-1.5-pro-exp-0827
-model: azure/gpt-4o
+#model: azure/gpt-4o
+model: deepseek/deepseek-coder
 
 ## Use claude-3-opus-20240229 model for the main chat
 #opus: false
