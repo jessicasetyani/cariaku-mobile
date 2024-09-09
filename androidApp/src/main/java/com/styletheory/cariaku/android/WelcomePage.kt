@@ -179,31 +179,38 @@ fun WelcomePage() {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
                 .padding(top = 72.dp) // Adjust this value based on the height of the SearchBar
         ) {
-            Spacer(modifier = Modifier.height(24.dp))
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
-                text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
+                Text(
+                    text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+            }
 
-            QuickAccessSection(assistants = topAssistants)
+            item {
+                QuickAccessSection(assistants = topAssistants)
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+            }
 
-            TopicSuggestionsSection(topics = topicSuggestions)
+            item {
+                TopicSuggestionsSection(topics = topicSuggestions)
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+            }
 
-            RecentChatsSection(chats = recentChats)
+            item {
+                RecentChatsSection(chats = recentChats)
+            }
         }
 
         SearchBar(
