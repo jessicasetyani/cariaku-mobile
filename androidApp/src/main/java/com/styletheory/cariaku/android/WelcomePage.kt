@@ -201,7 +201,7 @@ fun QuickAccessSection() {
                 .padding(vertical = 8.dp)
         ) {
             items(quickAccessItems) { item ->
-                QuickAccessItem(item.imageResId, item.label)
+                QuickAccessItem(item)
             }
         }
     }
