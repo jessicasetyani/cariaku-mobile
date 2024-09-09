@@ -194,10 +194,11 @@ fun QuickAccessSection() {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        LazyRow(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(4),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
-                .height(180.dp)
                 .padding(vertical = 8.dp)
         ) {
             items(quickAccessItems) { item ->
