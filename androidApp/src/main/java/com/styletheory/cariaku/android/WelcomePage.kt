@@ -47,7 +47,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.unit.sp
+import com.styletheory.cariaku.CarouselItemData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -116,6 +119,9 @@ fun WelcomePage() {
             }
             item {
                 QuickAccessSection()
+            }
+            item {
+                CariAkuApaHariIniSection()
             }
             item {
                 Text(
@@ -224,6 +230,60 @@ fun QuickAccessItem(imageResId: Int, label: String) {
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(0.5f)
+            )
+        }
+    }
+}
+@Composable
+fun CariAkuApaHariIniSection() {
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Text(
+            text = "CariAku Apa Hari Ini?",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Row(
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState())
+                .padding(bottom = 16.dp)
+        ) {
+            val carouselItems = listOf(
+                CarouselItemData(android.R.drawable.ic_menu_report_image, "Cara hemat uang jajan? CariAku tau nih!"),
+                CarouselItemData(android.R.drawable.ic_menu_report_image, "Bingung mau masak apa? CariAku punya ide!"),
+                CarouselItemData(android.R.drawable.ic_menu_report_image, "Butuh hiburan? CariAku rekomendasi film!")
+            )
+            carouselItems.forEach { item ->
+                CarouselCard(item)
+            }
+        }
+    }
+}
+
+@Composable
+fun CarouselCard(item: CarouselItemData) {
+    Card(
+        modifier = Modifier
+            .padding(end = 8.dp)
+            .width(250.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = item.iconResId),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = item.question,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
