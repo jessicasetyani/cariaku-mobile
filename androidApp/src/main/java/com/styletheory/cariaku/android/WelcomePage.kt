@@ -18,7 +18,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.BottomNavigation
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Home
@@ -159,18 +161,16 @@ fun BottomNavigationBar(
     selectedItemIndex: Int,
     onItemClick: (Int) -> Unit
 ) {
-    BottomNavigation(
+    NavigationBar(
         modifier = Modifier.fillMaxWidth(),
-        backgroundColor = MaterialTheme.colorScheme.primary,
-        contentColor = Color.White
+        containerColor = MaterialTheme.colorScheme.primary
     ) {
         items.forEachIndexed { index, item ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = { Icon(item.icon, contentDescription = item.label) },
                 label = { Text(item.label) },
                 selected = index == selectedItemIndex,
-                onClick = { onItemClick(index) },
-                alwaysShowLabel = false
+                onClick = { onItemClick(index) }
             )
         }
     }
