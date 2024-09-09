@@ -1,9 +1,12 @@
 package com.styletheory.cariaku.android
 
 import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.ui.unit.IntOffset
+import kotlin.math.roundToInt
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -54,6 +59,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import com.styletheory.cariaku.android.MyApplicationTheme
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -187,7 +193,7 @@ fun WelcomePage() {
                             )
                         }
                         Image(
-                            painter = painterResource(id = android.R.drawable.ic_menu_report_image), // Replace with your agent image resource
+                            painter = painterResource(id = R.drawable.your_agent_image), // Replace with your agent image resource
                             contentDescription = "Agent Image",
                             modifier = Modifier.size(40.dp)
                         )
@@ -275,7 +281,7 @@ fun CariAkuApaHariIniSection() {
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        Carousel(items = carouselItems)
+        Carousel(items = carouselItems, modifier = Modifier.fillMaxWidth())
     }
 }
 
