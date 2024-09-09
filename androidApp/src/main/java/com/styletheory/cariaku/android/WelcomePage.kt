@@ -44,9 +44,11 @@ import androidx.compose.ui.zIndex
 
 @Composable
 fun QuickAccessSection(assistants: List<String>) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
         Text(text = "Cari Asisten Favorit Kamu", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         Row(
@@ -84,9 +86,11 @@ fun QuickAccessSection(assistants: List<String>) {
 @Composable
 fun TopicSuggestionsSection(topics: List<String>) {
     val listState = rememberLazyListState()
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
         Text(text = "CariAku Apa Hari Ini?", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(
@@ -110,9 +114,11 @@ fun TopicSuggestionsSection(topics: List<String>) {
 
 @Composable
 fun RecentChatsSection(chats: List<String>) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
         Text(text = "CariAku Lagi", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
