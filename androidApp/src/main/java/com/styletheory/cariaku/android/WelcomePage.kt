@@ -48,7 +48,7 @@ fun QuickAccessSection(assistants: List<String>) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Text(text = "Cari Asisten Favorit Kamu", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
