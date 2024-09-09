@@ -114,12 +114,14 @@ fun WelcomePage() {
             }
         }
     ) { innerPadding ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .weight(1f)
                 .padding(innerPadding)
         ) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize()
+            ) {
             item {
                 Text(
                     text = "Selamat datang, Pengguna!",
