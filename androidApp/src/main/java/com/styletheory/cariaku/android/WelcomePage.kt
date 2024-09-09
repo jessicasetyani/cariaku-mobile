@@ -81,6 +81,39 @@ fun TopicSuggestionsSection(topics: List<String>) {
     }
 }
 
+@Composable
+fun RecentChatsSection(chats: List<String>) {
+    Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        Text(text = "CariAku Lagi", style = MaterialTheme.typography.headlineSmall)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
+        Spacer(modifier = Modifier.height(8.dp))
+        chats.take(5).forEach { chat ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+                    .clickable(onClick = { /* Continue chat */ })
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with chat icon
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(MaterialTheme.shapes.small)
+                        .padding(end = 8.dp)
+                )
+                Text(
+                    text = chat,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomePage() {
@@ -92,7 +125,13 @@ fun WelcomePage() {
         "Mau tau rekomendasi film seru buat ditonton?",
         "Pengen dapet inspirasi buat dekorasi kamar?"
     )
-    val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
+    val recentChats = listOf(
+        "Chat 1: How to save money?",
+        "Chat 2: Movie recommendations?",
+        "Chat 3: Room decoration ideas?",
+        "Chat 4: Best restaurants nearby?",
+        "Chat 5: Workout routines?"
+    )
     val colors1 = SearchBarDefaults.colors()
 
     Column(
@@ -130,6 +169,8 @@ fun WelcomePage() {
         )
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        RecentChatsSection(chats = recentChats)
 
         Text(
             text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
