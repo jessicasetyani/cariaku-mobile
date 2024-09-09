@@ -73,7 +73,7 @@ fun TopicSuggestionsSection(topics: List<String>) {
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
-                        .width(0.75f * LocalConfiguration.current.screenWidthDp.dp)
+                        .width((0.75f * LocalConfiguration.current.screenWidthDp).dp)
                 )
             }
         }
