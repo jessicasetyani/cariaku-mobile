@@ -56,36 +56,39 @@ fun WelcomePage() {
     val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
     val colors1 = SearchBarDefaults.colors()
-    QuickAccessSection(assistants = topAssistants)
-    SearchBar(
-        inputField = {
-            SearchBarDefaults.InputField(
-                query = searchQuery,
-                onQueryChange = { searchQuery = it },
-                onSearch = { /* Handle search */ },
-                expanded = false,
-                onExpandedChange = { onActiveChange(it) },
-                enabled = true,
-                placeholder = { Text("Cari Apa Nih? CariAku") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                trailingIcon = null,
-                colors = colors1.inputFieldColors,
-                interactionSource = null,
-            )
-        },
-        expanded = false,
-        onExpandedChange = onActiveChange,
-        modifier = Modifier.fillMaxWidth(),
-        shape = SearchBarDefaults.inputFieldShape,
-        colors = colors1,
-        tonalElevation = SearchBarDefaults.TonalElevation,
-        shadowElevation = SearchBarDefaults.ShadowElevation,
-        windowInsets = SearchBarDefaults.windowInsets,
-        content = {
-            // Search suggestions can be added here
-        }
-    )
-    val topAssistants = listOf("Assistant 1", "Assistant 2", "Assistant 3", "Assistant 4")
+
+    Column {
+        QuickAccessSection(assistants = topAssistants)
+        
+        SearchBar(
+            inputField = {
+                SearchBarDefaults.InputField(
+                    query = searchQuery,
+                    onQueryChange = { searchQuery = it },
+                    onSearch = { /* Handle search */ },
+                    expanded = false,
+                    onExpandedChange = { onActiveChange(it) },
+                    enabled = true,
+                    placeholder = { Text("Cari Apa Nih? CariAku") },
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                    trailingIcon = null,
+                    colors = colors1.inputFieldColors,
+                    interactionSource = null,
+                )
+            },
+            expanded = false,
+            onExpandedChange = onActiveChange,
+            modifier = Modifier.fillMaxWidth(),
+            shape = SearchBarDefaults.inputFieldShape,
+            colors = colors1,
+            tonalElevation = SearchBarDefaults.TonalElevation,
+            shadowElevation = SearchBarDefaults.ShadowElevation,
+            windowInsets = SearchBarDefaults.windowInsets,
+            content = {
+                // Search suggestions can be added here
+            }
+        )
+    }
 }
 
 @Preview(showBackground = true)
