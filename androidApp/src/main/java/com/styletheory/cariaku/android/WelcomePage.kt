@@ -46,22 +46,6 @@ fun QuickAccessSection(assistants: List<String>) {
         }
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
-private fun SearchBarDefaults.InputField(
-    query: String,
-    onQueryChange: (String) -> Unit,
-    onSearch: (String) -> Unit,
-    expanded: Boolean,
-    onExpandedChange: () -> Unit,
-    enabled: Boolean,
-    placeholder: @Composable () -> Unit,
-    leadingIcon: @Composable () -> Unit,
-    trailingIcon: Nothing?,
-    colors: TextFieldColors,
-    interactionSource: Nothing?
-) {
-
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
