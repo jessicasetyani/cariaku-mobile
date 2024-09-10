@@ -291,7 +291,7 @@ fun WelcomeHeader() {
     Text(
         text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
         style = MaterialTheme.typography.headlineSmall,
-        modifier = Modifier.padding(vertical = 16.dp)
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
     )
 }
 
