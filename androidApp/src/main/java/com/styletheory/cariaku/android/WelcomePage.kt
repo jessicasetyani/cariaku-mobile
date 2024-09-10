@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -176,12 +177,11 @@ fun BottomNavigationBar(
                 onClick = { onItemClick(index) },
                 alwaysShowLabel = true,
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    MaterialTheme.colorScheme.primary,
                     unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     selectedTextColor = MaterialTheme.colorScheme.primary,
                     unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     indicatorColor = MaterialTheme.colorScheme.surface,
-                    padding = PaddingValues(0.dp)
                 )
             )
         }
@@ -224,8 +224,7 @@ fun WelcomePage() {
         cursorColor = MaterialTheme.colorScheme.primary,
         leadingIconColor = MaterialTheme.colorScheme.onSurface,
         trailingIconColor = MaterialTheme.colorScheme.onSurface,
-        dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
-        padding = PaddingValues(0.dp)
+        dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
     )
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
