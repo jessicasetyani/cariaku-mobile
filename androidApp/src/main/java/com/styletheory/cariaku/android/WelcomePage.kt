@@ -137,7 +137,7 @@ fun TopicSuggestionsSection(topics: List<String>) {
 }
 
 @Composable
-fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
+fun RecentChatsSection(topics: List<String>, summaries: List<String>, times: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -169,6 +169,11 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
                     Text(
                         text = summary,
                         style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Gray
+                    )
+                    Text(
+                        text = times,
+                        style = MaterialTheme.typography.bodySmall,
                         color = Color.Gray
                     )
                 }
@@ -249,6 +254,19 @@ fun WelcomePage() {
         "This is summaries of Best restaurants nearby?",
         "This is summaries of Workout routines?"
     )
+    val times = listOf(
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago",
+        "Last Discussion 1 hours ago"
+    )
     val colors1 = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
@@ -297,7 +315,7 @@ fun WelcomePage() {
             }
 
             item {
-                RecentChatsSection(topics = recentChats, summaries = chatSummaries)
+                RecentChatsSection(topics = recentChats, summaries = chatSummaries, times = times)
             }
         }
 
