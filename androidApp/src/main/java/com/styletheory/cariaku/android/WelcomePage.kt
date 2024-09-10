@@ -83,7 +83,7 @@ fun QuickAccessSection(assistants: List<String>) {
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(MaterialTheme.shapes.small)
-                                .padding(vertical = 4.dp)
+                                .padding(top = 8.dp)
                         )
                         Text(
                             text = assistant,
@@ -91,7 +91,7 @@ fun QuickAccessSection(assistants: List<String>) {
                             color = Color.Black,
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
-                                .padding(8.dp)
+                                .padding(horizontal = 8.dp)
                         )
                     }
                 }
@@ -137,7 +137,7 @@ fun TopicSuggestionsSection(topics: List<String>) {
 }
 
 @Composable
-fun RecentChatsSection(chats: List<String>) {
+fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -147,7 +147,7 @@ fun RecentChatsSection(chats: List<String>) {
         Spacer(modifier = Modifier.height(4.dp))
         Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
         Spacer(modifier = Modifier.height(8.dp))
-        chats.take(10).forEach { chat ->
+        topics.forEach { chat ->
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -167,24 +167,6 @@ fun RecentChatsSection(chats: List<String>) {
                             .padding(8.dp)
                     )
                 }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            chatSummaries.take(10).forEach { summary ->
-                Text(
-                    text = summary,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(8.dp)
-                )
             }
         }
     }
@@ -297,7 +279,7 @@ fun WelcomePage() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 56.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
+                .padding(top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 TopicSuggestionsSection(topics = topicSuggestions)
@@ -310,7 +292,7 @@ fun WelcomePage() {
             }
 
             item {
-                RecentChatsSection(chats = recentChats)
+                RecentChatsSection(topics = recentChats, summaries = chatSummaries)
             }
         }
 
