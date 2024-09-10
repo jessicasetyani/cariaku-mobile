@@ -23,12 +23,14 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
@@ -62,27 +64,34 @@ fun QuickAccessSection(assistants: List<String>) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             assistants.forEach { assistant ->
-                Column(
+                OutlinedCard(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with assistant */ })
                         .width(IntrinsicSize.Min),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    colors = CardDefaults.outlinedCardColors(
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(MaterialTheme.shapes.small)
-                            .padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = assistant,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
+                    Column(
+                        modifier = Modifier.padding(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(MaterialTheme.shapes.small)
+                                .padding(bottom = 4.dp)
+                        )
+                        Text(
+                            text = assistant,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.Black,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+                    }
                 }
             }
         }
