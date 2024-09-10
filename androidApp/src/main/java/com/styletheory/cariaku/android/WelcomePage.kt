@@ -177,14 +177,23 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             summaries.forEach { summary ->
-                Text(
-                    text = summary,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray,
+                ElevatedCard(
                     modifier = Modifier
-                        .align(Alignment.CenterVertically)
                         .padding(8.dp)
-                )
+                        .clickable(onClick = { /* Handle summary click */ }),
+                    colors = CardDefaults.elevatedCardColors(
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    Text(
+                        text = summary,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Gray,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(8.dp)
+                    )
+                }
             }
         }
     }
