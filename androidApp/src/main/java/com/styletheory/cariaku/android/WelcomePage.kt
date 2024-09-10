@@ -163,8 +163,7 @@ fun BottomNavigationBar(
 ) {
     NavigationBar(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface
     ) {
@@ -262,6 +261,7 @@ fun WelcomePage() {
             onActiveChange = onActiveChange,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 16.dp)
                 .zIndex(1f),
             placeholder = { Text("Cari Apa Nih? CariAku") },
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
