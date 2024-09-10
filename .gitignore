@@ -1,37 +1,28 @@
 # IDE files
-# IDE files
 *.iml
 .idea
 .DS_Store
 xcuserdata
 
 # Aider files
-# Aider files
 .aider*
 
 # Gradle files
-# Gradle files
 .gradle
-# Build output
 build
-# Gradle files
 gradle
 
-# Build output
 # Build output
 captures
 .externalNativeBuild
 .cxx
 
 # Local configuration
-# Local configuration
 local.properties
 
 # Virtual environments
-# Virtual environments
 venv
 
-# Ignore Kotlin metadata and session files
 # Kotlin metadata and session files
 .kotlin
 
