@@ -147,7 +147,7 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
         Spacer(modifier = Modifier.height(4.dp))
         Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
         Spacer(modifier = Modifier.height(8.dp))
-        topics.forEach { chat ->
+        topics.zip(summaries).forEach { (chat, summary) ->
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -157,39 +157,19 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
                     contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Text(
-                    text = chat,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(8.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            summaries.forEach { summary ->
-                ElevatedCard(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .clickable(onClick = { /* Handle summary click */ }),
-                    colors = CardDefaults.elevatedCardColors(
-                        contentColor = MaterialTheme.colorScheme.onSurface
-                    )
+                Column(
+                    modifier = Modifier.padding(8.dp)
                 ) {
+                    Text(
+                        text = chat,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Black,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
                     Text(
                         text = summary,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Gray,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(8.dp)
+                        color = Color.Gray
                     )
                 }
             }
