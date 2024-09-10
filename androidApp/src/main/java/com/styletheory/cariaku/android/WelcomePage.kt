@@ -180,7 +180,8 @@ fun BottomNavigationBar(
                     unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     selectedTextColor = MaterialTheme.colorScheme.primary,
                     unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    indicatorColor = MaterialTheme.colorScheme.surface
+                    indicatorColor = MaterialTheme.colorScheme.surface,
+                    padding = PaddingValues(0.dp)
                 )
             )
         }
@@ -216,7 +217,16 @@ fun WelcomePage() {
         "Chat 4: Best restaurants nearby?",
         "Chat 5: Workout routines?"
     )
-    val colors1 = SearchBarDefaults.colors()
+    val colors1 = SearchBarDefaults.colors(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        placeholderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+        cursorColor = MaterialTheme.colorScheme.primary,
+        leadingIconColor = MaterialTheme.colorScheme.onSurface,
+        trailingIconColor = MaterialTheme.colorScheme.onSurface,
+        dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+        padding = PaddingValues(0.dp)
+    )
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
     val bottomNavigationItems = listOf(
@@ -276,6 +286,7 @@ fun WelcomePage() {
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
+                .padding(horizontal = 16.dp)
         ) {
             BottomNavigationBar(
                 items = bottomNavigationItems,
