@@ -5,9 +5,7 @@
 xcuserdata
 
 # Aider files
-.aider.tags.cache.v3
-.aider.chat.history.md
-.aider.input.history
+.aider*
 
 # Gradle files
 .gradle
@@ -27,3 +25,5 @@ venv
 
 # Ignore Kotlin metadata and session files
 .kotlin
+
+.env
