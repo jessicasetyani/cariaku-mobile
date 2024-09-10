@@ -15,6 +15,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * A composable function that defines the application's theme.
+ *
+ * @param darkTheme A boolean indicating whether the dark theme should be used. Defaults to the system's dark theme setting.
+ * @param content The content to be displayed within the theme.
+ */
 @Composable
 fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -57,6 +63,24 @@ fun MyApplicationTheme(
             inverseSurface = Color(0xFF2c2c2c) // Hover Item Background
         )
     }
+    /**
+     * Defines the typography for the application.
+     */
+    val typography = Typography(
+        bodyMedium = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp
+        )
+    )
+    /**
+     * Defines the shapes for the application.
+     */
+    val shapes = Shapes(
+        small = RoundedCornerShape(4.dp),
+        medium = RoundedCornerShape(4.dp),
+        large = RoundedCornerShape(0.dp)
+    )
     val typography = Typography(
         bodyMedium = TextStyle(
             fontFamily = FontFamily.Default,

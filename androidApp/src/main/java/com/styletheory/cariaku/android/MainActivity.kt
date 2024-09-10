@@ -13,6 +13,9 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 
+/**
+ * The main activity of the application.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * A composable function that defines the application's theme.
+ *
+ * @param content The content to be displayed within the theme.
+ */
 @Composable
 fun MyAppTheme(content: @Composable () -> Unit) {
     val colors = MaterialTheme.colorScheme
@@ -46,6 +54,9 @@ fun MyAppTheme(content: @Composable () -> Unit) {
 }
 
 
+/**
+ * A preview composable function that displays a preview of the WelcomePage.
+ */
 @Preview
 @Composable
 fun DefaultPreview() {
