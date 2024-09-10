@@ -267,7 +267,7 @@ fun WelcomePage() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 72.dp, bottom = 56.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
+                .padding(top = 72.dp, bottom = 66.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 TopicSuggestionsSection(topics = topicSuggestions)
@@ -283,19 +283,19 @@ fun WelcomePage() {
                 RecentChatsSection(chats = recentChats)
             }
         }
-    }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.BottomCenter)
-            .padding(top = 16.dp)
-    ) {
-        BottomNavigationBar(
-            items = bottomNavigationItems,
-            selectedItemIndex = selectedItemIndex,
-            onItemClick = { selectedItemIndex = it }
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(top = 16.dp)
+        ) {
+            BottomNavigationBar(
+                items = bottomNavigationItems,
+                selectedItemIndex = selectedItemIndex,
+                onItemClick = { selectedItemIndex = it }
+            )
+        }
     }
 }
 
