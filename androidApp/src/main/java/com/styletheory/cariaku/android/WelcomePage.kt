@@ -159,14 +159,6 @@ fun RecentChatsSection(chats: List<String>) {
                 Row(
                     modifier = Modifier.padding(8.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with chat icon
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(MaterialTheme.shapes.small)
-                            .padding(end = 8.dp)
-                    )
                     Text(
                         text = chat,
                         style = MaterialTheme.typography.bodyLarge,
