@@ -255,17 +255,17 @@ fun WelcomePage() {
         "This is summaries of Workout routines?"
     )
     val times = listOf(
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago",
-        "Last Discussion 1 hours ago"
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu",
+        "Diskusi Terakhir 1 jam yang lalu"
     )
     val colors1 = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
