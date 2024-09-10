@@ -226,11 +226,11 @@ fun WelcomePage() {
         "Chat 3: Room decoration ideas?",
         "Chat 4: Best restaurants nearby?",
         "Chat 5: Workout routines?",
-        "Chat 1: How to save money?",
-        "Chat 2: Movie recommendations?",
-        "Chat 3: Room decoration ideas?",
-        "Chat 4: Best restaurants nearby?",
-        "Chat 5: Workout routines?"
+        "Chat 6: How to save money?",
+        "Chat 7: Movie recommendations?",
+        "Chat 8: Room decoration ideas?",
+        "Chat 9: Best restaurants nearby?",
+        "Chat 10: Workout routines?"
     )
     val colors1 = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
@@ -288,7 +288,6 @@ fun WelcomePage() {
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
-                .padding(top = 16.dp)
         ) {
             BottomNavigationBar(
                 items = bottomNavigationItems,
