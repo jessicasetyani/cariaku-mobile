@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -61,6 +60,7 @@ fun QuickAccessSection(assistants: List<String>) {
             .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -144,7 +144,7 @@ fun RecentChatsSection(chats: List<String>) {
             .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Lagi", style = MaterialTheme.typography.headlineSmall)
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
         Spacer(modifier = Modifier.height(8.dp))
         chats.take(10).forEach { chat ->
@@ -241,6 +241,25 @@ fun WelcomePage() {
         BottomNavigationItem(icon = Icons.Default.Person, label = "Profile")
     )
 
+    SearchBar(
+        query = searchQuery,
+        onQueryChange = { searchQuery = it },
+        onSearch = { /* Handle search */ },
+        active = false,
+        onActiveChange = onActiveChange,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .zIndex(1f),
+        placeholder = { Text("Cari Apa Nih? CariAku") },
+        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+        trailingIcon = null,
+        colors = colors1,
+        content = {
+            // Search suggestions can be added here
+        }
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -252,7 +271,7 @@ fun WelcomePage() {
         ) {
             item {
                 TopicSuggestionsSection(topics = topicSuggestions)
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
             }
 
             item {
@@ -264,25 +283,6 @@ fun WelcomePage() {
                 RecentChatsSection(chats = recentChats)
             }
         }
-
-        SearchBar(
-            query = searchQuery,
-            onQueryChange = { searchQuery = it },
-            onSearch = { /* Handle search */ },
-            active = false,
-            onActiveChange = onActiveChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .zIndex(1f),
-            placeholder = { Text("Cari Apa Nih? CariAku") },
-            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-            trailingIcon = null,
-            colors = colors1,
-            content = {
-                // Search suggestions can be added here
-            }
-        )
 
         Box(
             modifier = Modifier
