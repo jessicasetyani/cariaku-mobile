@@ -258,22 +258,17 @@ fun WelcomePage() {
                 .padding(top = 72.dp, bottom = 56.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
-                WelcomeHeader()
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-
-            item {
-                RecentChatsSection(chats = recentChats)
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-
-            item {
                 TopicSuggestionsSection(topics = topicSuggestions)
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
             item {
                 QuickAccessSection(assistants = topAssistants)
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+
+            item {
+                RecentChatsSection(chats = recentChats)
             }
         }
 
