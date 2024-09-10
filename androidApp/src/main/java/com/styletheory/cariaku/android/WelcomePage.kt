@@ -19,6 +19,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -289,7 +291,7 @@ fun WelcomePage() {
         trailingIcon = {
             if (searchQuery.isNotEmpty()) {
                 Icon(
-                    imageVector = Icons.Default.Close,
+                    imageVector = Icons.Default.Clear,
                     contentDescription = "Clear Search",
                     modifier = Modifier.clickable { searchQuery = "" }
                 )
