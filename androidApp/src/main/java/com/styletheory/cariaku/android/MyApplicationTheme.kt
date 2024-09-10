@@ -22,15 +22,39 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColorScheme(
-            primary = Color(0xFFBB86FC),
-            secondary = Color(0xFF03DAC5),
-            tertiary = Color(0xFF3700B3)
+            primary = Color(0xFFFFFFFF), // Active Button
+            secondary = Color(0x14FFFFFF), // Hover Button
+            tertiary = Color(0x28FFFFFF), // Selected Button
+            background = Color(0xFF121212), // Main Background
+            surface = Color(0xFF2F3438), // Secondary Background
+            onPrimary = Color(0xFFFFFFFF), // Primary Text
+            onSecondary = Color(0xB3FFFFFF), // Secondary Text
+            onBackground = Color(0xFFFFFFFF), // Primary Text
+            onSurface = Color(0xB3FFFFFF), // Secondary Text
+            error = Color(0xFF000000), // Shadow
+            onError = Color(0xFF000000), // Shadow
+            onSurfaceVariant = Color(0x66FFFFFF), // Disabled Text
+            surfaceVariant = Color(0x1EFFFFFF), // Disabled Button Background
+            onSurfaceVariantInverse = Color(0x08FFFFFF), // Hover Item Background
+            inverseSurface = Color(0x08FFFFFF) // Hover Item Background
         )
     } else {
         lightColorScheme(
-            primary = Color(0xFF6200EE),
-            secondary = Color(0xFF03DAC5),
-            tertiary = Color(0xFF3700B3)
+            primary = Color(0xFF000000), // Active Button
+            secondary = Color(0xFFF1F1EF), // Hover Button
+            tertiary = Color(0xFFE7F3F8), // Selected Button
+            background = Color(0xFFFFFFFF), // Main Background
+            surface = Color(0xFFF7F6F3), // Secondary Background
+            onPrimary = Color(0xFF000000), // Primary Text
+            onSecondary = Color(0xFF37352F), // Secondary Text
+            onBackground = Color(0xFF000000), // Primary Text
+            onSurface = Color(0xFF37352F), // Secondary Text
+            error = Color(0xFF000000), // Shadow
+            onError = Color(0xFF000000), // Shadow
+            onSurfaceVariant = Color(0xFF787774), // Disabled Text
+            surfaceVariant = Color(0xFFF4EEEE), // Disabled Button Background
+            onSurfaceVariantInverse = Color(0xFFFFFFFF), // Hover Item Background
+            inverseSurface = Color(0xFFFFFFFF) // Hover Item Background
         )
     }
     val typography = Typography(
