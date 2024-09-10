@@ -20,7 +20,7 @@ fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
+    val colors = if(darkTheme) {
         darkColorScheme(
             primary = Color(0xFF4a7bc4), // Active Button
             secondary = Color(0xFF6a93d4), // Hover Button
@@ -32,7 +32,7 @@ fun MyApplicationTheme(
             onBackground = Color(0xFFffffff), // Primary Text
             onSurface = Color(0xFFffffff), // Secondary Text
             error = Color(0xFFff6b6b), // Shadow
-            onError = Color(0xFF000000), // Shadow
+            onError = Color(0xFFffffff), // Shadow
             onSurfaceVariant = Color(0xFFbdbdbd), // Disabled Text
             surfaceVariant = Color(0xFF424242), // Disabled Button Background
             inverseOnSurface = Color(0xFFffffff), // Hover Item Background
