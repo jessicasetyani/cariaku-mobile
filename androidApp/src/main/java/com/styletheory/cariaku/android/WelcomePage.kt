@@ -306,6 +306,11 @@ fun WelcomePage() {
                 .padding(top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
+                WelcomeHeader()
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
                 TopicSuggestionsSection(topics = topicSuggestions)
                 Spacer(modifier = Modifier.height(16.dp))
             }
