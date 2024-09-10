@@ -286,7 +286,15 @@ fun WelcomePage() {
             .zIndex(1f),
         placeholder = { Text("Cari Apa Nih? CariAku") },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-        trailingIcon = null,
+        trailingIcon = {
+            if (searchQuery.isNotEmpty()) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Clear Search",
+                    modifier = Modifier.clickable { searchQuery = "" }
+                )
+            }
+        },
         colors = colors1,
         content = {
             // Search suggestions can be added here
