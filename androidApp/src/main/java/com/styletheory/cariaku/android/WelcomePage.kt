@@ -112,16 +112,23 @@ fun TopicSuggestionsSection(topics: List<String>) {
             modifier = Modifier.fillMaxWidth()
         ) {
             items(topics) { topic ->
-                Text(
-                    text = topic,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
+                FilledCard(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
                         .width((0.5f * LocalConfiguration.current.screenWidthDp).dp)
-                        .padding(end = 8.dp)
-                )
+                        .padding(end = 8.dp),
+                    colors = CardDefaults.filledCardColors(
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    Text(
+                        text = topic,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Black,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
             }
         }
     }
@@ -139,26 +146,33 @@ fun RecentChatsSection(chats: List<String>) {
         Text(text = "CariAku selalu siap lanjut ngobrol 24/7!", style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
         Spacer(modifier = Modifier.height(8.dp))
         chats.take(10).forEach { chat ->
-            Row(
+            ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)
-                    .clickable(onClick = { /* Continue chat */ })
+                    .clickable(onClick = { /* Continue chat */ }),
+                colors = CardDefaults.elevatedCardColors(
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                )
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with chat icon
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(MaterialTheme.shapes.small)
-                        .padding(end = 8.dp)
-                )
-                Text(
-                    text = chat,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                )
+                Row(
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with chat icon
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(MaterialTheme.shapes.small)
+                            .padding(end = 8.dp)
+                    )
+                    Text(
+                        text = chat,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Black,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
             }
         }
     }
