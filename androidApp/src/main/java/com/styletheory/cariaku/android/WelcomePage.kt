@@ -267,7 +267,7 @@ fun WelcomePage() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 72.dp, bottom = 66.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
+                .padding(top = 56.dp, bottom = 56.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 TopicSuggestionsSection(topics = topicSuggestions)
