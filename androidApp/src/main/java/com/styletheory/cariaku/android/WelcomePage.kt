@@ -83,7 +83,7 @@ fun QuickAccessSection(assistants: List<String>) {
                             modifier = Modifier
                                 .size(48.dp)
                                 .clip(MaterialTheme.shapes.small)
-                                .padding(bottom = 4.dp)
+                                .padding(vertical = 4.dp)
                         )
                         Text(
                             text = assistant,
@@ -231,6 +231,18 @@ fun WelcomePage() {
         "Chat 8: Room decoration ideas?",
         "Chat 9: Best restaurants nearby?",
         "Chat 10: Workout routines?"
+    )
+    val chatSummaries = listOf(
+        "This is summaries of How to save money?",
+        "This is summaries of Movie recommendations?",
+        "This is summaries of Room decoration ideas?",
+        "This is summaries of Best restaurants nearby?",
+        "This is summaries of Workout routines?",
+        "This is summaries of How to save money?",
+        "This is summaries of Movie recommendations?",
+        "This is summaries of Room decoration ideas?",
+        "This is summaries of Best restaurants nearby?",
+        "This is summaries of Workout routines?"
     )
     val colors1 = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
