@@ -171,6 +171,12 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>, times: Lis
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Gray
                     )
+                    Text(
+                        text = times[topics.indexOf(chat)],
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
                 }
             }
         }
