@@ -57,13 +57,12 @@ fun QuickAccessSection(assistants: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             assistants.forEach { assistant ->
                 OutlinedCard(
@@ -106,17 +105,16 @@ fun TopicSuggestionsSection(topics: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Apa Hari Ini?", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
             items(topics) { topic ->
                 Card(
                     modifier = Modifier
-                        .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
                         .width((0.5f * LocalConfiguration.current.screenWidthDp).dp)
                         .padding(end = 8.dp),
@@ -141,7 +139,6 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>, times: Lis
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Lagi", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(4.dp))
@@ -299,6 +296,9 @@ fun WelcomePage() {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(
+                horizontal = 16.dp
+            )
     ) {
         LazyColumn(
             modifier = Modifier
@@ -306,6 +306,7 @@ fun WelcomePage() {
                 .padding(top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
+                Spacer(modifier = Modifier.height(16.dp))
                 WelcomeHeader()
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -317,6 +318,7 @@ fun WelcomePage() {
 
             item {
                 RecentChatsSection(topics = recentChats, summaries = chatSummaries, times = times)
+                Spacer(modifier = Modifier.height(16.dp))
             }
 
             item {
@@ -329,7 +331,6 @@ fun WelcomePage() {
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
-                .padding(top = 16.dp)
         ) {
             BottomNavigationBar(
                 items = bottomNavigationItems,
@@ -344,8 +345,7 @@ fun WelcomePage() {
 fun WelcomeHeader() {
     Text(
         text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
-        style = MaterialTheme.typography.headlineSmall,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        style = MaterialTheme.typography.headlineSmall
     )
 }
 
