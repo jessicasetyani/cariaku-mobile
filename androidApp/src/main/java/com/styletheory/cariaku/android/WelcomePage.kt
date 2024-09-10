@@ -224,26 +224,17 @@ fun WelcomePage() {
                 .padding(top = 72.dp, bottom = 56.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Text(
-                    text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
-
+                WelcomeHeader()
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
             item {
                 QuickAccessSection(assistants = topAssistants)
-
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
             item {
                 TopicSuggestionsSection(topics = topicSuggestions)
-
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
@@ -282,6 +273,15 @@ fun WelcomePage() {
             )
         }
     }
+}
+
+@Composable
+fun WelcomeHeader() {
+    Text(
+        text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
+        style = MaterialTheme.typography.headlineSmall,
+        modifier = Modifier.padding(vertical = 16.dp)
+    )
 }
 
 @Preview(showBackground = true)
