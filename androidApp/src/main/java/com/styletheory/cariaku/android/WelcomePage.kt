@@ -112,16 +112,24 @@ fun TopicSuggestionsSection(topics: List<String>) {
             modifier = Modifier.fillMaxWidth()
         ) {
             items(topics) { topic ->
-                Text(
-                    text = topic,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
+                FilledCard(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
                         .width((0.5f * LocalConfiguration.current.screenWidthDp).dp)
-                        .padding(end = 8.dp)
-                )
+                        .padding(end = 8.dp),
+                    colors = CardDefaults.filledCardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                ) {
+                    Text(
+                        text = topic,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Black,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
             }
         }
     }
