@@ -169,6 +169,24 @@ fun RecentChatsSection(chats: List<String>) {
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            chatSummaries.take(10).forEach { summary ->
+                Text(
+                    text = summary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Gray,
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(8.dp)
+                )
+            }
+        }
     }
 }
 
