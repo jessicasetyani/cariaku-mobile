@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,8 +24,8 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledCard
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -60,7 +61,6 @@ fun QuickAccessSection(assistants: List<String>) {
             .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
-        Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -68,7 +68,6 @@ fun QuickAccessSection(assistants: List<String>) {
             assistants.forEach { assistant ->
                 OutlinedCard(
                     modifier = Modifier
-                        .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with assistant */ })
                         .width(IntrinsicSize.Min),
                     colors = CardDefaults.outlinedCardColors(
@@ -106,7 +105,7 @@ fun TopicSuggestionsSection(topics: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Apa Hari Ini?", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
@@ -114,13 +113,13 @@ fun TopicSuggestionsSection(topics: List<String>) {
             modifier = Modifier.fillMaxWidth()
         ) {
             items(topics) { topic ->
-                FilledCard(
+                Card(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable(onClick = { /* Start conversation with topic suggestion */ })
                         .width((0.5f * LocalConfiguration.current.screenWidthDp).dp)
                         .padding(end = 8.dp),
-                    colors = CardDefaults.filledCardColors(
+                    colors = CardDefaults.cardColors(
                         contentColor = MaterialTheme.colorScheme.onSurface
                     )
                 ) {
@@ -141,7 +140,7 @@ fun RecentChatsSection(chats: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Text(text = "CariAku Lagi", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
