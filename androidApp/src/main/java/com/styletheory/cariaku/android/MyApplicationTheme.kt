@@ -22,39 +22,39 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColorScheme(
-            primary = Color(0xFFFFFFFF), // Active Button
-            secondary = Color(0x14FFFFFF), // Hover Button
-            tertiary = Color(0x28FFFFFF), // Selected Button
+            primary = Color(0xFF4a7bc4), // Active Button
+            secondary = Color(0xFF6a93d4), // Hover Button
+            tertiary = Color(0xFF8ca6d5), // Selected Button
             background = Color(0xFF121212), // Main Background
-            surface = Color(0xFF2F3438), // Secondary Background
-            onPrimary = Color(0xFFFFFFFF), // Primary Text
-            onSecondary = Color(0xB3FFFFFF), // Secondary Text
-            onBackground = Color(0xFFFFFFFF), // Primary Text
-            onSurface = Color(0xB3FFFFFF), // Secondary Text
-            error = Color(0xFF000000), // Shadow
+            surface = Color(0xFF333333), // Secondary Background
+            onPrimary = Color(0xFFffffff), // Primary Text
+            onSecondary = Color(0xFFffffff), // Secondary Text
+            onBackground = Color(0xFFffffff), // Primary Text
+            onSurface = Color(0xFFffffff), // Secondary Text
+            error = Color(0xFFff6b6b), // Shadow
             onError = Color(0xFF000000), // Shadow
-            onSurfaceVariant = Color(0x66FFFFFF), // Disabled Text
-            surfaceVariant = Color(0x1EFFFFFF), // Disabled Button Background
-            onSurfaceVariantInverse = Color(0x08FFFFFF), // Hover Item Background
-            inverseSurface = Color(0x08FFFFFF) // Hover Item Background
+            onSurfaceVariant = Color(0xFFbdbdbd), // Disabled Text
+            surfaceVariant = Color(0xFF424242), // Disabled Button Background
+            inverseOnSurface = Color(0xFFffffff), // Hover Item Background
+            inverseSurface = Color(0xFFe0e0e0) // Hover Item Background
         )
     } else {
         lightColorScheme(
-            primary = Color(0xFF000000), // Active Button
-            secondary = Color(0xFFF1F1EF), // Hover Button
-            tertiary = Color(0xFFE7F3F8), // Selected Button
-            background = Color(0xFFFFFFFF), // Main Background
-            surface = Color(0xFFF7F6F3), // Secondary Background
-            onPrimary = Color(0xFF000000), // Primary Text
-            onSecondary = Color(0xFF37352F), // Secondary Text
+            primary = Color(0xFF6a93d4), // Active Button
+            secondary = Color(0xFF8ca6d5), // Hover Button
+            tertiary = Color(0xFF4a7bc4), // Selected Button
+            background = Color(0xFFf0f4f8), // Main Background
+            surface = Color(0xFFffffff), // Secondary Background
+            onPrimary = Color(0xFFffffff), // Primary Text
+            onSecondary = Color(0xFF000000), // Secondary Text
             onBackground = Color(0xFF000000), // Primary Text
-            onSurface = Color(0xFF37352F), // Secondary Text
-            error = Color(0xFF000000), // Shadow
-            onError = Color(0xFF000000), // Shadow
-            onSurfaceVariant = Color(0xFF787774), // Disabled Text
-            surfaceVariant = Color(0xFFF4EEEE), // Disabled Button Background
-            onSurfaceVariantInverse = Color(0xFFFFFFFF), // Hover Item Background
-            inverseSurface = Color(0xFFFFFFFF) // Hover Item Background
+            onSurface = Color(0xFF000000), // Secondary Text
+            error = Color(0xFFff6b6b), // Shadow
+            onError = Color(0xFFffffff), // Shadow
+            onSurfaceVariant = Color(0xFF747474), // Disabled Text
+            surfaceVariant = Color(0xFFe0e0e0), // Disabled Button Background
+            inverseOnSurface = Color(0xFFe0e0e0), // Hover Item Background
+            inverseSurface = Color(0xFF2c2c2c) // Hover Item Background
         )
     }
     val typography = Typography(
