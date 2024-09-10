@@ -287,6 +287,7 @@ fun WelcomePage() {
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
+                .padding(top = 16.dp)
         ) {
             BottomNavigationBar(
                 items = bottomNavigationItems,
