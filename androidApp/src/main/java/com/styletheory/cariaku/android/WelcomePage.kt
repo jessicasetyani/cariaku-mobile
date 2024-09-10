@@ -283,18 +283,18 @@ fun WelcomePage() {
                 RecentChatsSection(chats = recentChats)
             }
         }
+    }
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-        ) {
-            BottomNavigationBar(
-                items = bottomNavigationItems,
-                selectedItemIndex = selectedItemIndex,
-                onItemClick = { selectedItemIndex = it }
-            )
-        }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .align(Alignment.BottomCenter)
+    ) {
+        BottomNavigationBar(
+            items = bottomNavigationItems,
+            selectedItemIndex = selectedItemIndex,
+            onItemClick = { selectedItemIndex = it }
+        )
     }
 }
 
