@@ -154,7 +154,6 @@ fun RecentChatsSection(chats: List<String>) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
     items: List<BottomNavigationItem>,
@@ -162,15 +161,26 @@ fun BottomNavigationBar(
     onItemClick: (Int) -> Unit
 ) {
     NavigationBar(
-        modifier = Modifier.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.primary
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface
     ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
                 label = { Text(item.label) },
                 selected = index == selectedItemIndex,
-                onClick = { onItemClick(index) }
+                onClick = { onItemClick(index) },
+                alwaysShowLabel = true,
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    indicatorColor = MaterialTheme.colorScheme.surface
+                )
             )
         }
     }
