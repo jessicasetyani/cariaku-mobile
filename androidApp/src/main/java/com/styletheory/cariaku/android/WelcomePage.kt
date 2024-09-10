@@ -311,17 +311,17 @@ fun WelcomePage() {
             }
 
             item {
-                TopicSuggestionsSection(topics = topicSuggestions)
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-
-            item {
                 QuickAccessSection(assistants = topAssistants)
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
             item {
                 RecentChatsSection(topics = recentChats, summaries = chatSummaries, times = times)
+            }
+
+            item {
+                TopicSuggestionsSection(topics = topicSuggestions)
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
