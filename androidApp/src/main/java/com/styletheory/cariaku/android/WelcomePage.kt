@@ -263,7 +263,7 @@ fun WelcomePage() {
             }
 
             item {
-                QuickAccessSection(assistants = topAssistants)
+                RecentChatsSection(chats = recentChats)
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
@@ -273,7 +273,7 @@ fun WelcomePage() {
             }
 
             item {
-                RecentChatsSection(chats = recentChats)
+                QuickAccessSection(assistants = topAssistants)
             }
         }
 
