@@ -157,16 +157,14 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>) {
                     contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Row {
-                    Text(
-                        text = chat,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(8.dp)
-                    )
-                }
+                Text(
+                    text = chat,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(8.dp)
+                )
             }
         }
 
