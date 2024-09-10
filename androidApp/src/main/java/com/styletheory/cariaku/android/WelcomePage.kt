@@ -75,7 +75,6 @@ fun QuickAccessSection(assistants: List<String>) {
                     )
                 ) {
                     Column(
-                        modifier = Modifier.padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
@@ -90,7 +89,9 @@ fun QuickAccessSection(assistants: List<String>) {
                             text = assistant,
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.Black,
-                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                                .padding(8.dp)
                         )
                     }
                 }
@@ -156,14 +157,14 @@ fun RecentChatsSection(chats: List<String>) {
                     contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Row(
-                    modifier = Modifier.padding(8.dp)
-                ) {
+                Row {
                     Text(
                         text = chat,
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black,
-                        modifier = Modifier.align(Alignment.CenterVertically)
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(8.dp)
                     )
                 }
             }
