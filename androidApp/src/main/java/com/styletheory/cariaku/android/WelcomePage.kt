@@ -164,7 +164,7 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>, times: Lis
                         text = chat,
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black,
-                        modifier = Modifier.padding(bottom = 4.dp)
+                        modifier = Modifier.padding(bottom = 2.dp)
                     )
                     Text(
                         text = summary,
