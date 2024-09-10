@@ -54,6 +54,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
+/**
+ * A composable function that displays a section for quick access to frequently used assistants.
+ *
+ * @param assistants A list of assistant names to be displayed.
+ */
 @Composable
 fun QuickAccessSection(assistants: List<String>) {
     Column(
@@ -101,6 +106,11 @@ fun QuickAccessSection(assistants: List<String>) {
     }
 }
 
+/**
+ * A composable function that displays a section for topic suggestions.
+ *
+ * @param topics A list of topic suggestions to be displayed.
+ */
 @Composable
 fun TopicSuggestionsSection(topics: List<String>) {
     val listState = rememberLazyListState()
@@ -136,6 +146,13 @@ fun TopicSuggestionsSection(topics: List<String>) {
     }
 }
 
+/**
+ * A composable function that displays a section for recent chats.
+ *
+ * @param topics A list of recent chat topics.
+ * @param summaries A list of summaries for each recent chat.
+ * @param times A list of times indicating when each chat was last active.
+ */
 @Composable
 fun RecentChatsSection(topics: List<String>, summaries: List<String>, times: List<String>) {
     Column(
@@ -182,6 +199,13 @@ fun RecentChatsSection(topics: List<String>, summaries: List<String>, times: Lis
     }
 }
 
+/**
+ * A composable function that displays a bottom navigation bar.
+ *
+ * @param items A list of navigation items to be displayed.
+ * @param selectedItemIndex The index of the currently selected item.
+ * @param onItemClick A callback function to handle item click events.
+ */
 @Composable
 fun BottomNavigationBar(
     items: List<BottomNavigationItem>,
@@ -218,6 +242,10 @@ data class BottomNavigationItem(
     val label: String
 )
 
+/**
+ * The main composable function that represents the welcome page of the application.
+ * It includes various sections like quick access, recent chats, and topic suggestions.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomePage() {
@@ -351,6 +379,9 @@ fun WelcomePage() {
     }
 }
 
+/**
+ * A composable function that displays a welcome header with a greeting message.
+ */
 @Composable
 fun WelcomeHeader() {
     Text(
@@ -359,6 +390,9 @@ fun WelcomeHeader() {
     )
 }
 
+/**
+ * A preview composable function that displays a preview of the WelcomePage.
+ */
 @Preview(showBackground = true)
 @Composable
 fun WelcomePagePreview() {
