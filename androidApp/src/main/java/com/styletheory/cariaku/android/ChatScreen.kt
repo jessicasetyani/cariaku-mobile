@@ -42,7 +42,11 @@ fun ChatScreen() {
     var message by remember { mutableStateOf("") }
     val messages = remember {
         mutableStateOf(
-            readMessagesFromResource()
+           // readMessagesFromResource()
+            listOf(
+                Message("Hello, how can I help you?", "12:00 PM", false),
+                Message("I need some information.", "12:01 PM", true)
+            )
         )
     }
 
