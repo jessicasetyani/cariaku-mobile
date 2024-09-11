@@ -157,14 +157,17 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
         TextField(
             value = message,
             onValueChange = onMessageChange,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .padding(end = 8.dp),
+            placeholder = { Text("Type a message") },
+            singleLine = true,
+            trailingIcon = {
+                IconButton(onClick = onSend) {
+                    Icon(Icons.Default.Send, contentDescription = "Send")
+                }
+            }
         )
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(
-            onClick = onSend
-        ) {
-            Icon(Icons.Default.Send, contentDescription = "Send")
-        }
     }
 }
 
