@@ -42,7 +42,7 @@ fun ChatScreen() {
     var message by remember { mutableStateOf("") }
     val messages = remember {
         mutableStateOf(
-           // readMessagesFromResource()
+            // readMessagesFromResource()
             listOf(
                 Message("Hello, how can I help you?", "12:00 PM", false),
                 Message("I need some information.", "12:01 PM", true)
@@ -55,6 +55,7 @@ fun ChatScreen() {
             .fillMaxSize()
             .background(Color.White)
     ) {
+        Header()
         ContentScreen(messages = messages.value)
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
             val newMessage = Message(message, "12:02 PM", true)
@@ -64,7 +65,6 @@ fun ChatScreen() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Header() {
@@ -92,7 +92,6 @@ fun ContentScreen(messages: List<Message>) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .weight(1f)
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
         LazyColumn(
@@ -107,7 +106,6 @@ fun ContentScreen(messages: List<Message>) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MessageBubble(message: Message) {
@@ -147,7 +145,6 @@ data class Message(
     val isUser: Boolean
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
