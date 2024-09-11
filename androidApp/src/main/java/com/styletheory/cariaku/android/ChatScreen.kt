@@ -33,7 +33,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ChatScreen() {
     var message by remember { mutableStateOf("") }
-    val messages = remember { mutableListOf<String>() }
+    val messages = remember { mutableStateOf(listOf(
+        Message("Hello, how can I help you?", "12:00 PM", false),
+        Message("I need some information.", "12:01 PM", true)
+    )) }
 
     Column(
         modifier = Modifier
@@ -43,7 +46,8 @@ fun ChatScreen() {
         Header()
         ContentScreen(messages)
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
-            messages.add(message)
+            val newMessage = Message(message, "12:02 PM", true)
+            messages.value = messages.value + newMessage
             message = ""
         })
     }
@@ -71,23 +75,57 @@ fun Header() {
 }
 
 @Composable
-fun ContentScreen(messages: List<String>) {
+fun ContentScreen(messages: List<Message>) {
     LazyColumn(
         modifier = Modifier
             .weight(1f)
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
+            .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
-        items(messages) { msg ->
-            Text(
-                text = msg,
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .align(Alignment.End)
-            )
+        items(messages) { message ->
+            MessageBubble(message)
         }
     }
 }
+
+@Composable
+fun MessageBubble(message: Message) {
+    val alignment = if (message.isUser) Alignment.End else Alignment.Start
+    val backgroundColor = if (message.isUser) Color.Blue else Color.Gray
+    val textColor = Color.White
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        horizontalAlignment = alignment
+    ) {
+        Box(
+            modifier = Modifier
+                .background(backgroundColor, shape = RoundedCornerShape(16.dp))
+                .padding(12.dp)
+        ) {
+            Text(
+                text = message.text,
+                color = textColor,
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        Text(
+            text = message.timestamp,
+            color = Color.Gray,
+            style = MaterialTheme.typography.caption,
+            modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+        )
+    }
+}
+
+data class Message(
+    val text: String,
+    val timestamp: String,
+    val isUser: Boolean
+)
 
 @Composable
 fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
