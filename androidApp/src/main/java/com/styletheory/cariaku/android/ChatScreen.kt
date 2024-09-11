@@ -56,7 +56,7 @@ fun ChatScreen() {
             .background(Color.White)
     ) {
         Header()
-        Column(
+        Box(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
