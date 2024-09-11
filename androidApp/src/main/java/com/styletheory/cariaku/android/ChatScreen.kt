@@ -88,17 +88,22 @@ fun Header() {
 
 @Composable
 fun ContentScreen(messages: List<Message>) {
-    LazyColumn(
+    Box(
         modifier = Modifier
             .weight(1f)
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
         items(messages) { message ->
             MessageBubble(message)
         }
     }
+}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
