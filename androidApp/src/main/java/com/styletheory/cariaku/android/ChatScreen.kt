@@ -68,7 +68,7 @@ fun ChatScreen() {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            ContentScreen(messages = messages.value)
+            ContentScreen(messages = messages.value.reversed())
         }
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
             val newMessage = Message(message, "12:02 PM", true)
@@ -123,6 +123,9 @@ fun ContentScreen(messages: List<Message>) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
+                .weight(1f)
+                .fillMaxSize(),
+            reverseLayout = true
         ) {
             items(messages) { message ->
                 MessageBubble(message)
