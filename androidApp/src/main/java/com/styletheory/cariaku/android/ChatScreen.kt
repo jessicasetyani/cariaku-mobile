@@ -56,7 +56,13 @@ fun ChatScreen() {
             .background(Color.White)
     ) {
         Header()
-        ContentScreen(messages = messages.value)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            ContentScreen(messages = messages.value)
+        }
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
             val newMessage = Message(message, "12:02 PM", true)
             messages.value = messages.value + newMessage
