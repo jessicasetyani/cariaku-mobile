@@ -1,0 +1,6 @@
+Hello, how can I help you?
+12:00 PM
+false
+I need some information.
+12:01 PM
+true

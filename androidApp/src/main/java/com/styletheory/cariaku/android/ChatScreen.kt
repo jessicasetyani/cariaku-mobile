@@ -41,10 +41,7 @@ fun ChatScreen() {
     var message by remember { mutableStateOf("") }
     val messages = remember {
         mutableStateOf(
-            listOf(
-                Message("Hello, how can I help you?", "12:00 PM", false),
-                Message("I need some information.", "12:01 PM", true)
-            )
+            readMessagesFromResource()
         )
     }
 
@@ -167,4 +164,24 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
             Icon(Icons.Default.Send, contentDescription = "Send")
         }
     }
+}
+import android.content.res.Resources
+import android.util.Log
+
+fun readMessagesFromResource(): List<Message> {
+    val messages = mutableListOf<Message>()
+    try {
+        val inputStream = Resources.getSystem().openRawResource(R.raw.messages)
+        val reader = inputStream.bufferedReader()
+        while (reader.ready()) {
+            val text = reader.readLine()
+            val timestamp = reader.readLine()
+            val isUser = reader.readLine().toBoolean()
+            messages.add(Message(text, timestamp, isUser))
+        }
+        reader.close()
+    } catch (e: Exception) {
+        Log.e("ChatScreen", "Error reading messages", e)
+    }
+    return messages
 }
