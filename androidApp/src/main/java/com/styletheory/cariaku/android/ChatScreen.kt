@@ -57,7 +57,7 @@ fun ChatScreen() {
         )
     }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
