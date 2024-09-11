@@ -123,7 +123,8 @@ fun ContentScreen(messages: List<Message>) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -157,8 +158,7 @@ fun MessageBubble(message: Message) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        horizontalAlignment = alignment,
-        verticalArrangement = Arrangement.Bottom
+        horizontalAlignment = alignment
     ) {
         Box(
             modifier = Modifier
