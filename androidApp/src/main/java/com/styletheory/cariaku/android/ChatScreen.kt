@@ -50,12 +50,11 @@ fun ChatScreen() {
         )
     }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Header()
         ContentScreen()
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
             val newMessage = Message(message, "12:02 PM", true)
@@ -159,7 +158,8 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp)
+            .align(Alignment.BottomCenter),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
