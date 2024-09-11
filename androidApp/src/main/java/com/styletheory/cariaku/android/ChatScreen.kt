@@ -40,63 +40,73 @@ fun ChatScreen() {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // Header
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_placeholder_assistant),
-                contentDescription = "Assistant Icon",
-                modifier = Modifier.size(48.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
+        Header()
+        ContentScreen(messages)
+        FooterScreen(message, onMessageChange = { message = it }, onSend = {
+            messages.add(message)
+            message = ""
+        })
+    }
+}
+
+@Composable
+fun Header() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_placeholder_assistant),
+            contentDescription = "Assistant Icon",
+            modifier = Modifier.size(48.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = "Assistant Name",
+            style = MaterialTheme.typography.headlineSmall
+        )
+    }
+}
+
+@Composable
+fun ContentScreen(messages: List<String>) {
+    LazyColumn(
+        modifier = Modifier
+            .weight(1f)
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
+        items(messages) { msg ->
             Text(
-                text = "Assistant Name",
-                style = MaterialTheme.typography.headlineSmall
+                text = msg,
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .align(Alignment.End)
             )
         }
+    }
+}
 
-        // Chat Area
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+@Composable
+fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextField(
+            value = message,
+            onValueChange = onMessageChange,
+            modifier = Modifier.weight(1f)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Button(
+            onClick = onSend
         ) {
-            items(messages) { msg ->
-                Text(
-                    text = msg,
-                    modifier = Modifier
-                        .padding(vertical = 8.dp)
-                        .align(Alignment.End)
-                )
-            }
-        }
-
-        // Input Area
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            TextField(
-                value = message,
-                onValueChange = { message = it },
-                modifier = Modifier.weight(1f)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Button(
-                onClick = {
-                    messages.add(message)
-                    message = ""
-                }
-            ) {
-                Icon(Icons.Default.Send, contentDescription = "Send")
-            }
+            Icon(Icons.Default.Send, contentDescription = "Send")
         }
     }
 }
