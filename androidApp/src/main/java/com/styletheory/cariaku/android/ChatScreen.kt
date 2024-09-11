@@ -158,7 +158,7 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(top = 16.dp)
             .align(Alignment.BottomCenter),
         verticalAlignment = Alignment.CenterVertically
     ) {
