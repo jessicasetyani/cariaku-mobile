@@ -119,7 +119,7 @@ fun ContentScreen(messages: List<Message>) {
             .fillMaxWidth()
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
