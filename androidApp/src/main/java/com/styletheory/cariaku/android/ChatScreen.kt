@@ -52,7 +52,7 @@ fun ChatScreen() {
             .background(Color.White)
     ) {
         Header()
-        ContentScreen(messages.value)
+        ContentScreen()
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
             val newMessage = Message(message, "12:02 PM", true)
             messages.value = messages.value + newMessage
@@ -85,7 +85,12 @@ fun Header() {
 }
 
 @Composable
-fun ContentScreen(messages: List<Message>) {
+fun ContentScreen() {
+    val hardcodedMessages = listOf(
+        Message("Hello, how can I help you?", "12:00 PM", false),
+        Message("I need some information.", "12:01 PM", true)
+    )
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -96,7 +101,7 @@ fun ContentScreen(messages: List<Message>) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            items(messages) { message ->
+            items(hardcodedMessages) { message ->
                 MessageBubble(message)
             }
         }
