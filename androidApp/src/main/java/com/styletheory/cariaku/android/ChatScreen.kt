@@ -50,17 +50,17 @@ fun ChatScreen() {
         )
     }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        ContentScreen()
+        ContentScreen(messages = messages.value)
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
             val newMessage = Message(message, "12:02 PM", true)
             messages.value = messages.value + newMessage
             message = ""
-        }).align(Alignment.BottomCenter)
+        })
     }
 }
 
@@ -88,15 +88,11 @@ fun Header() {
 }
 
 @Composable
-fun ContentScreen() {
-    val hardcodedMessages = listOf(
-        Message("Hello, how can I help you?", "12:00 PM", false),
-        Message("I need some information.", "12:01 PM", true)
-    )
-
+fun ContentScreen(messages: List<Message>) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .weight(1f)
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
         LazyColumn(
@@ -104,7 +100,7 @@ fun ContentScreen() {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            items(hardcodedMessages) { message ->
+            items(messages) { message ->
                 MessageBubble(message)
             }
         }
