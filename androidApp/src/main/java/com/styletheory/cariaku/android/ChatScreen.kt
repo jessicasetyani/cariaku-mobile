@@ -36,6 +36,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
+/**
+ * The main Composable function that sets up the chat interface.
+ *
+ * This function initializes the state for the user's message and the list of chat messages.
+ * It arranges the chat interface with a header, content screen, and footer screen.
+ * It handles the sending of new messages and updates the message list accordingly.
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen() {
@@ -71,6 +78,11 @@ fun ChatScreen() {
     }
 }
 
+/**
+ * A Composable function that displays the chat header.
+ *
+ * This function displays an icon and the assistant's name.
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Header() {
@@ -93,6 +105,13 @@ fun Header() {
     }
 }
 
+/**
+ * A Composable function that displays the chat messages.
+ *
+ * @param messages A list of [Message] objects to be displayed.
+ *
+ * This function displays the list of chat messages in a [LazyColumn].
+ */
 @Composable
 fun ContentScreen(messages: List<Message>) {
     Box(
@@ -112,6 +131,13 @@ fun ContentScreen(messages: List<Message>) {
     }
 }
 
+/**
+ * A Composable function that displays an individual chat message.
+ *
+ * @param message A [Message] object to be displayed.
+ *
+ * This function displays the message text and timestamp, with different styling based on whether the message is from the user or the assistant.
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MessageBubble(message: Message) {
@@ -145,12 +171,28 @@ fun MessageBubble(message: Message) {
     }
 }
 
+/**
+ * A data class that represents a chat message.
+ *
+ * @property text The text content of the message.
+ * @property timestamp The timestamp when the message was sent.
+ * @property isUser A boolean indicating whether the message is from the user.
+ */
 data class Message(
     val text: String,
     val timestamp: String,
     val isUser: Boolean
 )
 
+/**
+ * A Composable function that displays the input field and send button.
+ *
+ * @param message The current text in the input field.
+ * @param onMessageChange A callback function to handle changes to the input field.
+ * @param onSend A callback function to handle the sending of the message.
+ *
+ * This function provides an input field for the user to type messages and a send button to send the message.
+ */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
@@ -176,6 +218,13 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
     }
 }
 
+/**
+ * A function that reads chat messages from a resource file.
+ *
+ * This function reads messages from a raw resource file and returns them as a list of [Message] objects.
+ *
+ * @return A list of [Message] objects.
+ */
 fun readMessagesFromResource(): List<Message> {
     val messages = mutableListOf<Message>()
     try {
