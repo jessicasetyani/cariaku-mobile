@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -114,12 +114,12 @@ fun Header() {
  */
 @Composable
 fun ContentScreen(messages: List<Message>) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
@@ -150,14 +150,15 @@ fun ContentScreen(messages: List<Message>) {
 @Composable
 fun MessageBubble(message: Message) {
     val alignment = if(message.isUser) Alignment.End else Alignment.Start
-    val backgroundColor = if(message.isUser) Color.Blue else Color.Gray
+    val backgroundColor = if(message.isUser) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onTertiaryContainer
     val textColor = Color.White
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        horizontalAlignment = alignment
+        horizontalAlignment = alignment,
+        verticalArrangement = Arrangement.Bottom
     ) {
         Box(
             modifier = Modifier
@@ -206,8 +207,7 @@ data class Message(
 fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
