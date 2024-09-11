@@ -1,6 +1,8 @@
 package com.styletheory.cariaku.android
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.util.Log
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -165,22 +167,20 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
         }
     }
 }
-import android.content.res.Resources
-import android.util.Log
 
 fun readMessagesFromResource(): List<Message> {
     val messages = mutableListOf<Message>()
     try {
         val inputStream = Resources.getSystem().openRawResource(R.raw.messages)
         val reader = inputStream.bufferedReader()
-        while (reader.ready()) {
+        while(reader.ready()) {
             val text = reader.readLine()
             val timestamp = reader.readLine()
             val isUser = reader.readLine().toBoolean()
             messages.add(Message(text, timestamp, isUser))
         }
         reader.close()
-    } catch (e: Exception) {
+    } catch(e: Exception) {
         Log.e("ChatScreen", "Error reading messages", e)
     }
     return messages
