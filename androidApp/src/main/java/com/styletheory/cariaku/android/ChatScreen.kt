@@ -119,16 +119,21 @@ fun ContentScreen(messages: List<Message>) {
             .fillMaxWidth()
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
                 .weight(1f)
-                .fillMaxSize(),
-            reverseLayout = true
+                .fillMaxSize()
         ) {
-            items(messages) { message ->
-                MessageBubble(message)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                reverseLayout = true
+            ) {
+                items(messages) { message ->
+                    MessageBubble(message)
+                }
             }
         }
     }
