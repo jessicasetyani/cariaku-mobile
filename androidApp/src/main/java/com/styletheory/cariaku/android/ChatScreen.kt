@@ -164,8 +164,7 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
             value = message,
             onValueChange = onMessageChange,
             modifier = Modifier
-                .weight(1f)
-                .padding(end = 8.dp),
+                .weight(1f),
             placeholder = { Text("Type a message") },
             singleLine = true,
             trailingIcon = {
