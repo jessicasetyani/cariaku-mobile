@@ -268,26 +268,26 @@ fun WelcomePageContent(navController: NavController) {
     val recentChats = listOf(
         "Chat 1: How to save money?",
         "Chat 2: Movie recommendations?",
-        "Chat 3: Room decoration ideas?",
-        "Chat 4: Best restaurants nearby?",
-        "Chat 5: Workout routines?",
-        "Chat 6: How to save money?",
-        "Chat 7: Movie recommendations?",
-        "Chat 8: Room decoration ideas?",
-        "Chat 9: Best restaurants nearby?",
-        "Chat 10: Workout routines?"
+//        "Chat 3: Room decoration ideas?",
+//        "Chat 4: Best restaurants nearby?",
+//        "Chat 5: Workout routines?",
+//        "Chat 6: How to save money?",
+//        "Chat 7: Movie recommendations?",
+//        "Chat 8: Room decoration ideas?",
+//        "Chat 9: Best restaurants nearby?",
+//        "Chat 10: Workout routines?"
     )
     val chatSummaries = listOf(
         "This is summaries of How to save money?",
         "This is summaries of Movie recommendations?",
-        "This is summaries of Room decoration ideas?",
-        "This is summaries of Best restaurants nearby?",
-        "This is summaries of Workout routines?",
-        "This is summaries of How to save money?",
-        "This is summaries of Movie recommendations?",
-        "This is summaries of Room decoration ideas?",
-        "This is summaries of Best restaurants nearby?",
-        "This is summaries of Workout routines?"
+//        "This is summaries of Room decoration ideas?",
+//        "This is summaries of Best restaurants nearby?",
+//        "This is summaries of Workout routines?",
+//        "This is summaries of How to save money?",
+//        "This is summaries of Movie recommendations?",
+//        "This is summaries of Room decoration ideas?",
+//        "This is summaries of Best restaurants nearby?",
+//        "This is summaries of Workout routines?"
     )
     val times = listOf(
         "Diskusi Terakhir 1 jam yang lalu",
