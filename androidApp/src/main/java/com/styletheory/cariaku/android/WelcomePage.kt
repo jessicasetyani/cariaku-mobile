@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -53,6 +52,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 /**
  * A composable function that displays a section for quick access to frequently used assistants.
@@ -112,7 +113,7 @@ fun QuickAccessSection(assistants: List<String>) {
  * @param topics A list of topic suggestions to be displayed.
  */
 @Composable
-fun TopicSuggestionsSection(topics: List<String>) {
+fun TopicSuggestionsSection(topics: List<String>, navController: NavController) {
     val listState = rememberLazyListState()
     Column(
         modifier = Modifier
@@ -127,7 +128,7 @@ fun TopicSuggestionsSection(topics: List<String>) {
             items(topics) { topic ->
                 Card(
                     modifier = Modifier
-                        .clickable(onClick = { /* Start conversation with topic suggestion */ })
+                        .clickable { navController.navigate("chatScreen") }
                         .width((0.5f * LocalConfiguration.current.screenWidthDp).dp)
                         .padding(end = 8.dp),
                     colors = CardDefaults.cardColors(
@@ -248,7 +249,13 @@ data class BottomNavigationItem(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WelcomePage() {
+fun WelcomePage(navController: NavController) {
+    WelcomePageContent(navController)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WelcomePageContent(navController: NavController) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedItemIndex by remember { mutableStateOf(0) }
 
@@ -317,7 +324,7 @@ fun WelcomePage() {
         placeholder = { Text("Cari Apa Nih? CariAku") },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         trailingIcon = {
-            if (searchQuery.isNotEmpty()) {
+            if(searchQuery.isNotEmpty()) {
                 Icon(
                     imageVector = Icons.Default.Clear,
                     contentDescription = "Clear Search",
@@ -360,7 +367,7 @@ fun WelcomePage() {
             }
 
             item {
-                TopicSuggestionsSection(topics = topicSuggestions)
+                TopicSuggestionsSection(topics = topicSuggestions, navController = navController)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -396,7 +403,8 @@ fun WelcomeHeader() {
 @Preview(showBackground = true)
 @Composable
 fun WelcomePagePreview() {
+    val navController = rememberNavController()
     MaterialTheme {
-        WelcomePage()
+        WelcomePage(navController = navController)
     }
 }

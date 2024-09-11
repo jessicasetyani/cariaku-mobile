@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import androidx.navigation.compose.rememberNavController
 
 /**
  * The main activity of the application.
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyAppTheme {
                 Surface {
-                    WelcomePage()
+                    val navController = rememberNavController()
+                    Navigation(navController = navController)
                 }
             }
         }
@@ -60,7 +62,8 @@ fun MyAppTheme(content: @Composable () -> Unit) {
 @Preview
 @Composable
 fun DefaultPreview() {
+    val navController = rememberNavController()
     MyApplicationTheme {
-        WelcomePage()
+        WelcomePage(navController = navController)
     }
 }
