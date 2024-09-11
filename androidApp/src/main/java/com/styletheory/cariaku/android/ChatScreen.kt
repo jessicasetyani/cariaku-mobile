@@ -60,7 +60,7 @@ fun ChatScreen() {
             val newMessage = Message(message, "12:02 PM", true)
             messages.value = messages.value + newMessage
             message = ""
-        })
+        }).align(Alignment.BottomCenter)
     }
 }
 
@@ -158,8 +158,7 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp)
-            .align(Alignment.BottomCenter),
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
