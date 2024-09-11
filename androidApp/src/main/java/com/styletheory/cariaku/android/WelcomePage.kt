@@ -404,7 +404,7 @@ fun WelcomeHeader() {
 @Composable
 fun WelcomePagePreview() {
     val navController = rememberNavController()
-    MaterialTheme {
+    MyApplicationTheme {
         WelcomePage(navController = navController)
     }
 }

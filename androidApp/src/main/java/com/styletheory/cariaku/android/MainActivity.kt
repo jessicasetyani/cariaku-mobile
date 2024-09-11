@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyAppTheme {
+            MyApplicationTheme {
                 Surface {
                     val navController = rememberNavController()
                     Navigation(navController = navController)
