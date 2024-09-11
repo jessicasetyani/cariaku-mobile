@@ -90,7 +90,6 @@ fun Header() {
 fun ContentScreen(messages: List<Message>) {
     Box(
         modifier = Modifier
-            .weight(1f)
             .fillMaxWidth()
             .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
