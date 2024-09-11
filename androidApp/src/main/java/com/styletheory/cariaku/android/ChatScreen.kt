@@ -83,26 +83,26 @@ fun ChatScreen() {
  *
  * This function displays an icon and the assistant's name.
  */
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Header() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_placeholder_assistant),
-            contentDescription = "Assistant Icon",
-            modifier = Modifier.size(48.dp)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "Assistant Name",
-            style = MaterialTheme.typography.headlineSmall
-        )
-    }
+    TopAppBar(
+        title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_placeholder_assistant),
+                    contentDescription = "Assistant Icon",
+                    modifier = Modifier.size(48.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Assistant Name",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
+        }
+    )
 }
 
 /**
