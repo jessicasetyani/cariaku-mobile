@@ -99,11 +99,11 @@ fun ContentScreen(messages: List<Message>) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-        items(messages) { message ->
-            MessageBubble(message)
+            items(messages) { message ->
+                MessageBubble(message)
+            }
         }
     }
-}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
