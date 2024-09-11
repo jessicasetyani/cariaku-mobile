@@ -64,7 +64,7 @@ fun ChatScreen() {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Header()
+        Header(onNavigateBack = { /* Handle navigation back here */ })
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -87,7 +87,7 @@ fun ChatScreen() {
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Header() {
+fun Header(onNavigateBack: () -> Unit) {
     TopAppBar(
         title = {
             Row(
@@ -103,6 +103,11 @@ fun Header() {
                     text = "Assistant Name",
                     style = MaterialTheme.typography.headlineSmall
                 )
+            }
+        },
+        navigationIcon = {
+            IconButton(onClick = onNavigateBack) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
             }
         }
     )
