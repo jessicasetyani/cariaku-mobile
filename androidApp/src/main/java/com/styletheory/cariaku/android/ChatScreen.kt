@@ -1,7 +1,10 @@
 package com.styletheory.cariaku.android
 
+import android.annotation.SuppressLint
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,9 +15,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,13 +35,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen() {
     var message by remember { mutableStateOf("") }
-    val messages = remember { mutableStateOf(listOf(
-        Message("Hello, how can I help you?", "12:00 PM", false),
-        Message("I need some information.", "12:01 PM", true)
-    )) }
+    val messages = remember {
+        mutableStateOf(
+            listOf(
+                Message("Hello, how can I help you?", "12:00 PM", false),
+                Message("I need some information.", "12:01 PM", true)
+            )
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -53,6 +63,8 @@ fun ChatScreen() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Header() {
     Row(
@@ -89,10 +101,12 @@ fun ContentScreen(messages: List<Message>) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MessageBubble(message: Message) {
-    val alignment = if (message.isUser) Alignment.End else Alignment.Start
-    val backgroundColor = if (message.isUser) Color.Blue else Color.Gray
+    val alignment = if(message.isUser) Alignment.End else Alignment.Start
+    val backgroundColor = if(message.isUser) Color.Blue else Color.Gray
     val textColor = Color.White
 
     Column(
@@ -115,7 +129,7 @@ fun MessageBubble(message: Message) {
         Text(
             text = message.timestamp,
             color = Color.Gray,
-            style = MaterialTheme.typography.caption,
+            style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.padding(start = 8.dp, top = 4.dp)
         )
     }
@@ -127,6 +141,8 @@ data class Message(
     val isUser: Boolean
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
     Row(
