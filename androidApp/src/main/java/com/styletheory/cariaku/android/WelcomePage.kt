@@ -267,48 +267,20 @@ fun WelcomePageContent(navController: NavController) {
     )
     val recentChats = listOf(
         "Chat 1: How to save money?",
-        "Chat 2: Movie recommendations?",
-//        "Chat 3: Room decoration ideas?",
-//        "Chat 4: Best restaurants nearby?",
-//        "Chat 5: Workout routines?",
-//        "Chat 6: How to save money?",
-//        "Chat 7: Movie recommendations?",
-//        "Chat 8: Room decoration ideas?",
-//        "Chat 9: Best restaurants nearby?",
-//        "Chat 10: Workout routines?"
+        "Chat 2: Movie recommendations?"
     )
     val chatSummaries = listOf(
         "This is summaries of How to save money?",
-        "This is summaries of Movie recommendations?",
-//        "This is summaries of Room decoration ideas?",
-//        "This is summaries of Best restaurants nearby?",
-//        "This is summaries of Workout routines?",
-//        "This is summaries of How to save money?",
-//        "This is summaries of Movie recommendations?",
-//        "This is summaries of Room decoration ideas?",
-//        "This is summaries of Best restaurants nearby?",
-//        "This is summaries of Workout routines?"
+        "This is summaries of Movie recommendations?"
     )
-    val times = listOf(
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu",
-        "Diskusi Terakhir 1 jam yang lalu"
-    )
-    val colors1 = SearchBarDefaults.colors()
+    val times = List(recentChats.size) { "Diskusi Terakhir 1 jam yang lalu" }
+    val searchBarColors = SearchBarDefaults.colors()
     val onActiveChange: (Boolean) -> Unit = { /* Handle active change */ }
 
     val bottomNavigationItems = listOf(
-        BottomNavigationItem(icon = Icons.Default.Home, label = "Home"),
-        BottomNavigationItem(icon = Icons.Default.Favorite, label = "Favorites"),
-        BottomNavigationItem(icon = Icons.Default.Person, label = "Profile")
+        BottomNavigationItem(Icons.Default.Home, "Home"),
+        BottomNavigationItem(Icons.Default.Favorite, "Favorites"),
+        BottomNavigationItem(Icons.Default.Person, "Profile")
     )
 
     SearchBar(
@@ -324,15 +296,15 @@ fun WelcomePageContent(navController: NavController) {
         placeholder = { Text("Cari Apa Nih? CariAku") },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         trailingIcon = {
-            if(searchQuery.isNotEmpty()) {
+            if (searchQuery.isNotEmpty()) {
                 Icon(
-                    imageVector = Icons.Default.Clear,
+                    Icons.Default.Clear,
                     contentDescription = "Clear Search",
                     modifier = Modifier.clickable { searchQuery = "" }
                 )
             }
         },
-        colors = colors1,
+        colors = searchBarColors,
         content = {
             // Search suggestions can be added here
         }
@@ -341,9 +313,7 @@ fun WelcomePageContent(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(
-                horizontal = 16.dp
-            )
+            .padding(horizontal = 16.dp)
     ) {
         LazyColumn(
             modifier = Modifier
@@ -351,24 +321,24 @@ fun WelcomePageContent(navController: NavController) {
                 .padding(top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(Modifier.height(16.dp))
                 WelcomeHeader()
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(Modifier.height(16.dp))
             }
 
             item {
-                QuickAccessSection(assistants = topAssistants)
-                Spacer(modifier = Modifier.height(24.dp))
+                QuickAccessSection(topAssistants)
+                Spacer(Modifier.height(24.dp))
             }
 
             item {
-                RecentChatsSection(topics = recentChats, summaries = chatSummaries, times = times)
-                Spacer(modifier = Modifier.height(16.dp))
+                RecentChatsSection(recentChats, chatSummaries, times)
+                Spacer(Modifier.height(16.dp))
             }
 
             item {
-                TopicSuggestionsSection(topics = topicSuggestions, navController = navController)
-                Spacer(modifier = Modifier.height(16.dp))
+                TopicSuggestionsSection(topicSuggestions, navController)
+                Spacer(Modifier.height(16.dp))
             }
         }
 
@@ -378,9 +348,9 @@ fun WelcomePageContent(navController: NavController) {
                 .align(Alignment.BottomCenter)
         ) {
             BottomNavigationBar(
-                items = bottomNavigationItems,
-                selectedItemIndex = selectedItemIndex,
-                onItemClick = { selectedItemIndex = it }
+                bottomNavigationItems,
+                selectedItemIndex,
+                { selectedItemIndex = it }
             )
         }
     }
