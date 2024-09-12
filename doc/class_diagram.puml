@@ -1,0 +1,89 @@
+@startuml
+
+class WelcomePage {
+    +navController: NavHostController
+    +WelcomePage(navController: NavHostController)
+}
+
+class QuickAccessSection {
+    +assistants: List<String>
+    +QuickAccessSection(assistants: List<String>)
+}
+
+class TopicSuggestionsSection {
+    +topics: List<String>
+    +navController: NavController
+    +TopicSuggestionsSection(topics: List<String>, navController: NavController)
+}
+
+class RecentChatsSection {
+    +topics: List<String>
+    +summaries: List<String>
+    +times: List<String>
+    +RecentChatsSection(topics: List<String>, summaries: List<String>, times: List<String>)
+}
+
+class BottomNavigationBar {
+    +items: List<BottomNavigationItem>
+    +selectedItemIndex: Int
+    +onItemClick: (Int) -> Unit
+    +BottomNavigationBar(items: List<BottomNavigationItem>, selectedItemIndex: Int, onItemClick: (Int) -> Unit)
+}
+
+class BottomNavigationItem {
+    +icon: ImageVector
+    +label: String
+}
+
+class ChatScreen {
+    +message: String
+    +messages: MutableState<List<Message>>
+    +ChatScreen()
+}
+
+class Header {
+    +onNavigateBack: () -> Unit
+    +Header(onNavigateBack: () -> Unit)
+}
+
+class ContentScreen {
+    +messages: List<Message>
+    +ContentScreen(messages: List<Message>)
+}
+
+class MessageBubble {
+    +message: Message
+    +MessageBubble(message: Message)
+}
+
+class FooterScreen {
+    +message: String
+    +onMessageChange: (String) -> Unit
+    +onSend: () -> Unit
+    +FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit)
+}
+
+class Message {
+    +text: String
+    +timestamp: String
+    +isUser: Boolean
+}
+
+class Navigation {
+    +navController: NavHostController
+    +Navigation(navController: NavHostController)
+}
+
+WelcomePage --> QuickAccessSection
+WelcomePage --> TopicSuggestionsSection
+WelcomePage --> RecentChatsSection
+WelcomePage --> BottomNavigationBar
+ChatScreen --> Header
+ChatScreen --> ContentScreen
+ChatScreen --> FooterScreen
+ContentScreen --> MessageBubble
+FooterScreen --> Message
+Navigation --> WelcomePage
+Navigation --> ChatScreen
+
+@enduml
