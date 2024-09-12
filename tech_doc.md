@@ -56,6 +56,10 @@ A composable function that displays a bottom navigation bar.
 
 A composable function that displays a welcome header with a greeting message.
 
+### ChatScreen
+
+The main Composable function that sets up the chat interface. This function initializes the state for the user's message and the list of chat messages. It arranges the chat interface with a header, content screen, and footer screen. It handles the sending of new messages and updates the message list accordingly.
+
 ## Preview
 
 A preview composable function that displays a preview of the WelcomePage.
