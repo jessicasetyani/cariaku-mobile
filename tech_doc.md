@@ -84,4 +84,3 @@ The Welcome Page can be customized by modifying the following:
 ## Testing
 
 To test the Welcome Page, you can use the provided preview function or create custom tests using Compose UI testing tools.
-</output>
