@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             installSplashScreen()
-            MyAppTheme {
+            MyApplicationTheme {
                 Surface {
                     val navController = rememberNavController()
                     Navigation(navController = navController)

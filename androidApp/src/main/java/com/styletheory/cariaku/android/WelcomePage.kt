@@ -339,14 +339,11 @@ fun WelcomePageContent(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(
-                horizontal = 16.dp
-            )
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
+                .padding(start = 16.dp, end = 16.dp, top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))
