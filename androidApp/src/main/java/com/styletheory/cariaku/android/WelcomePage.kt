@@ -319,7 +319,6 @@ fun WelcomePageContent(navController: NavController) {
         onActiveChange = onActiveChange,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .zIndex(1f),
         placeholder = { Text("Cari Apa Nih? CariAku") },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
