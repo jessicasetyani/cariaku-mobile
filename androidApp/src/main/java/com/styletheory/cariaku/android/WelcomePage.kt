@@ -82,7 +82,6 @@ fun QuickAccessSection(assistants: List<String>) {
                     )
                 ) {
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
