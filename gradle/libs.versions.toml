@@ -1,11 +1,12 @@
 [versions]
 agp = "8.6.0"
 kotlin = "2.0.0"
-compose = "1.7.0"
+compose = "1.7.1"
 compose-material3 = "1.3.0"
 androidx-activityCompose = "1.9.2"
 navigationRuntimeKtx = "2.8.0"
 navigationCompose = "2.8.0"
+androidx-splashscreen = "1.0.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -19,6 +20,7 @@ compose-material-icon = { module = "androidx.compose.material:material-icons-cor
 compose-material-icon-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-splashscreen" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -82,7 +82,6 @@ fun QuickAccessSection(assistants: List<String>) {
                     )
                 ) {
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
@@ -291,7 +290,6 @@ fun WelcomePageContent(navController: NavController) {
         onActiveChange = onActiveChange,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .zIndex(1f),
         placeholder = { Text("Cari Apa Nih? CariAku") },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
@@ -313,12 +311,15 @@ fun WelcomePageContent(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+<<<<<<< HEAD
             .padding(horizontal = 16.dp)
+=======
+>>>>>>> ADO/master
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
+                .padding(start = 16.dp, end = 16.dp, top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 Spacer(Modifier.height(16.dp))

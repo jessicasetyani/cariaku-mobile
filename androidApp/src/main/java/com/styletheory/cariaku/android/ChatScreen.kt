@@ -179,12 +179,25 @@ fun MessageBubble(message: Message) {
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Text(
-            text = message.timestamp,
-            color = Color.Gray,
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(start = 8.dp, top = 4.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        ) {
+            Text(
+                text = message.timestamp,
+                color = Color.Gray,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+            )
+            Text(
+                text = "seen",
+                color = Color.Red,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+
     }
 }
 
