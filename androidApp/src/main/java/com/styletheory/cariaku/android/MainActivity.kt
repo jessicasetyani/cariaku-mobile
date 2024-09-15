@@ -22,10 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-<<<<<<< HEAD
-=======
             installSplashScreen()
->>>>>>> ADO/master
             MyApplicationTheme {
                 Surface {
                     val navController = rememberNavController()

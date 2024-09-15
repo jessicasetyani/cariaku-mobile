@@ -311,10 +311,7 @@ fun WelcomePageContent(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-<<<<<<< HEAD
             .padding(horizontal = 16.dp)
-=======
->>>>>>> ADO/master
     ) {
         LazyColumn(
             modifier = Modifier
