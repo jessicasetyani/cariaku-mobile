@@ -7,6 +7,7 @@
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
+        android:label="cari aku"
         android:theme="@style/Theme.SplashScreen.MySplash">
         <activity
             android:name=".MainActivity"

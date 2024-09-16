@@ -69,6 +69,16 @@ fun ChatScreen(client: OpenRouterClient) {
             )
         )
     }
+    val chatRequestMessagesSummaries = remember {
+        mutableStateOf(
+            listOf(
+                Message(
+                    role = Constant.ROLE_SYSTEM,
+                    content = Constant.SYSTEM_PROMPT_SUMMARY
+                )
+            )
+        )
+    }
     val chatMessages = remember {
         mutableStateOf(
             if(chatMessage.isEmpty()) listOf() else listOf(
@@ -77,12 +87,12 @@ fun ChatScreen(client: OpenRouterClient) {
         )
     }
 
-    Header(onNavigateBack = { /* Handle navigation back here */ })
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
+        Header(onNavigateBack = { /* Handle navigation back here */ })
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -127,7 +137,38 @@ fun ChatScreen(client: OpenRouterClient) {
                         )
                     )
 
-                    chatRequestMessages.value.filter { it.role != Constant.ROLE_SYSTEM && usage.totalTokens >= RENEW_TOKEN_QUOTA }
+                    if(usage.totalTokens >= RENEW_TOKEN_QUOTA) {
+                        chatRequestMessages.value.filter { it.role != Constant.ROLE_SYSTEM }
+                            .also { filteredMessages ->
+                                var newChatRequestWithSummaries: String = ""
+                                newChatRequestWithSummaries =
+                                    filteredMessages
+                                        .joinToString("\n") { "\n" + it.role + ": " + it.content }
+                                val chatSummaries = Constant.USER_PROMPT_SUMMARY + newChatRequestWithSummaries
+                                chatRequestMessagesSummaries.value += listOf(
+                                    Message(
+                                        role = Constant.ROLE_USER,
+                                        content = chatSummaries
+                                    )
+                                )
+                                val chatRequestSummaries = ChatCompletionRequest(
+                                    model = Constant.MODEL_AI_GEMINI,
+                                    messages = chatRequestMessagesSummaries.value
+                                )
+                                val newResponse = Greeting().chatWithAI(chatRequestSummaries, client)
+                                // reset chatRequestMessages content list to have only 2 content, from System and 1 from summaries response
+                                chatRequestMessages.value = listOf(chatRequestMessages.value.first())
+                                chatRequestMessages.value += listOf(
+                                    Message(
+                                        role = Constant.ROLE_ASSISTANT,
+                                        content = newResponse.choices.first().message.content
+                                    )
+                                )
+                                //reset value of chatRequestMessagesSummaries to be only initialize by system
+                                chatRequestMessagesSummaries.value = listOf(chatRequestMessagesSummaries.value.first())
+
+                            }
+                    }
 
                 } catch(e: Exception) {
                     e.localizedMessage ?: "error"
