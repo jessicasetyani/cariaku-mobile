@@ -2,7 +2,7 @@ package com.styletheory.cariaku
 
 import com.styletheory.cariaku.network.OpenRouterClient
 import com.styletheory.cariaku.network.model.request.ChatCompletionRequest
-import com.styletheory.cariaku.util.onSuccess
+import com.styletheory.cariaku.network.model.response.ChatCompletionResponse
 
 class Greeting {
     private val platform: Platform = getPlatform()
@@ -11,11 +11,8 @@ class Greeting {
         return "Hello, ${platform.name}!"
     }
 
-    suspend fun chatWithAI(chatRequest:ChatCompletionRequest, client: OpenRouterClient): String {
+    suspend fun chatWithAI(chatRequest: ChatCompletionRequest, client: OpenRouterClient): ChatCompletionResponse {
         val response = client.callOpenRouterChat(chatRequest)
-        response.onSuccess {
-            println(it.usage.totalTokens.toString())
-        }
-        return response.toString()
+        return response
     }
 }
