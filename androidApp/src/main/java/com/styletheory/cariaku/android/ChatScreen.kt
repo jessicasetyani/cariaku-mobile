@@ -59,7 +59,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ChatScreen(client: OpenRouterClient) {
     val scope = rememberCoroutineScope()
-    var text by remember { mutableStateOf("Loading") }
+    var text by remember { mutableStateOf("What is the meaning of life?") }
     LaunchedEffect(true) {
         scope.launch {
             try {
@@ -91,13 +91,13 @@ fun ChatScreen(client: OpenRouterClient) {
             )
         )
     }
-
+    Header(onNavigateBack = { /* Handle navigation back here */ })
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Header(onNavigateBack = { /* Handle navigation back here */ })
+
         Box(
             modifier = Modifier
                 .weight(1f)
