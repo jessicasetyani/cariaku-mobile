@@ -115,14 +115,6 @@ fun ChatScreen(client: OpenRouterClient) {
     }
 }
 
-fun removeInitialMessage(message: ChatMessage): List<ChatMessage> {
-    return if(message.text.isNotEmpty()) {
-        mutableListOf()
-    } else {
-        listOf(message)
-    }
-}
-
 /**
  * A Composable function that displays the chat header.
  *
