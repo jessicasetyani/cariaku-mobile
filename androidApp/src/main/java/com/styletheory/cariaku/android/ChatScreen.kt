@@ -59,7 +59,6 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ChatScreen(client: OpenRouterClient) {
     val scope = rememberCoroutineScope()
-    var text by remember { mutableStateOf("What is the meaning of life?") }
     var chatMessage by remember { mutableStateOf("") }
     val chatMessages = remember {
         mutableStateOf(
@@ -81,7 +80,7 @@ fun ChatScreen(client: OpenRouterClient) {
                         ),
                         Message(
                             role = Constant.ROLE_USER,
-                            content = text
+                            content = chatMessage
                         )
                     )
                 )
