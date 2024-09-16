@@ -39,7 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.styletheory.cariaku.Greeting
 import com.styletheory.cariaku.network.OpenRouterClient
 import com.styletheory.cariaku.network.model.Message
 import com.styletheory.cariaku.network.model.request.ChatCompletionRequest
@@ -60,6 +59,15 @@ import java.time.format.DateTimeFormatter
 fun ChatScreen(client: OpenRouterClient) {
     val scope = rememberCoroutineScope()
     var text by remember { mutableStateOf("What is the meaning of life?") }
+    var chatMessage by remember { mutableStateOf("") }
+    val chatMessages = remember {
+        mutableStateOf(
+            listOf(
+                ChatMessage(chatMessage, LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)), true)
+            )
+        )
+    }
+
     LaunchedEffect(true) {
         scope.launch {
             try {
@@ -76,41 +84,41 @@ fun ChatScreen(client: OpenRouterClient) {
                         )
                     )
                 )
-                Greeting().chatWithAI(chatRequest, client)
+                //  val response = Greeting().chatWithAI(chatRequest, client)
+
             } catch(e: Exception) {
                 e.localizedMessage ?: "error"
             }
         }
     }
 
-    var chatMessage by remember { mutableStateOf("") }
-    val chatMessages = remember {
-        mutableStateOf(
-            listOf(
-                ChatMessage(chatMessage, LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)), true)
-            )
-        )
-    }
     Header(onNavigateBack = { /* Handle navigation back here */ })
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        if (chatMessages.value.isNotEmpty()) {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                ContentScreen(chatMessages = chatMessages.value.reversed())
-            }
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            ContentScreen(chatMessages = chatMessages.value.reversed())
         }
         FooterScreen(chatMessage, onMessageChange = { chatMessage = it }, onSend = {
-            val newChatMessage = ChatMessage(chatMessage, LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)), true)
+            val newChatMessage =
+                ChatMessage(chatMessage, LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)), true)
             chatMessages.value = chatMessages.value + newChatMessage
             chatMessage = ""
         })
+    }
+}
+
+fun removeInitialMessage(message: ChatMessage): List<ChatMessage> {
+    return if(message.text.isNotEmpty()) {
+        mutableListOf()
+    } else {
+        listOf(message)
     }
 }
 
