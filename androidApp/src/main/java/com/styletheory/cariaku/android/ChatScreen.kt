@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.styletheory.cariaku.Greeting
 import com.styletheory.cariaku.network.OpenRouterClient
 import com.styletheory.cariaku.network.model.Message
 import com.styletheory.cariaku.network.model.request.ChatCompletionRequest
@@ -83,7 +85,7 @@ fun ChatScreen(client: OpenRouterClient) {
                         )
                     )
                 )
-                //  val response = Greeting().chatWithAI(chatRequest, client)
+                  val response = Greeting().chatWithAI(chatRequest, client)
 
             } catch(e: Exception) {
                 e.localizedMessage?: "error"
