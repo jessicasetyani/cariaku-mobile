@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -61,7 +60,7 @@ fun ChatScreen(client: OpenRouterClient) {
     var text by remember { mutableStateOf("Loading") }
     LaunchedEffect(true) {
         scope.launch {
-            text = try {
+            try {
                 val chatRequest = ChatCompletionRequest(
                     model = Constant.MODEL_AI_REFLECTION,
                     messages = listOf(
@@ -214,25 +213,12 @@ fun MessageBubble(chatMessage: ChatMessage) {
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-            Text(
-                text = chatMessage.timestamp,
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(start = 8.dp, top = 4.dp)
-            )
-            Text(
-                text = "seen",
-                color = Color.Red,
-                style = MaterialTheme.typography.bodySmall
-            )
-        }
-
+        Text(
+            text = chatMessage.timestamp,
+            color = Color.Gray,
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+        )
     }
 }
 
