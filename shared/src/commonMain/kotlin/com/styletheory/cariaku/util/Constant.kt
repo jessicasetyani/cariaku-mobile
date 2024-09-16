@@ -10,4 +10,7 @@ object Constant {
     val HEADER_X_TITLE = "X-Title"
     val MAX_TOTAL_TOKEN = 4096
     val BUFFER_TOKEN = 0.2 * MAX_TOTAL_TOKEN
+    val FORMAT_DATETIME_HH_MM_A = "hh:mm a"
+    val ROLE_SYSTEM = "system"
+    val ROLE_USER = "user"
 }
