@@ -10,8 +10,11 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.headers
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class OpenRouterClient(private val httpClient: HttpClient) {
+
+    val chatMessages = MutableStateFlow<List<String>>(emptyList())
 
     suspend fun callOpenRouterChat(chatCompletionRequest: ChatCompletionRequest): ChatCompletionResponse {
         try {
