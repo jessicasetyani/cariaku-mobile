@@ -25,9 +25,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,6 +58,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ChatScreen(client: OpenRouterClient) {
     val scope = rememberCoroutineScope()
+
     var chatMessage by remember { mutableStateOf("") }
     val chatMessages = remember {
         mutableStateOf(
@@ -67,51 +68,56 @@ fun ChatScreen(client: OpenRouterClient) {
         )
     }
 
-    FooterScreen(chatMessage, onMessageChange = { chatMessage = it }, onSend = {
-        scope.launch {
-            try {
-                val chatRequest = ChatCompletionRequest(
-                    model = Constant.MODEL_AI_REFLECTION,
-                    messages = listOf(
-                        Message(
-                            role = Constant.ROLE_SYSTEM,
-                            content = "You are a knowledgeable and friendly assistant that provides clear and concise answers."
-                        ),
-                        Message(
-                            role = Constant.ROLE_USER,
-                            content = chatMessage
-                        )
-                    )
-                )
-                val response = Greeting().chatWithAI(chatRequest, client)
-                val choice = response.choices.first()
-                val message = choice.message
-                val responseMessage = ChatMessage(
-                    message.content,
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)),
-                    true
-                )
-                chatMessages.value = chatMessages.value + responseMessage
-            } catch(e: Exception) {
-                e.localizedMessage?: "error"
-            }
-        }
-        chatMessage = ""
-    })
-
     Header(onNavigateBack = { /* Handle navigation back here */ })
     Column(
         modifier = Modifier
-         .fillMaxSize()
-         .background(Color.White)
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         Box(
             modifier = Modifier
-             .weight(1f)
-             .fillMaxWidth()
+                .weight(1f)
+                .fillMaxWidth()
         ) {
             ContentScreen(chatMessages = chatMessages.value.reversed())
         }
+        FooterScreen(chatMessage, onMessageChange = { chatMessage = it }, onSend = {
+            //show Bubble Message from User
+            chatMessages.value += ChatMessage(
+                chatMessage,
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)),
+                true
+            )
+            //show Bubble Message from AI
+            scope.launch {
+                try {
+                    val chatRequest = ChatCompletionRequest(
+                        model = Constant.MODEL_AI,
+                        messages = listOf(
+                            Message(
+                                role = Constant.ROLE_SYSTEM,
+                                content = "You are a knowledgeable and friendly assistant that provides clear and concise answers."
+                            ),
+                            Message(
+                                role = Constant.ROLE_USER,
+                                content = chatMessage
+                            )
+                        )
+                    )
+                    val response = Greeting().chatWithAI(chatRequest, client)
+                    val choice = response.choices.first()
+                    val message = choice.message
+                    val responseMessage = ChatMessage(
+                        message.content,
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)),
+                        false
+                    )
+                    chatMessages.value += responseMessage
+                } catch(e: Exception) {
+                    e.localizedMessage ?: "error"
+                }
+            }
+        })
     }
 }
 
@@ -159,20 +165,20 @@ fun Header(onNavigateBack: () -> Unit) {
 fun ContentScreen(chatMessages: List<ChatMessage>) {
     Column(
         modifier = Modifier
-         .fillMaxWidth()
-         .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
+            .fillMaxWidth()
+            .background(Color.LightGray.copy(alpha = 0.2f)) // Subtle watermark background
     ) {
         Box(
             modifier = Modifier
-             .fillMaxWidth()
-             .weight(1f)
-             .fillMaxSize(),
+                .fillMaxWidth()
+                .weight(1f)
+                .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
             LazyColumn(
                 modifier = Modifier
-                 .fillMaxWidth()
-                 .padding(horizontal = 16.dp),
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 reverseLayout = true
             ) {
                 items(chatMessages) { message ->
@@ -200,14 +206,14 @@ fun MessageBubble(chatMessage: ChatMessage) {
 
     Column(
         modifier = Modifier
-         .fillMaxWidth()
-         .padding(vertical = 8.dp),
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
         horizontalAlignment = alignment
     ) {
         Box(
             modifier = Modifier
-             .background(backgroundColor, shape = RoundedCornerShape(16.dp))
-             .padding(12.dp)
+                .background(backgroundColor, shape = RoundedCornerShape(16.dp))
+                .padding(12.dp)
         ) {
             Text(
                 text = chatMessage.text,
@@ -251,14 +257,14 @@ data class ChatMessage(
 fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () -> Unit) {
     Row(
         modifier = Modifier
-         .fillMaxWidth(),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
             value = message,
             onValueChange = onMessageChange,
             modifier = Modifier
-             .weight(1f),
+                .weight(1f),
             placeholder = { Text("Type a message") },
             singleLine = true,
             trailingIcon = {
