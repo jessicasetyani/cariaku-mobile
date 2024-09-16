@@ -10,7 +10,7 @@ data class ChatCompletionResponse(
     val model: String,
     val created: Long,
     val choices: List<Choice>,
-    val usage: Usage
+    val usage: Usage? = null
 )
 
 @Serializable

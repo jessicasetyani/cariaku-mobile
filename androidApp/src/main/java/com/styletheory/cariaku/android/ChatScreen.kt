@@ -1,8 +1,6 @@
 package com.styletheory.cariaku.android
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -25,6 +23,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,8 +44,6 @@ import com.styletheory.cariaku.util.Constant
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TextField
 
 /**
  * The main Composable function that sets up the chat interface.
@@ -60,12 +58,12 @@ fun ChatScreen(client: OpenRouterClient) {
     val scope = rememberCoroutineScope()
 
     var chatMessage by remember { mutableStateOf("") }
-    var chatRequestMessages = remember {
+    val chatRequestMessages = remember {
         mutableStateOf(
             listOf(
                 Message(
                     role = Constant.ROLE_SYSTEM,
-                    content = "You are a knowledgeable and friendly assistant that provides clear and concise answers."
+                    content = Constant.SYSTEM_PROMPT_INITIAL
                 )
             )
         )
@@ -101,24 +99,31 @@ fun ChatScreen(client: OpenRouterClient) {
             //show Bubble Message from AI
             scope.launch {
                 try {
-                    val chatRequest = ChatCompletionRequest(
-                        model = Constant.MODEL_AI,
-                        messages = chatRequestMessages.value + listOf(
-                            Message(
-                                role = Constant.ROLE_USER,
-                                content = chatMessage
-                            )
+                    chatRequestMessages.value += listOf(
+                        Message(
+                            role = Constant.ROLE_USER,
+                            content = chatMessage
                         )
+                    )
+                    val chatRequest = ChatCompletionRequest(
+                        model = Constant.MODEL_AI_RELECTION,
+                        messages = chatRequestMessages.value
                     )
                     val response = Greeting().chatWithAI(chatRequest, client)
                     val choice = response.choices.first()
                     val message = choice.message
                     val responseMessage = ChatMessage(
-                        message.content,
+                        message.content + "\nTotal Token: " + response.usage?.totalTokens.toString(),
                         LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)),
                         false
                     )
                     chatMessages.value += responseMessage
+                    chatRequestMessages.value += listOf(
+                        Message(
+                            role = Constant.ROLE_ASSISTANT,
+                            content = message.content
+                        )
+                    )
                 } catch(e: Exception) {
                     e.localizedMessage ?: "error"
                 }
@@ -126,7 +131,7 @@ fun ChatScreen(client: OpenRouterClient) {
             // Reset chat message and request messages
             scope.launch {
                 chatMessage = ""
-                chatRequestMessages.value = listOf()
+//                chatRequestMessages.value = listOf()
             }
         })
     }
@@ -181,8 +186,8 @@ fun ContentScreen(chatMessages: List<ChatMessage>) {
     ) {
         Box(
             modifier = Modifier
+                .weight(0.75f)
                 .fillMaxWidth()
-                .weight(1f)
                 .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
@@ -285,29 +290,4 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
             }
         )
     }
-}
-
-/**
- * A function that reads chat messages from a resource file.
- *
- * This function reads messages from a raw resource file and returns them as a list of [ChatMessage] objects.
- *
- * @return A list of [ChatMessage] objects.
- */
-fun readMessagesFromResource(): List<ChatMessage> {
-    val chatMessages = mutableListOf<ChatMessage>()
-    try {
-        val inputStream = Resources.getSystem().openRawResource(R.raw.messages)
-        val reader = inputStream.bufferedReader()
-        while(reader.ready()) {
-            val text = reader.readLine()
-            val timestamp = reader.readLine()
-            val isUser = reader.readLine().toBoolean()
-            chatMessages.add(ChatMessage(text, timestamp, isUser))
-        }
-        reader.close()
-    } catch(e: Exception) {
-        Log.e("ChatScreen", "Error reading messages", e)
-    }
-    return chatMessages
 }
