@@ -10,7 +10,7 @@ data class ChatCompletionResponse(
     val model: String,
     val created: Long,
     val choices: List<Choice>,
-    val usage: Usage? = null
+    val usage: Usage
 )
 
 @Serializable
@@ -25,9 +25,9 @@ data class Choice(
 @Serializable
 data class Usage(
     @SerialName("prompt_tokens")
-    val promptTokens: Int,
+    val promptTokens: Int = 0,
     @SerialName("completion_tokens")
-    val completionTokens: Int,
+    val completionTokens: Int = 0,
     @SerialName("total_tokens")
-    val totalTokens: Int
+    val totalTokens: Int = 0
 )

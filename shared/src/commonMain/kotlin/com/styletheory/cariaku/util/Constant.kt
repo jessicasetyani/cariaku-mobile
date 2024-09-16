@@ -9,8 +9,9 @@ object Constant {
     const val API_KEY_OPEN_ROUTE = "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"
     const val PROJECT_NAME_CARI_AKU = "CariAku"
     const val HEADER_X_TITLE = "X-Title"
-    const val MAX_TOTAL_TOKEN = 4096
-    const val BUFFER_TOKEN = 0.2 * MAX_TOTAL_TOKEN
+    const val MAX_TOTAL_TOKEN = 300
+    const val BUFFER_TOKEN = 0.4 * MAX_TOTAL_TOKEN
+    const val RENEW_TOKEN_QUOTA = MAX_TOTAL_TOKEN - BUFFER_TOKEN
     const val FORMAT_DATETIME_HH_MM_A = "hh:mm a"
     const val ROLE_SYSTEM = "system"
     const val ROLE_USER = "user"

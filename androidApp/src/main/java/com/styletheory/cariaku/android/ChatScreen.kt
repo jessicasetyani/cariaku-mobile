@@ -41,6 +41,7 @@ import com.styletheory.cariaku.network.OpenRouterClient
 import com.styletheory.cariaku.network.model.Message
 import com.styletheory.cariaku.network.model.request.ChatCompletionRequest
 import com.styletheory.cariaku.util.Constant
+import com.styletheory.cariaku.util.Constant.RENEW_TOKEN_QUOTA
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -110,10 +111,11 @@ fun ChatScreen(client: OpenRouterClient) {
                         messages = chatRequestMessages.value
                     )
                     val response = Greeting().chatWithAI(chatRequest, client)
+                    val usage = response.usage
                     val choice = response.choices.first()
                     val message = choice.message
                     val responseMessage = ChatMessage(
-                        message.content + "\nTotal Token: " + response.usage?.totalTokens.toString(),
+                        message.content + "\nTotal Token: " + usage.totalTokens.toString(),
                         LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A)),
                         false
                     )
@@ -124,6 +126,9 @@ fun ChatScreen(client: OpenRouterClient) {
                             content = message.content
                         )
                     )
+
+                    chatRequestMessages.value.filter { it.role != Constant.ROLE_SYSTEM && usage.totalTokens >= RENEW_TOKEN_QUOTA }
+
                 } catch(e: Exception) {
                     e.localizedMessage ?: "error"
                 }
