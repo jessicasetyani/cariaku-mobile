@@ -29,15 +29,23 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.styletheory.cariaku.Greeting
+import com.styletheory.cariaku.network.OpenRouterClient
+import com.styletheory.cariaku.network.model.Message
+import com.styletheory.cariaku.network.model.request.ChatCompletionRequest
+import com.styletheory.cariaku.util.Constant
+import kotlinx.coroutines.launch
 
 /**
  * The main Composable function that sets up the chat interface.
@@ -48,14 +56,39 @@ import androidx.compose.ui.unit.dp
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ChatScreen() {
+fun ChatScreen(client: OpenRouterClient) {
+    val scope = rememberCoroutineScope()
+    var text by remember { mutableStateOf("Loading") }
+    LaunchedEffect(true) {
+        scope.launch {
+            text = try {
+                val chatRequest = ChatCompletionRequest(
+                    model = Constant.MODEL_AI_REFLECTION,
+                    messages = listOf(
+                        Message(
+                            role = "system",
+                            content = "You are a knowledgeable and friendly assistant that provides clear and concise answers."
+                        ),
+                        Message(
+                            role = "user",
+                            content = text
+                        )
+                    )
+                )
+                Greeting().chatWithAI(chatRequest, client)
+            } catch(e: Exception) {
+                e.localizedMessage ?: "error"
+            }
+        }
+    }
+
     var message by remember { mutableStateOf("") }
     val messages = remember {
         mutableStateOf(
             // readMessagesFromResource()
             listOf(
-                Message("Hello, how can I help you?", "12:00 PM", false),
-                Message("I need some information.", "12:01 PM", true)
+                ChatMessage("Hello, how can I help you?", "12:00 PM", false),
+                ChatMessage("I need some information.", "12:01 PM", true)
             )
         )
     }
@@ -71,11 +104,11 @@ fun ChatScreen() {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            ContentScreen(messages = messages.value.reversed())
+            ContentScreen(chatMessages = messages.value.reversed())
         }
         FooterScreen(message, onMessageChange = { message = it }, onSend = {
-            val newMessage = Message(message, "12:02 PM", true)
-            messages.value = messages.value + newMessage
+            val newChatMessage = ChatMessage(message, "12:02 PM", true)
+            messages.value = messages.value + newChatMessage
             message = ""
         })
     }
@@ -117,12 +150,12 @@ fun Header(onNavigateBack: () -> Unit) {
 /**
  * A Composable function that displays the chat messages.
  *
- * @param messages A list of [Message] objects to be displayed.
+ * @param chatMessages A list of [ChatMessage] objects to be displayed.
  *
  * This function displays the list of chat messages in a [LazyColumn].
  */
 @Composable
-fun ContentScreen(messages: List<Message>) {
+fun ContentScreen(chatMessages: List<ChatMessage>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -141,7 +174,7 @@ fun ContentScreen(messages: List<Message>) {
                     .padding(horizontal = 16.dp),
                 reverseLayout = true
             ) {
-                items(messages) { message ->
+                items(chatMessages) { message ->
                     MessageBubble(message)
                 }
             }
@@ -152,15 +185,16 @@ fun ContentScreen(messages: List<Message>) {
 /**
  * A Composable function that displays an individual chat message.
  *
- * @param message A [Message] object to be displayed.
+ * @param chatMessage A [ChatMessage] object to be displayed.
  *
  * This function displays the message text and timestamp, with different styling based on whether the message is from the user or the assistant.
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MessageBubble(message: Message) {
-    val alignment = if(message.isUser) Alignment.End else Alignment.Start
-    val backgroundColor = if(message.isUser) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onTertiaryContainer
+fun MessageBubble(chatMessage: ChatMessage) {
+    val alignment = if(chatMessage.isUser) Alignment.End else Alignment.Start
+    val backgroundColor =
+        if(chatMessage.isUser) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onTertiaryContainer
     val textColor = Color.White
 
     Column(
@@ -175,7 +209,7 @@ fun MessageBubble(message: Message) {
                 .padding(12.dp)
         ) {
             Text(
-                text = message.text,
+                text = chatMessage.text,
                 color = textColor,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -187,7 +221,7 @@ fun MessageBubble(message: Message) {
             horizontalArrangement = Arrangement.End
         ) {
             Text(
-                text = message.timestamp,
+                text = chatMessage.timestamp,
                 color = Color.Gray,
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(start = 8.dp, top = 4.dp)
@@ -209,7 +243,7 @@ fun MessageBubble(message: Message) {
  * @property timestamp The timestamp when the message was sent.
  * @property isUser A boolean indicating whether the message is from the user.
  */
-data class Message(
+data class ChatMessage(
     val text: String,
     val timestamp: String,
     val isUser: Boolean
@@ -251,12 +285,12 @@ fun FooterScreen(message: String, onMessageChange: (String) -> Unit, onSend: () 
 /**
  * A function that reads chat messages from a resource file.
  *
- * This function reads messages from a raw resource file and returns them as a list of [Message] objects.
+ * This function reads messages from a raw resource file and returns them as a list of [ChatMessage] objects.
  *
- * @return A list of [Message] objects.
+ * @return A list of [ChatMessage] objects.
  */
-fun readMessagesFromResource(): List<Message> {
-    val messages = mutableListOf<Message>()
+fun readMessagesFromResource(): List<ChatMessage> {
+    val chatMessages = mutableListOf<ChatMessage>()
     try {
         val inputStream = Resources.getSystem().openRawResource(R.raw.messages)
         val reader = inputStream.bufferedReader()
@@ -264,11 +298,11 @@ fun readMessagesFromResource(): List<Message> {
             val text = reader.readLine()
             val timestamp = reader.readLine()
             val isUser = reader.readLine().toBoolean()
-            messages.add(Message(text, timestamp, isUser))
+            chatMessages.add(ChatMessage(text, timestamp, isUser))
         }
         reader.close()
     } catch(e: Exception) {
         Log.e("ChatScreen", "Error reading messages", e)
     }
-    return messages
+    return chatMessages
 }

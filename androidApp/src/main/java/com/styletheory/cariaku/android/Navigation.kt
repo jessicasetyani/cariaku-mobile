@@ -1,9 +1,14 @@
 package com.styletheory.cariaku.android
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.styletheory.cariaku.network.OpenRouterClient
+import com.styletheory.cariaku.network.createHttpClient
+import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
+import io.ktor.client.engine.okhttp.OkHttp
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -12,7 +17,9 @@ fun Navigation(navController: NavHostController) {
             WelcomePage(navController = navController)
         }
         composable("chatScreen") {
-            ChatScreen()
+            ChatScreen(client = remember {
+                OpenRouterClient(createHttpClient(OkHttp.create(), API_KEY_OPEN_ROUTE))
+            })
         }
     }
 }

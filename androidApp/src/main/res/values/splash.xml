@@ -3,6 +3,7 @@
     <style name="Theme.SplashScreen.MySplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#87CEEB</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="splashScreenIconSize">68dp</item>
         <item name="postSplashScreenTheme">@style/Theme.SplashScreen</item>
     </style>
 </resources>

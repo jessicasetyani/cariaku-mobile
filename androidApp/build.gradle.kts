@@ -47,5 +47,6 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.ktor.client.okhttp)
     debugImplementation(libs.compose.ui.tooling)
 }
