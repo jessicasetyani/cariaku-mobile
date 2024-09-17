@@ -32,6 +32,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.parse)
+            implementation(libs.parselivequery.android)
         }
         nativeMain.dependencies { //iOS
             implementation(libs.ktor.client.darwin)
@@ -39,7 +41,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.bundles.ktor)
             implementation(libs.kotlinx.coroutines.core)
-            //put your multiplatform dependencies here
+            implementation(libs.coil.compose)
+        //put your multiplatform dependencies here
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

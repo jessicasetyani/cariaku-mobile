@@ -6,9 +6,21 @@
 
     <application
         android:allowBackup="false"
+        android:icon="@drawable/ic_logo"
         android:supportsRtl="true"
-        android:label="cari aku"
+        android:label="@string/app_name"
         android:theme="@style/Theme.SplashScreen.MySplash">
+
+        <meta-data
+            android:name="com.parse.SERVER_URL"
+            android:value="@string/back4app_server_url" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="@string/back4app_app_id" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="@string/back4app_client_key" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
