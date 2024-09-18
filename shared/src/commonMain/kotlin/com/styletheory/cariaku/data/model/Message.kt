@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.network.model
+package com.styletheory.cariaku.data.model
 
 import kotlinx.serialization.Serializable
 

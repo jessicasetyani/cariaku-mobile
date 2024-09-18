@@ -1,6 +1,6 @@
-package com.styletheory.cariaku.network.model.response
+package com.styletheory.cariaku.data.model.response
 
-import com.styletheory.cariaku.network.model.Message
+import com.styletheory.cariaku.data.model.Message
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

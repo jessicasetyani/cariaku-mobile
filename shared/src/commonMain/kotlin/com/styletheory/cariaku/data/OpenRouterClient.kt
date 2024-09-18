@@ -1,7 +1,8 @@
-package com.styletheory.cariaku.network
+package com.styletheory.cariaku.data
 
-import com.styletheory.cariaku.network.model.request.ChatCompletionRequest
-import com.styletheory.cariaku.network.model.response.ChatCompletionResponse
+import com.styletheory.cariaku.network.ApiRoute
+import com.styletheory.cariaku.data.model.request.ChatCompletionRequest
+import com.styletheory.cariaku.data.model.response.ChatCompletionResponse
 import com.styletheory.cariaku.util.Constant
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -10,13 +11,9 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.headers
-import kotlinx.coroutines.flow.MutableStateFlow
 
 class OpenRouterClient(private val httpClient: HttpClient) {
-
-    val chatMessages = MutableStateFlow<List<String>>(emptyList())
-
-    suspend fun callOpenRouterChat(chatCompletionRequest: ChatCompletionRequest): ChatCompletionResponse {
+    suspend fun chatCompletion(chatCompletionRequest: ChatCompletionRequest): ChatCompletionResponse {
         try {
             val response = httpClient.post(
                 urlString = ApiRoute.baseUrlOpenRouter + "api/v1/chat/completions"
