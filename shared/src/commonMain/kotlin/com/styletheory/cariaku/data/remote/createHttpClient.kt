@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.network
+package com.styletheory.cariaku.data.remote
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine

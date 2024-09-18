@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.android.chat
+package com.styletheory.cariaku.android.ui.screen.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

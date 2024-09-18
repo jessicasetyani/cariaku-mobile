@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.network
+package com.styletheory.cariaku.data.remote
 
 object ApiRoute{
     const val baseUrlOpenRouter= "https://openrouter.ai/"

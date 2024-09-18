@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -39,7 +40,7 @@ android {
 dependencies {
     implementation(libs.parse)
     implementation(libs.parselivequery.android)
-
+    implementation(libs.kotlinx.serialization.json)
     implementation(projects.shared)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)

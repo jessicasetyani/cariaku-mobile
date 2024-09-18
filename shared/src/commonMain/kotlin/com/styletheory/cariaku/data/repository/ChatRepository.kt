@@ -1,6 +1,6 @@
 package com.styletheory.cariaku.data.repository
 
-import com.styletheory.cariaku.data.OpenRouterClient
+import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.model.Message
 import com.styletheory.cariaku.data.model.request.ChatCompletionRequest
 import com.styletheory.cariaku.util.Constant

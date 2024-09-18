@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.android
+package com.styletheory.cariaku.android.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -49,11 +49,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.styletheory.cariaku.android.R
 
 /**
  * A composable function that displays a section for quick access to frequently used assistants.
@@ -61,7 +60,9 @@ import androidx.navigation.compose.rememberNavController
  * @param assistants A list of assistant names to be displayed.
  */
 @Composable
-fun QuickAccessSection(assistants: List<String>) {
+fun QuickAccessSection(
+    assistants: List<String>
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -112,7 +113,7 @@ fun QuickAccessSection(assistants: List<String>) {
  * @param topics A list of topic suggestions to be displayed.
  */
 @Composable
-fun TopicSuggestionsSection(topics: List<String>, navController: NavController) {
+fun TopicSuggestionsSection(topics: List<String>, onOpenChat: () -> Unit) {
     val listState = rememberLazyListState()
     Column(
         modifier = Modifier
@@ -126,8 +127,8 @@ fun TopicSuggestionsSection(topics: List<String>, navController: NavController) 
         ) {
             items(topics) { topic ->
                 Card(
+                    onClick = onOpenChat,
                     modifier = Modifier
-                        .clickable { navController.navigate("chatScreen") }
                         .width((0.5f * LocalConfiguration.current.screenWidthDp).dp)
                         .padding(end = 8.dp),
                     colors = CardDefaults.cardColors(
@@ -248,13 +249,19 @@ data class BottomNavigationItem(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WelcomePage(navController: NavController) {
-    WelcomePageContent(navController)
+fun WelcomePage(
+    onOpenChat: () -> Unit,
+    navController: NavController
+) {
+    WelcomePageContent(onOpenChat, navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WelcomePageContent(navController: NavController) {
+fun WelcomePageContent(
+    onOpenChat: () -> Unit,
+    navController: NavController
+) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedItemIndex by remember { mutableStateOf(0) }
 
@@ -294,7 +301,7 @@ fun WelcomePageContent(navController: NavController) {
         placeholder = { Text("Cari Apa Nih? CariAku") },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         trailingIcon = {
-            if (searchQuery.isNotEmpty()) {
+            if(searchQuery.isNotEmpty()) {
                 Icon(
                     Icons.Default.Clear,
                     contentDescription = "Clear Search",
@@ -335,7 +342,7 @@ fun WelcomePageContent(navController: NavController) {
             }
 
             item {
-                TopicSuggestionsSection(topicSuggestions, navController)
+                TopicSuggestionsSection(topicSuggestions, onOpenChat)
                 Spacer(Modifier.height(16.dp))
             }
         }
@@ -363,16 +370,4 @@ fun WelcomeHeader() {
         text = "Malam, [nama user]! Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
         style = MaterialTheme.typography.headlineSmall
     )
-}
-
-/**
- * A preview composable function that displays a preview of the WelcomePage.
- */
-@Preview(showBackground = true)
-@Composable
-fun WelcomePagePreview() {
-    val navController = rememberNavController()
-    MyApplicationTheme {
-        WelcomePage(navController = navController)
-    }
 }

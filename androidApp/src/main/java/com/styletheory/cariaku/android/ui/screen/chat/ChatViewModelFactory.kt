@@ -1,8 +1,7 @@
-package com.styletheory.cariaku.android
+package com.styletheory.cariaku.android.ui.screen.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.styletheory.cariaku.android.chat.ChatViewModel
 import com.styletheory.cariaku.data.repository.ChatRepository
 
 class ChatViewModelFactory(private val chatRepository: ChatRepository) : ViewModelProvider.Factory {

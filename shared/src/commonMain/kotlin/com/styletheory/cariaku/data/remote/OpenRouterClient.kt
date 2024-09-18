@@ -1,6 +1,5 @@
-package com.styletheory.cariaku.data
+package com.styletheory.cariaku.data.remote
 
-import com.styletheory.cariaku.network.ApiRoute
 import com.styletheory.cariaku.data.model.request.ChatCompletionRequest
 import com.styletheory.cariaku.data.model.response.ChatCompletionResponse
 import com.styletheory.cariaku.util.Constant

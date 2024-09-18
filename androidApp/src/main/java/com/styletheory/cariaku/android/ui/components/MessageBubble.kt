@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.android.chat.components
+package com.styletheory.cariaku.android.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
