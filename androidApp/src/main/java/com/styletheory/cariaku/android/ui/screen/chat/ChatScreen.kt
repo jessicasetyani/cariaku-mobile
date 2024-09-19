@@ -26,22 +26,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.isShiftPressed
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.android.ui.components.HeaderChatScreen
 import com.styletheory.cariaku.android.ui.components.MessageBubble
+import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
 import io.ktor.client.engine.okhttp.OkHttp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(onNavigateBack: () -> Unit) {
@@ -59,6 +56,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
+        chatViewModel.saveAssistant()
         HeaderChatScreen(onNavigateBack = onNavigateBack)
         ChatMessages(
             chatMessages = chatMessages,

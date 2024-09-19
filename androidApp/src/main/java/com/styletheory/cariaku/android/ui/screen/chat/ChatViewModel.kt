@@ -2,13 +2,18 @@ package com.styletheory.cariaku.android.ui.screen.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.styletheory.cariaku.data.repository.ChatRepository
+import com.parse.ParseObject
+import com.parse.ParseQuery
+import com.parse.livequery.SubscriptionHandling
+import com.styletheory.cariaku.android.util.AssistantTable
 import com.styletheory.cariaku.data.model.ChatMessage
+import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
@@ -17,6 +22,45 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
 
     private val _inputMessage = MutableStateFlow("")
     val inputMessage: StateFlow<String> = _inputMessage
+
+    private var subscriptionTableChat: SubscriptionHandling<ParseObject>? = null
+    private var subscriptionTableMessage: SubscriptionHandling<ParseObject>? = null
+
+    fun saveAssistant() {
+        val getAssistantQuery = ParseQuery.getQuery<ParseObject>(AssistantTable.NAME)
+        getAssistantQuery.whereContains(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_REFLECTION)
+        getAssistantQuery.findInBackground { assistants, messageError ->
+            if(messageError == null) {
+                if(assistants.isEmpty()) {
+                    saveAssistantToDb()
+                }
+            } else {
+                // Error
+            }
+        }
+    }
+
+    fun saveAssistantToDb() {
+        val assistant = ParseObject(AssistantTable.NAME)
+        // Store an object
+        val localDateTime = LocalDateTime.now()
+        val epochMillis = localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
+
+        assistant.put(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_REFLECTION)
+        //   assistant.put(AssistantTable.CREATED_AT, epochMillis)
+        assistant.put(AssistantTable.IS_ACTIVE, true)
+        assistant.put(AssistantTable.DESCRIPTION, Constant.SYSTEM_PROMPT_INITIAL)
+        // Saving object
+        assistant.saveInBackground { messageError ->
+            if(messageError == null) {
+                // Success
+                val responseSaveDb = "berhasil save"
+            } else {
+                // Error
+                val responseSaveDb = "error"
+            }
+        }
+    }
 
     fun sendMessage(message: String) {
         if(message.isNotBlank()) {

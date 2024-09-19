@@ -17,7 +17,7 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         chatRequestMessages.add(Message(role = Constant.ROLE_USER, content = userMessage))
 
         val chatRequest = ChatCompletionRequest(
-            model = Constant.MODEL_AI_RELECTION,
+            model = Constant.MODEL_AI_REFLECTION,
             messages = chatRequestMessages
         )
 
