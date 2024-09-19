@@ -3,9 +3,14 @@ package com.styletheory.cariaku.android.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,11 +48,23 @@ fun MessageBubble(chatMessage: ChatMessage) {
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Text(
-            text = chatMessage.timestamp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.bodySmall,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(start = 4.dp, top = 2.dp)
-        )
+        ) {
+            Text(
+                text = chatMessage.timestamp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall
+            )
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = "Timestamp Icon",
+                modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(16.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }

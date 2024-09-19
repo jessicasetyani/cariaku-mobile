@@ -22,7 +22,7 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         )
 
         val response = openRouterClient.chatCompletion(chatRequest)
-        val aiMessage = response.choices.first().message.content
+        val aiMessage = response.choices.first().message.content + "\nTotal token: " +response.usage.totalTokens
 
         chatRequestMessages.add(Message(role = Constant.ROLE_ASSISTANT, content = aiMessage))
 

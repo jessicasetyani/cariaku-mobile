@@ -42,7 +42,6 @@ import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
 import io.ktor.client.engine.okhttp.OkHttp
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(onNavigateBack: () -> Unit) {
@@ -108,15 +107,7 @@ fun ChatInput(
             value = message,
             onValueChange = onMessageChange,
             modifier = Modifier
-                .weight(1f)
-                .onKeyEvent {
-                    if(it.key == Key.Enter && !it.isShiftPressed) {
-                        onSend()
-                        true
-                    } else {
-                        false
-                    }
-                },
+                .weight(1f),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
             keyboardActions = KeyboardActions(onSend = { onSend() }),
             placeholder = { Text("Type a message") }

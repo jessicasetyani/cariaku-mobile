@@ -21,13 +21,13 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
     fun sendMessage(message: String) {
         if(message.isNotBlank()) {
             val userMessage = ChatMessage(message, getCurrentTimestamp(), true)
-            _chatMessages.value = _chatMessages.value + userMessage
+            _chatMessages.value += userMessage
 
             viewModelScope.launch {
                 try {
                     val aiResponse = chatRepository.sendMessageToAI(message)
                     val aiMessage = ChatMessage(aiResponse, getCurrentTimestamp(), false)
-                    _chatMessages.value = _chatMessages.value + aiMessage
+                    _chatMessages.value += aiMessage
                 } catch(e: Exception) {
                     // Handle error
                 }
