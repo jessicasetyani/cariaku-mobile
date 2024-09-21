@@ -60,7 +60,9 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
         HeaderChatScreen(onNavigateBack = onNavigateBack)
         ChatMessages(
             chatMessages = chatMessages,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
         )
         ChatInput(
             message = inputMessage,
@@ -78,7 +80,8 @@ fun ChatMessages(
     LazyColumn(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .fillMaxHeight(),
         reverseLayout = true,
         contentPadding = PaddingValues(vertical = 8.dp)
     ) {
