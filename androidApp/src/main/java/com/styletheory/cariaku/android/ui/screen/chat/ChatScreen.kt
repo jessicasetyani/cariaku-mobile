@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -68,26 +69,33 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
         title.value = "Assistant Name"
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        chatViewModel.saveAssistant()
-        HeaderChatScreen(onNavigateBack = onNavigateBack, title = title.value)
-        ChatMessages(
-            chatMessages = chatMessages,
-            isLoading = isLoading,
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-        )
-        ChatInput(
-            message = inputMessage,
-            onMessageChange = chatViewModel::updateInputMessage,
-            onSend = { chatViewModel.sendMessage(inputMessage) }
-        )
-    }
+    Scaffold(
+        topBar = {
+            HeaderChatScreen(onNavigateBack = onNavigateBack, title = title.value)
+        },
+        content = { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(paddingValues)
+            ) {
+                chatViewModel.saveAssistant()
+                ChatMessages(
+                    chatMessages = chatMessages,
+                    isLoading = isLoading,
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                )
+                ChatInput(
+                    message = inputMessage,
+                    onMessageChange = chatViewModel::updateInputMessage,
+                    onSend = { chatViewModel.sendMessage(inputMessage) }
+                )
+            }
+        }
+    )
 }
 
 @Composable
