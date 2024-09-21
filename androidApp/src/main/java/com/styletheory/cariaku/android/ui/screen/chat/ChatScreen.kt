@@ -38,6 +38,7 @@ import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
 import io.ktor.client.engine.okhttp.OkHttp
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -99,6 +100,8 @@ fun ChatInput(
     onMessageChange: (String) -> Unit,
     onSend: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -111,10 +114,16 @@ fun ChatInput(
             modifier = Modifier
                 .weight(1f),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-            keyboardActions = KeyboardActions(onSend = { onSend() }),
+            keyboardActions = KeyboardActions(onSend = {
+                onSend()
+                keyboardController?.hide() // Hide the keyboard
+            }),
             placeholder = { Text("Type a message") }
         )
-        IconButton(onClick = onSend) {
+        IconButton(onClick = {
+            onSend()
+            keyboardController?.hide() // Hide the keyboard
+        }) {
             Icon(Icons.Default.Send, contentDescription = "Send")
         }
     }
