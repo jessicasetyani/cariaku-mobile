@@ -13,7 +13,7 @@ import com.styletheory.cariaku.android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeaderChatScreen(onNavigateBack: () -> Unit) {
+fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String) {
     TopAppBar(
         title = {
             Row(
@@ -26,7 +26,7 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Assistant Name",
+                    text = title,
                     style = MaterialTheme.typography.headlineSmall
                 )
             }

@@ -23,6 +23,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,6 +58,15 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
     val inputMessage by chatViewModel.inputMessage.collectAsState()
     val isLoading by chatViewModel.isLoading.collectAsState()
 
+    // Mutable state to manage the title
+    val title = remember { mutableStateOf("Assistant Name") }
+
+    // Update title based on loading state
+    if (isLoading) {
+        title.value = "Thinking..."
+    } else {
+        title.value = "Assistant Name"
+    }
 
     Column(
         modifier = Modifier
@@ -64,7 +74,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
             .background(Color.White)
     ) {
         chatViewModel.saveAssistant()
-        HeaderChatScreen(onNavigateBack = onNavigateBack)
+        HeaderChatScreen(onNavigateBack = onNavigateBack, title = title.value)
         ChatMessages(
             chatMessages = chatMessages,
             isLoading = isLoading,
@@ -97,15 +107,15 @@ fun ChatMessages(
         items(chatMessages.reversed()) { message ->
             MessageBubble(chatMessage = message)
         }
-        if (isLoading) {
-            item {
-                val lastUserMessageIndex = chatMessages.indexOfLast { it.isUser }
-                if (lastUserMessageIndex != -1) {
-                    MessageBubble(chatMessage = ChatMessage("Thinking...", getCurrentTimestamp(), false))
-                }
-
-            }
-        }
+        // Remove the "Thinking..." message logic
+        // if (isLoading) {
+        //     item {
+        //         val lastUserMessageIndex = chatMessages.indexOfLast { it.isUser }
+        //         if (lastUserMessageIndex != -1) {
+        //             MessageBubble(chatMessage = ChatMessage("Thinking...", getCurrentTimestamp(), false))
+        //         }
+        //     }
+        // }
     }
 }
 
