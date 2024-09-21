@@ -160,7 +160,6 @@ fun getCurrentTimestamp(): String {
     return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A))
 }
 
-
 @Composable
 fun ChatInput(
     message: String,

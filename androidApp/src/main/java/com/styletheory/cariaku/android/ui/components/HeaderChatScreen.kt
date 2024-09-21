@@ -38,6 +38,7 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, modifier: Modifi
                     contentDescription = "Back Arrow Icon"
                 )
             }
-        }
+        },
+        modifier = modifier
     )
 }
