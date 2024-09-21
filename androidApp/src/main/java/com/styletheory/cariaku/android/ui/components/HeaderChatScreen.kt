@@ -14,24 +14,29 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boolean, modifier: Modifier = Modifier) {
-    var displayedText by remember { mutableStateOf("") }
-    val fullText = "Thinking..."
+    var displayedText by remember { mutableStateOf(title) }
+    var typingText by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(isLoading) {
         if (isLoading) {
-            while (isLoading) {
-                for (i in 1..fullText.length) {
-                    displayedText = fullText.substring(0, i)
-                    delay(150)
+            displayedText = "Thinking..."
+            typingText = ""
+            scope.launch {
+                title.forEachIndexed { index, char ->
+                    typingText += char
+                    delay(100) // Adjust delay to control typing speed
                 }
-                delay(500)
+                displayedText = title
             }
         } else {
             displayedText = title
+            typingText = ""
         }
     }
 
@@ -52,7 +57,7 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = "Thinking...",
+                        text = typingText,
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
@@ -62,7 +67,7 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = title,
+                        text = displayedText,
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
