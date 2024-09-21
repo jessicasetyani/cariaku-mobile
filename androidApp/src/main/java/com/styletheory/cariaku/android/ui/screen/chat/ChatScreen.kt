@@ -88,7 +88,7 @@ fun ChatMessages(
         contentPadding = PaddingValues(vertical = 8.dp)
     ) {
         items(chatMessages.reversed()) { message ->
-            MessageBubble(message)
+            MessageBubble(chatMessage = message)
         }
     }
 }

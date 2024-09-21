@@ -3,6 +3,7 @@ package com.styletheory.cariaku.android.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,11 +31,15 @@ fun MessageBubble(chatMessage: ChatMessage) {
         MaterialTheme.colorScheme.onSecondary
     else
         MaterialTheme.colorScheme.onSecondary
+    val paddingValues = if (chatMessage.isUser)
+        PaddingValues(start = 50.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
+    else
+        PaddingValues(start = 8.dp, end = 50.dp, top = 4.dp, bottom = 4.dp)
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp, horizontal = 8.dp),
+            .padding(paddingValues),
         horizontalAlignment = alignment
     ) {
         Box(
