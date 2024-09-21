@@ -24,6 +24,9 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
     private val _inputMessage = MutableStateFlow("")
     val inputMessage: StateFlow<String> = _inputMessage
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     private var subscriptionTableChat: SubscriptionHandling<ParseObject>? = null
     private var subscriptionTableMessage: SubscriptionHandling<ParseObject>? = null
 
@@ -64,6 +67,8 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
             val userMessage = ChatMessage(message, getCurrentTimestamp(), true)
             _chatMessages.value += userMessage
 
+            _isLoading.value = true
+
             viewModelScope.launch {
                 try {
                     val aiResponse = chatRepository.sendMessageToAI(message)
@@ -71,7 +76,10 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
                     _chatMessages.value += aiMessage
                 } catch (e: Exception) {
                     Log.e("ChatViewModel", "Error sending message: ${e.message}")
+                } finally {
+                    _isLoading.value = false
                 }
+
             }
 
             _inputMessage.value = ""

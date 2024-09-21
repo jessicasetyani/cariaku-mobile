@@ -39,6 +39,9 @@ import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
 import io.ktor.client.engine.okhttp.OkHttp
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import com.styletheory.cariaku.util.Constant
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -52,6 +55,8 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
 
     val chatMessages by chatViewModel.chatMessages.collectAsState()
     val inputMessage by chatViewModel.inputMessage.collectAsState()
+    val isLoading by chatViewModel.isLoading.collectAsState()
+
 
     Column(
         modifier = Modifier
@@ -62,6 +67,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
         HeaderChatScreen(onNavigateBack = onNavigateBack)
         ChatMessages(
             chatMessages = chatMessages,
+            isLoading = isLoading,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
@@ -77,6 +83,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
 @Composable
 fun ChatMessages(
     chatMessages: List<ChatMessage>,
+    isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -90,7 +97,20 @@ fun ChatMessages(
         items(chatMessages.reversed()) { message ->
             MessageBubble(chatMessage = message)
         }
+        if (isLoading) {
+            item {
+                val lastUserMessageIndex = chatMessages.indexOfLast { it.isUser }
+                if (lastUserMessageIndex != -1) {
+                    MessageBubble(chatMessage = ChatMessage("Thinking...", getCurrentTimestamp(), false))
+                }
+
+            }
+        }
     }
+}
+
+fun getCurrentTimestamp(): String {
+    return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A))
 }
 
 
