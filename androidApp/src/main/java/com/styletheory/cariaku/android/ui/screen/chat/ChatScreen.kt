@@ -5,10 +5,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
@@ -71,7 +75,10 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            HeaderChatScreen(onNavigateBack = onNavigateBack, title = title.value)
+            HeaderChatScreen(
+                onNavigateBack = onNavigateBack,
+                title = title.value,
+                modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars))
         },
         content = { paddingValues ->
             Column(
@@ -79,6 +86,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                     .fillMaxSize()
                     .background(Color.White)
                     .padding(paddingValues)
+                    .imePadding()
             ) {
                 chatViewModel.saveAssistant()
                 ChatMessages(
@@ -115,15 +123,6 @@ fun ChatMessages(
         items(chatMessages.reversed()) { message ->
             MessageBubble(chatMessage = message)
         }
-        // Remove the "Thinking..." message logic
-        // if (isLoading) {
-        //     item {
-        //         val lastUserMessageIndex = chatMessages.indexOfLast { it.isUser }
-        //         if (lastUserMessageIndex != -1) {
-        //             MessageBubble(chatMessage = ChatMessage("Thinking...", getCurrentTimestamp(), false))
-        //         }
-        //     }
-        // }
     }
 }
 

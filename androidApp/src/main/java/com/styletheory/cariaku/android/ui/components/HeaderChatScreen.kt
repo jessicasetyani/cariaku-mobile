@@ -13,7 +13,7 @@ import com.styletheory.cariaku.android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String) {
+fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, modifier: Modifier = Modifier) {
     TopAppBar(
         title = {
             Row(
