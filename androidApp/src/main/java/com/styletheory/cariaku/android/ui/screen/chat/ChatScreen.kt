@@ -1,6 +1,14 @@
 package com.styletheory.cariaku.android.ui.screen.chat
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -49,7 +57,7 @@ import com.styletheory.cariaku.util.Constant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(onNavigateBack: () -> Unit) {
@@ -96,11 +104,33 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                         .weight(1f)
                         .fillMaxHeight()
                 )
-                ChatInput(
-                    message = inputMessage,
-                    onMessageChange = chatViewModel::updateInputMessage,
-                    onSend = { chatViewModel.sendMessage(inputMessage) }
-                )
+                AnimatedContent(
+                    targetState = isLoading,
+                    transitionSpec = {
+                        if (targetState) {
+                            slideInVertically { height -> height } + fadeIn() with
+                                slideOutVertically { height -> -height } + fadeOut()
+                        } else {
+                            slideInVertically { height -> -height } + fadeIn() with
+                                slideOutVertically { height -> height } + fadeOut()
+                        }.using(
+                            SizeTransform(clip = false)
+                        )
+                    }
+                ) { loading ->
+                    if (loading) {
+                        Text(
+                            text = "Thinking...",
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    } else {
+                        ChatInput(
+                            message = inputMessage,
+                            onMessageChange = chatViewModel::updateInputMessage,
+                            onSend = { chatViewModel.sendMessage(inputMessage) }
+                        )
+                    }
+                }
             }
         }
     )
