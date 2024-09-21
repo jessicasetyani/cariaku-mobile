@@ -71,21 +71,12 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
     val inputMessage by chatViewModel.inputMessage.collectAsState()
     val isLoading by chatViewModel.isLoading.collectAsState()
 
-    // Mutable state to manage the title
-    val title = remember { mutableStateOf("Assistant Name") }
-
-    // Update title based on loading state
-    if (isLoading) {
-        title.value = "Thinking..."
-    } else {
-        title.value = "Assistant Name"
-    }
-
     Scaffold(
         topBar = {
             HeaderChatScreen(
                 onNavigateBack = onNavigateBack,
-                title = title.value,
+                title = "Assistant Name",
+                isLoading = isLoading,
                 modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars))
         },
         content = { paddingValues ->
