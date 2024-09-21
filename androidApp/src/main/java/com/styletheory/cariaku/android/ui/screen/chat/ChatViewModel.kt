@@ -2,6 +2,7 @@ package com.styletheory.cariaku.android.ui.screen.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import android.util.Log
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.livequery.SubscriptionHandling
@@ -30,40 +31,36 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
         val getAssistantQuery = ParseQuery.getQuery<ParseObject>(AssistantTable.NAME)
         getAssistantQuery.whereContains(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_REFLECTION)
         getAssistantQuery.findInBackground { assistants, messageError ->
-            if(messageError == null) {
-                if(assistants.isEmpty()) {
+            if (messageError == null) {
+                if (assistants.isEmpty()) {
                     saveAssistantToDb()
                 }
             } else {
-                // Error
+                Log.e("ChatViewModel", "Error fetching assistant: ${messageError.message}")
             }
         }
     }
 
     fun saveAssistantToDb() {
         val assistant = ParseObject(AssistantTable.NAME)
-        // Store an object
         val localDateTime = LocalDateTime.now()
         val epochMillis = localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
 
         assistant.put(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_REFLECTION)
-        //   assistant.put(AssistantTable.CREATED_AT, epochMillis)
         assistant.put(AssistantTable.IS_ACTIVE, true)
         assistant.put(AssistantTable.DESCRIPTION, Constant.SYSTEM_PROMPT_INITIAL)
-        // Saving object
+
         assistant.saveInBackground { messageError ->
-            if(messageError == null) {
-                // Success
-                val responseSaveDb = "berhasil save"
+            if (messageError == null) {
+                Log.i("ChatViewModel", "Assistant saved successfully")
             } else {
-                // Error
-                val responseSaveDb = "error"
+                Log.e("ChatViewModel", "Error saving assistant: ${messageError.message}")
             }
         }
     }
 
     fun sendMessage(message: String) {
-        if(message.isNotBlank()) {
+        if (message.isNotBlank()) {
             val userMessage = ChatMessage(message, getCurrentTimestamp(), true)
             _chatMessages.value += userMessage
 
@@ -72,8 +69,8 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
                     val aiResponse = chatRepository.sendMessageToAI(message)
                     val aiMessage = ChatMessage(aiResponse, getCurrentTimestamp(), false)
                     _chatMessages.value += aiMessage
-                } catch(e: Exception) {
-                    // Handle error
+                } catch (e: Exception) {
+                    Log.e("ChatViewModel", "Error sending message: ${e.message}")
                 }
             }
 
