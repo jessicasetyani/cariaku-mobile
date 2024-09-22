@@ -76,16 +76,6 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
-                AnimatedVisibility(
-                    visible = !isLoading,
-                    enter = fadeIn(),
-                    exit = fadeOut()
-                ) {
-                    Text(
-                        text = displayedText,
-                        style = MaterialTheme.typography.headlineSmall
-                    )
-                }
             }
         },
         navigationIcon = {
