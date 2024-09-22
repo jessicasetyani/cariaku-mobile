@@ -21,20 +21,14 @@ import kotlinx.coroutines.launch
 fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boolean, modifier: Modifier = Modifier) {
     var displayedText by remember { mutableStateOf(title) }
     var thinkingTextVisible by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(isLoading) {
         if (isLoading) {
             thinkingTextVisible = true
             displayedText = "Thinking..."
-            scope.launch {
-                delay(1500) // Simulate thinking delay
-                thinkingTextVisible = false
-                displayedText = title
-            }
         } else {
-            displayedText = title
             thinkingTextVisible = false
+            displayedText = title
         }
     }
 
