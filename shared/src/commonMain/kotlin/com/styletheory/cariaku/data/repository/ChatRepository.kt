@@ -22,15 +22,16 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         )
 
         val response = openRouterClient.chatCompletion(chatRequest)
-        val aiMessage = response.choices.first().message.content + "\nTotal token: " +response.usage.totalTokens
+        val aiMessageContent = response.choices.first().message.content
+        val totalTokenInfo = "\nTotal token: " +response.usage.totalTokens
 
-        chatRequestMessages.add(Message(role = Constant.ROLE_ASSISTANT, content = aiMessage))
+        chatRequestMessages.add(Message(role = Constant.ROLE_ASSISTANT, content = aiMessageContent))
 
         if(response.usage.totalTokens >= Constant.RENEW_TOKEN_QUOTA) {
             summarizeConversation()
         }
 
-        return aiMessage
+        return aiMessageContent + totalTokenInfo
     }
 
     private suspend fun summarizeConversation() {
