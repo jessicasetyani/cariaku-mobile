@@ -95,33 +95,11 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                         .weight(1f)
                         .fillMaxHeight()
                 )
-                AnimatedContent(
-                    targetState = isLoading,
-                    transitionSpec = {
-                        if (targetState) {
-                            slideInVertically { height -> height } + fadeIn() with
-                                slideOutVertically { height -> -height } + fadeOut()
-                        } else {
-                            slideInVertically { height -> -height } + fadeIn() with
-                                slideOutVertically { height -> height } + fadeOut()
-                        }.using(
-                            SizeTransform(clip = false)
-                        )
-                    }
-                ) { loading ->
-                    if (loading) {
-                        Text(
-                            text = "Thinking...",
-                            modifier = Modifier.padding(8.dp)
-                        )
-                    } else {
-                        ChatInput(
+                ChatInput(
                             message = inputMessage,
                             onMessageChange = chatViewModel::updateInputMessage,
                             onSend = { chatViewModel.sendMessage(inputMessage) }
                         )
-                    }
-                }
             }
         }
     )
