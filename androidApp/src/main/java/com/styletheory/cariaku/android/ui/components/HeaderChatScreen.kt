@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boolean, modifier: Modifier = Modifier) {
     var displayedText by remember { mutableStateOf(title) }
-    var typingText by remember { mutableStateOf("") }
     var thinkingTextVisible by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
@@ -28,19 +27,13 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
         if (isLoading) {
             thinkingTextVisible = true
             displayedText = "Thinking..."
-            typingText = ""
             scope.launch {
                 delay(1500) // Simulate thinking delay
                 thinkingTextVisible = false
-                title.forEachIndexed { index, char ->
-                    typingText += char
-                    delay(100) // Adjust delay to control typing speed
-                }
                 displayedText = title
             }
         } else {
             displayedText = title
-            typingText = ""
             thinkingTextVisible = false
         }
     }
@@ -67,7 +60,7 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
                     )
                 }
                 AnimatedVisibility(
-                    visible = isLoading && !thinkingTextVisible,
+                    visible = !thinkingTextVisible,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
