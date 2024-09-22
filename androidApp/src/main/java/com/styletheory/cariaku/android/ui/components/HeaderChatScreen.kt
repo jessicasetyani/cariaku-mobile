@@ -11,8 +11,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.styletheory.cariaku.android.R
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.ui.graphics.graphicsLayer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -21,26 +26,18 @@ import kotlinx.coroutines.launch
 fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boolean, modifier: Modifier = Modifier) {
     var displayedText by remember { mutableStateOf(title) }
     var thinkingTextVisible by remember { mutableStateOf(false) }
-    var thinkingText by remember { mutableStateOf("Thinking") }
-    val scope = rememberCoroutineScope()
+    val thinkingText = "Thinking..."
+    val scale by animateFloatAsState(
+        targetValue = if (thinkingTextVisible) 1.2f else 1.0f,
+        animationSpec = tween(durationMillis = 500, easing = LinearEasing),
+        label = "ThinkingTextScale"
+    )
 
     LaunchedEffect(isLoading) {
         if (isLoading) {
             thinkingTextVisible = true
             displayedText = thinkingText
-            scope.launch {
-                while(isLoading) {
-                    thinkingText = "Thinking."
-                    delay(500)
-                    thinkingText = "Thinking.."
-                    delay(500)
-                    thinkingText = "Thinking..."
-                    delay(500)
-                }
-                thinkingTextVisible = false
-                displayedText = title
-            }
-            } else {
+        } else {
             thinkingTextVisible = false
             displayedText = title
         }
@@ -57,21 +54,15 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
                     modifier = Modifier.size(48.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                AnimatedVisibility(
-                    visible = thinkingTextVisible,
-                    enter = fadeIn(),
-                    exit = fadeOut()
-                ) {
+                if(thinkingTextVisible) {
                     Text(
-                        text = "Thinking...",
-                        style = MaterialTheme.typography.headlineSmall
+                        text = thinkingText,
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier
+                            .graphicsLayer(scaleX = scale, scaleY = scale)
+                            .animateContentSize()
                     )
-                }
-                AnimatedVisibility(
-                    visible = !thinkingTextVisible,
-                    enter = fadeIn(),
-                    exit = fadeOut()
-                ) {
+                } else {
                     Text(
                         text = displayedText,
                         style = MaterialTheme.typography.headlineSmall
