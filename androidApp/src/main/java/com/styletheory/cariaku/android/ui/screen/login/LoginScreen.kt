@@ -32,7 +32,5 @@ fun LoginScreen(navController: NavController) {
             Text("Continue")
         }
     }
-}
-
 
 }
