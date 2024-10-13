@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -320,18 +319,24 @@ fun WelcomePageContent(
             .fillMaxWidth()
             .zIndex(1f),
         colors = searchBarColors,
-        content = { // Search suggestions can be added here },
+        content = {
+            // Search suggestions can be added here
+        }
     )
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp)
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, top = 66.dp, bottom = 86.dp) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = 86.dp,
+                    bottom = 16.dp
+                ) // Adjust this value based on the height of the SearchBar and BottomNavigationBar
         ) {
             item {
                 Spacer(Modifier.height(16.dp))
@@ -341,7 +346,7 @@ fun WelcomePageContent(
 
             item {
                 QuickAccessSection(topAssistants)
-                Spacer(Modifier.height(24.dp))
+                Spacer(Modifier.height(14.dp))
             }
 
             item {
