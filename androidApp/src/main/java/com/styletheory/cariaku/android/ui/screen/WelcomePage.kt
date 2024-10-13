@@ -69,11 +69,11 @@ fun QuickAccessSection(
     ) {
         Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp), // Adds spacing between items
+            modifier = Modifier.fillMaxWidth()
         ) {
-            assistants.forEach { assistant ->
+            items(assistants) { assistant ->
                 OutlinedCard(
                     modifier = Modifier
                         .clickable(onClick = { /* Start conversation with assistant */ })
@@ -82,10 +82,9 @@ fun QuickAccessSection(
                         contentColor = MaterialTheme.colorScheme.onSurface
                     )
                 ) {
-                    Column(
-                    ) {
+                    Column {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_placeholder_assistant), // Replace with assistant image
+                            painter = painterResource(id = R.drawable.ic_placeholder_assistant),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(48.dp)
