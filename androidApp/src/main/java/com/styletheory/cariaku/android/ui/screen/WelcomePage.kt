@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.styletheory.cariaku.android.R
+import com.styletheory.cariaku.android.util.UserSession
 
 /**
  * A composable function that displays a section for quick access to frequently used assistants.
@@ -247,12 +248,17 @@ data class BottomNavigationItem(
  * The main composable function that represents the welcome page of the application.
  * It includes various sections like quick access, recent chats, and topic suggestions.
  */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomePage(
     onOpenChat: () -> Unit,
     navController: NavController
 ) {
+    if (!UserSession.isUserLoggedIn()) {
+        navController.navigate("loginScreen")
+        return
+    }
     WelcomePageContent(onOpenChat, navController)
 }
 

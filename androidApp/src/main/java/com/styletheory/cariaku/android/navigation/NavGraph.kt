@@ -41,7 +41,8 @@ fun SetupNavGraph(
         }
         composable<Screen.Login> {
             LoginScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                navController = navController
             )
         }
     }

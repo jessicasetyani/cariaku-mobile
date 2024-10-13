@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginScreen(onNavigateBack: () -> Unit) {
+fun LoginScreen(onNavigateBack: () -> Unit, navController: NavController) {
     val username = remember { mutableStateOf("") }
 
     Column {
@@ -28,7 +28,7 @@ fun LoginScreen(onNavigateBack: () -> Unit) {
             modifier = Modifier.fillMaxWidth()
         )
         Button(
-            onClick = { },
+            onClick = {  navController.navigate("checkEmailScreen") },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Continue")
