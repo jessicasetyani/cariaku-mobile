@@ -1,22 +1,17 @@
 package com.styletheory.cariaku.android.util
 
-import com.parse.ParseObject
-import com.parse.ParseQuery
+object UserSession {
+    private var isLoggedIn: Boolean = false
 
-/**
- * Created by Jessica Setyani on 13-10-2024.
- */
-class UserSession {
     fun isUserLoggedIn(): Boolean {
-        return false
+        return isLoggedIn
     }
 
-    fun getUser(username: String) {
-        //Filters objects in which a specific key’s value is equal to the provided value.
-        val getUserQuery = ParseQuery.getQuery<ParseObject>(AssistantTable.NAME)
-        getUserQuery.whereEqualTo(AssistantTable.ASSISTANT_NAME, username)
-        getUserQuery.findInBackground { users, messageError ->
+    fun logIn() {
+        isLoggedIn = true
+    }
 
-        }
+    fun logOut() {
+        isLoggedIn = false
     }
 }
