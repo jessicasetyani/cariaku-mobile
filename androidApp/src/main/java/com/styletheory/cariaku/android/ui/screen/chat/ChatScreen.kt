@@ -87,7 +87,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                     .padding(paddingValues)
                     .imePadding()
             ) {
-                chatViewModel.saveAssistant()
+               // chatViewModel.saveAssistant()
                 ChatMessages(
                     chatMessages = chatMessages,
                     isLoading = isLoading,

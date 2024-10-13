@@ -4,12 +4,14 @@ object AssistantTable {
     const val NAME = "Assistant"
     const val ASSISTANT_NAME = "name"
     const val ICON_URL = "icon_url"
-    const val CREATED_AT = "createdAt"
-    const val UPDATED_AT = "updatedAt"
     const val CUSTOM_PROMPT = "custom_prompt"
     const val TYPE = "type"
     const val IS_ACTIVE = "is_active"
     const val DESCRIPTION = "description"
+    const val MODEL = "model"
+    const val LANGUAGE = "language"
+    const val VERSION = "version"
+    const val CATEGORY = "category"
 }
 
 object ChatRoomTable {

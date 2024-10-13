@@ -8,4 +8,6 @@ sealed class Screen {
     data object Home : Screen()
     @Serializable
     data object Chat : Screen()
+    @Serializable
+    data object Login : Screen()
 }

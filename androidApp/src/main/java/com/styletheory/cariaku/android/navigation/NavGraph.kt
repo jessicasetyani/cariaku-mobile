@@ -10,6 +10,7 @@ import com.styletheory.cariaku.android.ui.screen.WelcomePage
 import com.styletheory.cariaku.android.ui.screen.chat.ChatScreen
 import com.styletheory.cariaku.android.ui.screen.chat.ChatViewModel
 import com.styletheory.cariaku.android.ui.screen.chat.ChatViewModelFactory
+import com.styletheory.cariaku.android.ui.screen.login.LoginScreen
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
@@ -35,6 +36,11 @@ fun SetupNavGraph(
         }
         composable<Screen.Chat> {
             ChatScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+        composable<Screen.Login> {
+            LoginScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
