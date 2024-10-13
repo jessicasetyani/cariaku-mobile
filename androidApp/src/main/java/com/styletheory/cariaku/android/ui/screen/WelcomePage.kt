@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -290,30 +291,36 @@ fun WelcomePageContent(
         BottomNavigationItem(Icons.Default.Person, "Profile")
     )
 
+    // Search suggestions can be added here
     SearchBar(
-        query = searchQuery,
-        onQueryChange = { searchQuery = it },
-        onSearch = { /* Handle search */ },
-        active = false,
-        onActiveChange = onActiveChange,
+        inputField = {
+            SearchBarDefaults.InputField(
+                query = searchQuery,
+                onQueryChange = { searchQuery = it },
+                onSearch = { /* Handle search */ },
+                expanded = false,
+                onExpandedChange = onActiveChange,
+                placeholder = { Text("Cari Apa Nih? CariAku") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                trailingIcon = {
+                    if(searchQuery.isNotEmpty()) {
+                        Icon(
+                            Icons.Default.Clear,
+                            contentDescription = "Clear Search",
+                            modifier = Modifier.clickable { searchQuery = "" }
+                        )
+                    }
+                },
+                colors = searchBarColors.inputFieldColors,
+            )
+        },
+        expanded = false,
+        onExpandedChange = onActiveChange,
         modifier = Modifier
             .fillMaxWidth()
             .zIndex(1f),
-        placeholder = { Text("Cari Apa Nih? CariAku") },
-        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-        trailingIcon = {
-            if(searchQuery.isNotEmpty()) {
-                Icon(
-                    Icons.Default.Clear,
-                    contentDescription = "Clear Search",
-                    modifier = Modifier.clickable { searchQuery = "" }
-                )
-            }
-        },
         colors = searchBarColors,
-        content = {
-            // Search suggestions can be added here
-        }
+        content = { // Search suggestions can be added here },
     )
 
     Box(
