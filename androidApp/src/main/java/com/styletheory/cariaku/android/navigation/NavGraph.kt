@@ -1,21 +1,12 @@
 package com.styletheory.cariaku.android.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.styletheory.cariaku.android.ui.screen.WelcomePage
+import com.styletheory.cariaku.android.ui.screen.auth.AuthScreen
 import com.styletheory.cariaku.android.ui.screen.chat.ChatScreen
-import com.styletheory.cariaku.android.ui.screen.chat.ChatViewModel
-import com.styletheory.cariaku.android.ui.screen.chat.ChatViewModelFactory
-import com.styletheory.cariaku.android.ui.screen.login.LoginScreen
-import com.styletheory.cariaku.data.remote.OpenRouterClient
-import com.styletheory.cariaku.data.remote.createHttpClient
-import com.styletheory.cariaku.data.repository.ChatRepository
-import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
-import io.ktor.client.engine.okhttp.OkHttp
 
 @Composable
 fun SetupNavGraph(
@@ -26,6 +17,14 @@ fun SetupNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
+        composable<Screen.Auth> {
+            AuthScreen(
+                onAuthenticated = {
+                    navController.popBackStack()
+                    navController.navigate(Screen.Home)
+                }
+            )
+        }
         composable<Screen.Home> {
             WelcomePage(
                 onOpenChat = {
@@ -37,12 +36,6 @@ fun SetupNavGraph(
         composable<Screen.Chat> {
             ChatScreen(
                 onNavigateBack = { navController.popBackStack() }
-            )
-        }
-        composable<Screen.Login> {
-            LoginScreen(
-                onNavigateBack = { navController.popBackStack() },
-                navController = navController
             )
         }
     }

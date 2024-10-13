@@ -53,7 +53,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.styletheory.cariaku.android.R
-import com.styletheory.cariaku.android.util.UserSession
 
 /**
  * A composable function that displays a section for quick access to frequently used assistants.
@@ -255,10 +254,6 @@ fun WelcomePage(
     onOpenChat: () -> Unit,
     navController: NavController
 ) {
-    if (!UserSession.isUserLoggedIn()) {
-        navController.navigate("loginScreen")
-        return
-    }
     WelcomePageContent(onOpenChat, navController)
 }
 

@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import com.parse.ParseUser
 import com.styletheory.cariaku.android.navigation.Screen
 import com.styletheory.cariaku.android.navigation.SetupNavGraph
 
@@ -30,7 +31,8 @@ private fun AppContent() {
     MyApplicationTheme {
         SetupNavGraph(
             navController = rememberNavController(),
-            startDestination = Screen.Home
+            startDestination = if (ParseUser.getCurrentUser() != null) Screen.Home
+            else Screen.Auth
         )
     }
 }
