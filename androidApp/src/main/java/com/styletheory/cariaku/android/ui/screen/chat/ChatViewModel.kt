@@ -6,7 +6,7 @@ import android.util.Log
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.livequery.SubscriptionHandling
-import com.styletheory.cariaku.android.util.AssistantTable
+import com.styletheory.cariaku.android.domain.AssistantTable
 import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant

@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.android.util
+package com.styletheory.cariaku.android.domain
 
 object UserTable {
     const val NAME = "User"

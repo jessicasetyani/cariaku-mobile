@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.styletheory.cariaku.android.ui.screen.WelcomePage
 import com.styletheory.cariaku.android.ui.screen.auth.AuthScreen
 import com.styletheory.cariaku.android.ui.screen.chat.ChatScreen
+import com.styletheory.cariaku.android.ui.screen.home.HomeScreen
 
 @Composable
 fun SetupNavGraph(
@@ -26,13 +27,20 @@ fun SetupNavGraph(
             )
         }
         composable<Screen.Home> {
-            WelcomePage(
+            HomeScreen(
                 onOpenChat = {
                     navController.navigate(Screen.Chat)
-                },
-                navController = navController
+                }
             )
         }
+//        composable<Screen.Home> {
+//            WelcomePage(
+//                onOpenChat = {
+//                    navController.navigate(Screen.Chat)
+//                },
+//                navController = navController
+//            )
+//        }
         composable<Screen.Chat> {
             ChatScreen(
                 onNavigateBack = { navController.popBackStack() }
