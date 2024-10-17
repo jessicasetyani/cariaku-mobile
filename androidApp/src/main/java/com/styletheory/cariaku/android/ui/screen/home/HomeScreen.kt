@@ -66,6 +66,7 @@ import com.styletheory.cariaku.android.ui.theme.OrangeYellow2
 import com.styletheory.cariaku.android.ui.theme.OrangeYellow3
 import com.styletheory.cariaku.android.ui.theme.TextWhite
 import com.styletheory.cariaku.android.util.standardQuadFromTo
+import java.time.LocalTime
 
 @Composable
 fun HomeScreen(onOpenChat: () -> Unit) {
@@ -209,7 +210,7 @@ fun GreetingSection(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Good morning, $name!",
+                text = "${getGreeting()}, $name!",
                 style = MaterialTheme.typography.headlineMedium
             )
             Text(
@@ -223,6 +224,15 @@ fun GreetingSection(
             tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
+    }
+}
+
+fun getGreeting(time: LocalTime = LocalTime.now()): String {
+    return when (time.hour) {
+        in 5..11 -> "Good Morning"
+        in 12..16 -> "Good Afternoon"
+        in 17..20 -> "Good Evening"
+        else -> "Good Night"
     }
 }
 
