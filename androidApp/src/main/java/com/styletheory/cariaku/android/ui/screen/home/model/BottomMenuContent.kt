@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.android.ui.screen
+package com.styletheory.cariaku.android.ui.screen.home.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

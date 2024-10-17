@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
@@ -30,10 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,9 +40,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.styletheory.cariaku.android.R
-import com.styletheory.cariaku.android.ui.screen.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.Feature
-import com.styletheory.cariaku.android.ui.theme.AquaBlue
+import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
+import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenu
+import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.theme.Beige1
 import com.styletheory.cariaku.android.ui.theme.Beige2
 import com.styletheory.cariaku.android.ui.theme.Beige3
@@ -55,7 +51,6 @@ import com.styletheory.cariaku.android.ui.theme.BlueViolet1
 import com.styletheory.cariaku.android.ui.theme.BlueViolet2
 import com.styletheory.cariaku.android.ui.theme.BlueViolet3
 import com.styletheory.cariaku.android.ui.theme.ButtonBlue
-import com.styletheory.cariaku.android.ui.theme.DarkerButtonBlue
 import com.styletheory.cariaku.android.ui.theme.DeepBlue
 import com.styletheory.cariaku.android.ui.theme.LightGreen1
 import com.styletheory.cariaku.android.ui.theme.LightGreen2
@@ -77,7 +72,14 @@ fun HomeScreen(onOpenChat: () -> Unit) {
     ) {
         Column {
             GreetingSection()
-            ChipSection(chips = listOf("Sweet sleep", "Insomnia", "Depression"))
+            CariAkuAndalanSection(
+                chips = listOf(
+                    AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant),
+                    AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant),
+                    AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant),
+                    AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant)
+                )
+            )
             CurrentMeditation()
             FeatureSection(
                 features = listOf(
@@ -116,84 +118,12 @@ fun HomeScreen(onOpenChat: () -> Unit) {
             items = listOf(
                 BottomMenuContent("Home", Icons.Default.Home),
                 BottomMenuContent("Favorite", Icons.Default.Favorite),
-//                BottomMenuContent("Community", Icons.Default.People),
-//                BottomMenuContent("Phoning", Icons.Default.Call),
                 BottomMenuContent("Profile", Icons.Default.Person),
             ), modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
 }
 
-@Composable
-fun BottomMenu(
-    items: List<BottomMenuContent>,
-    modifier: Modifier = Modifier,
-    activeHighlightColor: Color = ButtonBlue,
-    activeTextColor: Color = Color.White,
-    inactiveTextColor: Color = AquaBlue,
-    initialSelectedItemIndex: Int = 0
-) {
-    var selectedItemIndex by remember {
-        mutableStateOf(initialSelectedItemIndex)
-    }
-    Row(
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .fillMaxWidth()
-            .background(DeepBlue)
-            .padding(15.dp)
-    ) {
-        items.forEachIndexed { index, item ->
-            BottomMenuItem(
-                item = item,
-                isSelected = index == selectedItemIndex,
-                activeHighlightColor = activeHighlightColor,
-                activeTextColor = activeTextColor,
-                inactiveTextColor = inactiveTextColor
-            ) {
-                selectedItemIndex = index
-            }
-        }
-    }
-}
-
-@Composable
-fun BottomMenuItem(
-    item: BottomMenuContent,
-    isSelected: Boolean = false,
-    activeHighlightColor: Color = ButtonBlue,
-    activeTextColor: Color = Color.White,
-    inactiveTextColor: Color = AquaBlue,
-    onItemClick: () -> Unit
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.clickable {
-            onItemClick()
-        }
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(if(isSelected) activeHighlightColor else Color.Transparent)
-                .padding(10.dp)
-        ) {
-            Icon(
-                item.icon,
-                contentDescription = item.title,
-                tint = if(isSelected) activeTextColor else inactiveTextColor,
-                modifier = Modifier.size(20.dp)
-            )
-        }
-        Text(
-            text = item.title,
-            color = if(isSelected) activeTextColor else inactiveTextColor
-        )
-    }
-}
 
 @Composable
 fun GreetingSection(
@@ -228,40 +158,11 @@ fun GreetingSection(
 }
 
 fun getGreeting(time: LocalTime = LocalTime.now()): String {
-    return when (time.hour) {
+    return when(time.hour) {
         in 5..11 -> "Good Morning"
         in 12..16 -> "Good Afternoon"
         in 17..20 -> "Good Evening"
         else -> "Good Night"
-    }
-}
-
-@Composable
-fun ChipSection(
-    chips: List<String>
-) {
-    var selectedChipIndex by remember {
-        mutableStateOf(0)
-    }
-    LazyRow {
-        items(chips.size) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
-                    .clickable {
-                        selectedChipIndex = it
-                    }
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(
-                        if(selectedChipIndex == it) ButtonBlue
-                        else DarkerButtonBlue
-                    )
-                    .padding(15.dp)
-            ) {
-                Text(text = chips[it], color = TextWhite)
-            }
-        }
     }
 }
 
