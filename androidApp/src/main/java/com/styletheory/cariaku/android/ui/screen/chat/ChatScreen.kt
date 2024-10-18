@@ -1,14 +1,7 @@
 package com.styletheory.cariaku.android.ui.screen.chat
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,11 +29,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -50,10 +43,9 @@ import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
+import com.styletheory.cariaku.util.Constant
 import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
 import io.ktor.client.engine.okhttp.OkHttp
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import com.styletheory.cariaku.util.Constant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -77,7 +69,8 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                 onNavigateBack = onNavigateBack,
                 title = "Assistant Name",
                 isLoading = isLoading,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars))
+                modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars)
+            )
         },
         content = { paddingValues ->
             Column(
@@ -87,7 +80,7 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                     .padding(paddingValues)
                     .imePadding()
             ) {
-               // chatViewModel.saveAssistant()
+                // chatViewModel.saveAssistant()
                 ChatMessages(
                     chatMessages = chatMessages,
                     isLoading = isLoading,
@@ -96,10 +89,10 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                         .fillMaxHeight()
                 )
                 ChatInput(
-                            message = inputMessage,
-                            onMessageChange = chatViewModel::updateInputMessage,
-                            onSend = { chatViewModel.sendMessage(inputMessage) }
-                        )
+                    message = inputMessage,
+                    onMessageChange = chatViewModel::updateInputMessage,
+                    onSend = { chatViewModel.sendMessage(inputMessage) }
+                )
             }
         }
     )
