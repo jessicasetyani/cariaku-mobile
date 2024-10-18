@@ -37,7 +37,7 @@ fun CariAkuAndalanSection(assistantList: List<AssistantMenuContent>) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(top = 16.dp, end = 7.5.dp, bottom = 100.dp)
+            contentPadding = PaddingValues(top = 16.dp, end = 7.5.dp, bottom = 16.dp)
         ) {
             items(assistantList.size) {
                 FeatureItem(assistantMenu = assistantList[it])

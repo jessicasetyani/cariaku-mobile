@@ -66,7 +66,7 @@ fun CariAkuHistorySection(
 
     Text(
         text = "CariAku selalu siap lanjut ngobrol 24/7!",
-        modifier = Modifier.padding(top = 4.dp),
+        modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
         style = MaterialTheme.typography.bodyMedium,
         color = Color.Gray
     )

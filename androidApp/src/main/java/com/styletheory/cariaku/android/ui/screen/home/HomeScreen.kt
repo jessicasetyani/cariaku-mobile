@@ -102,10 +102,8 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
         Spacer(modifier = Modifier.height(8.dp))
 
         CariAkuAndalanSection(assistantList = topAssistants)
-        Spacer(modifier = Modifier.height(8.dp))
 
         CariAkuHistorySection(chatHistories = chatHistories)
-        Spacer(modifier = Modifier.height(8.dp))
 
         TrendingTopicSection(topics = trendingTopics)
     }
