@@ -38,13 +38,12 @@ fun CariAkuAndalanSection(
         mutableStateOf(0)
     }
     Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
-    Spacer(modifier = Modifier.height(8.dp))
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+    LazyRow(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
         items(chips.size) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
+                    .padding(end = 8.dp, top = 15.dp, bottom = 15.dp)
                     .clickable {
                         selectedChipIndex = it
                     }

@@ -3,7 +3,9 @@ package com.styletheory.cariaku.android.ui.screen.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -18,7 +20,6 @@ import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 fun HomeScreen(
     onOpenChat: () -> Unit
 ) {
-
     Scaffold(
         topBar = {
             CustomTopAppBar()
@@ -36,9 +37,10 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
         GreetingSection(username = username)
+        Spacer(modifier = Modifier.height(8.dp))
         CariAkuAndalanSection(
             chips = listOf(
                 AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant),
@@ -47,6 +49,6 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
                 AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant)
             )
         )
-        
+
     }
 }
