@@ -1,6 +1,7 @@
 package com.styletheory.cariaku.android.ui.screen.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,18 @@ import com.styletheory.cariaku.android.R
 import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
+import com.styletheory.cariaku.android.ui.theme.Beige1
+import com.styletheory.cariaku.android.ui.theme.Beige2
+import com.styletheory.cariaku.android.ui.theme.Beige3
+import com.styletheory.cariaku.android.ui.theme.BlueViolet1
+import com.styletheory.cariaku.android.ui.theme.BlueViolet2
+import com.styletheory.cariaku.android.ui.theme.BlueViolet3
+import com.styletheory.cariaku.android.ui.theme.LightGreen1
+import com.styletheory.cariaku.android.ui.theme.LightGreen2
+import com.styletheory.cariaku.android.ui.theme.LightGreen3
+import com.styletheory.cariaku.android.ui.theme.OrangeYellow1
+import com.styletheory.cariaku.android.ui.theme.OrangeYellow2
+import com.styletheory.cariaku.android.ui.theme.OrangeYellow3
 import java.time.LocalTime
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -53,13 +66,20 @@ fun HomeScreen(
 
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ContentArea(modifier: Modifier = Modifier, username: String) {
     val topAssistants = listOf(
-        AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant),
-        AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant),
-        AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant),
-        AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant)
+        AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant, BlueViolet1, BlueViolet2, BlueViolet3),
+        AssistantMenuContent(
+            "Assistant 2", R.drawable.ic_placeholder_assistant, LightGreen1, LightGreen2, LightGreen3
+        ),
+        AssistantMenuContent(
+            "Assistant 3", R.drawable.ic_placeholder_assistant, OrangeYellow1, OrangeYellow2, OrangeYellow3
+        ),
+        AssistantMenuContent(
+            "Assistant 4", R.drawable.ic_placeholder_assistant, Beige1, Beige2, Beige3
+        )
     )
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
@@ -73,7 +93,7 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
 
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -81,7 +101,7 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
         GreetingSection(username = username)
         Spacer(modifier = Modifier.height(8.dp))
 
-        CariAkuAndalanSection(assistants = topAssistants)
+        CariAkuAndalanSection(assistantList = topAssistants)
         Spacer(modifier = Modifier.height(8.dp))
 
         CariAkuHistorySection(chatHistories = chatHistories)
