@@ -6,9 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -43,7 +41,7 @@ fun CariAkuAndalanSection(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(end = 8.dp, top = 15.dp, bottom = 15.dp)
+                    .padding(end = 12.dp, top = 8.dp, bottom = 16.dp)
                     .clickable {
                         selectedChipIndex = it
                     }
@@ -57,7 +55,7 @@ fun CariAkuAndalanSection(
                 Column {
                     Image(
                         painter = painterResource(id = chips[it].assistantImage),
-                        contentDescription = null,
+                        contentDescription = chips[it].assistantName,
                         modifier = Modifier
                             .size(48.dp)
                             .clip(MaterialTheme.shapes.small)

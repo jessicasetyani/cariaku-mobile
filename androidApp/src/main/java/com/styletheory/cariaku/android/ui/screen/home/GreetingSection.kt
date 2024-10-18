@@ -35,7 +35,7 @@ fun GreetingSection(
             )
             Text(
                 text = "Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSecondary,
                 textAlign = TextAlign.Left,
                 modifier = Modifier.padding(top = 4.dp)
