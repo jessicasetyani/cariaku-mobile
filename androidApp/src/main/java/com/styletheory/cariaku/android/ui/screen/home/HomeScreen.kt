@@ -61,10 +61,14 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
         AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant),
         AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant)
     )
-
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
         HistoryMenuItem("Chat 2: Movie recommendations?", "This is summaries of Movie recommendations?", LocalTime.now().minusHours(1)),
+    )
+    val trendingTopics = listOf(
+        "Cara hemat uang jajan? CariAku tau nih!",
+        "Mau tau rekomendasi film seru buat ditonton?",
+        "Pengen dapet inspirasi buat dekorasi kamar?"
     )
 
     Column(
@@ -81,5 +85,8 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
         Spacer(modifier = Modifier.height(8.dp))
 
         CariAkuHistorySection(chatHistories = chatHistories)
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TrendingTopicSection(topics = trendingTopics)
     }
 }
