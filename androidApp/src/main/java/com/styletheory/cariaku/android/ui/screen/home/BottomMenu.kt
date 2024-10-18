@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,17 +24,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
-import com.styletheory.cariaku.android.ui.theme.AquaBlue
-import com.styletheory.cariaku.android.ui.theme.ButtonBlue
-import com.styletheory.cariaku.android.ui.theme.DeepBlue
 
 @Composable
 fun BottomMenu(
     items: List<BottomMenuContent>,
     modifier: Modifier = Modifier,
-    activeHighlightColor: Color = ButtonBlue,
-    activeTextColor: Color = Color.White,
-    inactiveTextColor: Color = AquaBlue,
+    activeHighlightColor: Color = MaterialTheme.colorScheme.onPrimary,
+    activeTextColor: Color = MaterialTheme.colorScheme.primary,
+    inactiveTextColor: Color = MaterialTheme.colorScheme.onPrimary,
     initialSelectedItemIndex: Int = 0
 ) {
     var selectedItemIndex by remember {
@@ -44,7 +42,7 @@ fun BottomMenu(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .background(DeepBlue)
+            .background(MaterialTheme.colorScheme.onBackground)
             .padding(15.dp)
     ) {
         items.forEachIndexed { index, item ->
@@ -65,9 +63,9 @@ fun BottomMenu(
 fun BottomMenuItem(
     item: BottomMenuContent,
     isSelected: Boolean = false,
-    activeHighlightColor: Color = ButtonBlue,
-    activeTextColor: Color = Color.White,
-    inactiveTextColor: Color = AquaBlue,
+    activeHighlightColor: Color = MaterialTheme.colorScheme.onPrimary,
+    activeTextColor: Color = MaterialTheme.colorScheme.primary,
+    inactiveTextColor: Color = MaterialTheme.colorScheme.onPrimary,
     onItemClick: () -> Unit
 ) {
     Column(
