@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.styletheory.cariaku.android.R
 import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
+import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
+import java.time.LocalTime
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -53,6 +55,18 @@ fun HomeScreen(
 
 @Composable
 fun ContentArea(modifier: Modifier = Modifier, username: String) {
+    val topAssistants = listOf(
+        AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant),
+        AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant),
+        AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant),
+        AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant)
+    )
+
+    val chatHistories = listOf(
+        HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
+        HistoryMenuItem("Chat 2: Movie recommendations?", "This is summaries of Movie recommendations?", LocalTime.now().minusHours(1)),
+    )
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -62,15 +76,10 @@ fun ContentArea(modifier: Modifier = Modifier, username: String) {
     ) {
         GreetingSection(username = username)
         Spacer(modifier = Modifier.height(8.dp))
-        CariAkuAndalanSection(
-            chips = listOf(
-                AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant),
-                AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant),
-                AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant),
-                AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant)
-            )
-        )
+
+        CariAkuAndalanSection(assistants = topAssistants)
         Spacer(modifier = Modifier.height(8.dp))
-        CariAkuHistorySection()
+
+        CariAkuHistorySection(chatHistories = chatHistories)
     }
 }

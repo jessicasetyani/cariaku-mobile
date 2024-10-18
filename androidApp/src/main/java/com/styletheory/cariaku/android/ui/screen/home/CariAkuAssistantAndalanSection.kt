@@ -30,14 +30,14 @@ import com.styletheory.cariaku.android.ui.theme.DarkerButtonBlue
 
 @Composable
 fun CariAkuAndalanSection(
-    chips: List<AssistantMenuContent>
+    assistants: List<AssistantMenuContent>
 ) {
     var selectedChipIndex by remember {
         mutableStateOf(0)
     }
     Text(text = "CariAku Andalan", style = MaterialTheme.typography.headlineSmall)
     LazyRow(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-        items(chips.size) {
+        items(assistants.size) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -54,15 +54,15 @@ fun CariAkuAndalanSection(
             ) {
                 Column {
                     Image(
-                        painter = painterResource(id = chips[it].assistantImage),
-                        contentDescription = chips[it].assistantName,
+                        painter = painterResource(id = assistants[it].assistantImage),
+                        contentDescription = assistants[it].assistantName,
                         modifier = Modifier
                             .size(48.dp)
                             .clip(MaterialTheme.shapes.small)
                             .padding(top = 8.dp)
                     )
                     Text(
-                        text = chips[it].assistantName,
+                        text = assistants[it].assistantName,
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.White,
                         modifier = Modifier
