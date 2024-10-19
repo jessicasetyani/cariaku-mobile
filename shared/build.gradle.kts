@@ -11,9 +11,9 @@ plugins {
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_17)
-            }
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     listOf(
@@ -34,15 +34,22 @@ kotlin {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.parse)
             implementation(libs.parselivequery.android)
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         nativeMain.dependencies { //iOS
             implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
+            //put your multiplatform dependencies here
             implementation(libs.bundles.ktor)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.coil.compose)
-        //put your multiplatform dependencies here
+
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.lifecycle.viewmodel)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
