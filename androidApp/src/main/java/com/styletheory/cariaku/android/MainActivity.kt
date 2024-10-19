@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.parse.ParseUser
 import com.styletheory.cariaku.android.navigation.Screen
 import com.styletheory.cariaku.android.navigation.SetupNavGraph
+import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +30,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun AppContent() {
     MyApplicationTheme {
-        SetupNavGraph(
-            navController = rememberNavController(),
-            startDestination = if (ParseUser.getCurrentUser() != null) Screen.Home
-            else Screen.Auth
-        )
+        KoinContext {
+            SetupNavGraph(
+                navController = rememberNavController(),
+                startDestination = if(ParseUser.getCurrentUser() != null) Screen.Home
+                else Screen.Auth
+            )
+        }
     }
 }

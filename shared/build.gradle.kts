@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.parse)
             implementation(libs.parselivequery.android)
+
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
         }
@@ -50,6 +51,9 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.viewmodel)
+
+            api(libs.datastore.preferences)
+            api(libs.datastore)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

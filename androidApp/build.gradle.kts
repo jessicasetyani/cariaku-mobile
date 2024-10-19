@@ -53,4 +53,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.ktor.client.okhttp)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }

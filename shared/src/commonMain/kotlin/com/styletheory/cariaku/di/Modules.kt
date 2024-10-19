@@ -6,5 +6,6 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val sharedModule = module {
-
+//    single<MyRepository> { MyRepositoryImpl(get()) }
+//    viewModel { AssistantAndalanViewModel(get()) }
 }

@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,10 +23,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.styletheory.cariaku.data.local.DataStoreRepository
+import com.styletheory.cariaku.data.local.createDataStore
+import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(onAuthenticated: () -> Unit) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val dataStoreRepository = remember {
+        DataStoreRepository(dataStore = createDataStore(context = context))
+    }
     val viewModel = viewModel<AuthViewModel>()
     val myUsername by viewModel.myUsername
     val myPassword by viewModel.myPassword
@@ -58,7 +67,12 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
         Button(
             onClick = {
                 viewModel.onSignInClick(
-                    onSuccess = onAuthenticated,
+                    onSuccess = { userId ->
+                        onAuthenticated()
+                        scope.launch {
+                            dataStoreRepository.saveUserId(userId)
+                        }
+                    },
                     onError = {
                         Toast.makeText(context, it, Toast.LENGTH_LONG).show()
                     }
