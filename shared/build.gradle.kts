@@ -32,6 +32,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+
+            //back4app
+            implementation(libs.androidx.core)
             implementation(libs.parse)
             implementation(libs.parselivequery.android)
 
@@ -47,6 +50,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.coil.compose)
 
+            //koin
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)

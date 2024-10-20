@@ -27,18 +27,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.android.ui.components.HeaderChatScreen
 import com.styletheory.cariaku.android.ui.components.MessageBubble
+import com.styletheory.cariaku.data.local.DataStoreRepository
+import com.styletheory.cariaku.data.local.createDataStore
 import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
@@ -62,6 +67,17 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
     val chatMessages by chatViewModel.chatMessages.collectAsState()
     val inputMessage by chatViewModel.inputMessage.collectAsState()
     val isLoading by chatViewModel.isLoading.collectAsState()
+
+    val context = LocalContext.current
+    var savedUserId: String = remember { "" }
+    val dataStoreRepository = remember {
+        DataStoreRepository(dataStore = createDataStore(context = context))
+    }
+
+    LaunchedEffect(Unit) {
+        savedUserId = dataStoreRepository.getUserId().orEmpty()
+    }
+
 
     Scaffold(
         topBar = {

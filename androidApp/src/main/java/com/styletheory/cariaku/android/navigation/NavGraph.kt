@@ -26,21 +26,21 @@ fun SetupNavGraph(
                 }
             )
         }
-        composable<Screen.Home> {
-            HomeScreen(
-                onOpenChat = {
-                    navController.navigate(Screen.Chat)
-                }
-            )
-        }
 //        composable<Screen.Home> {
-//            WelcomePage(
+//            HomeScreen(
 //                onOpenChat = {
 //                    navController.navigate(Screen.Chat)
-//                },
-//                navController = navController
+//                }
 //            )
 //        }
+        composable<Screen.Home> {
+            WelcomePage(
+                onOpenChat = {
+                    navController.navigate(Screen.Chat)
+                },
+                navController = navController
+            )
+        }
         composable<Screen.Chat> {
             ChatScreen(
                 onNavigateBack = { navController.popBackStack() }

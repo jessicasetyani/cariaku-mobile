@@ -1,4 +1,4 @@
-package com.styletheory.cariaku.android.domain.back4App
+package com.styletheory.cariaku.android.domain.database
 
 import com.parse.ParseObject
 

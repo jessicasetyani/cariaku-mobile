@@ -32,10 +32,10 @@ class DataStoreRepository(
         }
     }
 
-    suspend fun getUserId(): String? {
+    suspend fun getUserId(): String {
         return dataStore.data.map { preferences ->
             preferences[USER_ID_KEY]
-        }.first()
+        }.first() ?: ""
     }
 
     suspend fun saveTimestamp(timestamp: Long): Boolean =
