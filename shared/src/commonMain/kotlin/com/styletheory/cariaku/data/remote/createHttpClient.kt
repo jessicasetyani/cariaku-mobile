@@ -4,6 +4,9 @@ import com.styletheory.cariaku.util.Constant.HELICONE_API_KEY
 import com.styletheory.cariaku.util.Constant.OPENROUTER_API_KEY
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
+import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -32,7 +35,8 @@ fun createHttpClient(engine: HttpClientEngine): HttpClient {
         }
 //        install(Auth) {
 //            bearer {
-//                loadTokens { BearerTokens(apiKey, apiKey) }
+//                loadTokens { BearerTokens("${OPENROUTER_API_KEY}", "${OPENROUTER_API_KEY}") }
+//
 //            }
 //        }
     }

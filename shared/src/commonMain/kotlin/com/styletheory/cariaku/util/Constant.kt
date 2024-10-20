@@ -5,7 +5,7 @@ package com.styletheory.cariaku.util
  */
 object Constant {
     const val MODEL_AI_HERMES = "perplexity/llama-3.1-sonar-small-128k-online"
-    const val MODEL_AI_LIQUID = "liquid/lfm-40b"
+    const val MODEL_AI_LIQUID = "meta-llama/llama-3.2-1b-instruct:free"
     const val OPENROUTER_API_KEY = "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"
     const val HELICONE_API_KEY = "pk-helicone-56oieny-d7kuloa-r2jwiwq-mzb5rki"
     const val YOUR_SITE_URL = "https://cariaku.ai"
