@@ -32,7 +32,7 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
 
     fun saveAssistant() {
         val getAssistantQuery = ParseQuery.getQuery<ParseObject>(AssistantTable.NAME)
-        getAssistantQuery.whereContains(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_REFLECTION)
+        getAssistantQuery.whereContains(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_HERMES)
         getAssistantQuery.findInBackground { assistants, messageError ->
             if (messageError == null) {
                 if (assistants.isEmpty()) {
@@ -49,7 +49,7 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
         val localDateTime = LocalDateTime.now()
         val epochMillis = localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
 
-        assistant.put(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_REFLECTION)
+        assistant.put(AssistantTable.ASSISTANT_NAME, Constant.MODEL_AI_HERMES)
         assistant.put(AssistantTable.IS_ACTIVE, true)
         assistant.put(AssistantTable.DESCRIPTION, Constant.SYSTEM_PROMPT_INITIAL)
 

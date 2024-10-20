@@ -4,9 +4,8 @@ package com.styletheory.cariaku.util
  * Created by Jessica Setyani on 15-09-2024.
  */
 object Constant {
-    const val MODEL_AI_REFLECTION = "liquid/lfm-40b"
     const val MODEL_AI_HERMES = "nousresearch/hermes-3-llama-3.1-405b:free"
-    const val MODEL_AI_GEMINI = "google/gemini-flash-8b-1.5-exp"
+    const val MODEL_AI_LIQUID = "liquid/lfm-40b"
     const val API_KEY_OPEN_ROUTE = "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"
     const val PROJECT_NAME_CARI_AKU = "CariAku"
     const val HEADER_X_TITLE = "X-Title"

@@ -17,7 +17,7 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         chatRequestMessages.add(Message(role = Constant.ROLE_USER, content = userMessage))
 
         val chatRequest = ChatCompletionRequest(
-            model = Constant.MODEL_AI_REFLECTION,
+            model = Constant.MODEL_AI_HERMES,
             messages = chatRequestMessages
         )
 
@@ -39,7 +39,7 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         val conversationSummary = filteredMessages.joinToString("\n") { "${it.role}: ${it.content}" }
 
         val summaryRequest = ChatCompletionRequest(
-            model = Constant.MODEL_AI_GEMINI,
+            model = Constant.MODEL_AI_LIQUID,
             messages = listOf(
                 Message(role = Constant.ROLE_SYSTEM, content = Constant.SYSTEM_PROMPT_SUMMARY),
                 Message(role = Constant.ROLE_USER, content = Constant.USER_PROMPT_SUMMARY + conversationSummary)
