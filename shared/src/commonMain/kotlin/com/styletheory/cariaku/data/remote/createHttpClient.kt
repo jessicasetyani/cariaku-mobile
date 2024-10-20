@@ -28,10 +28,10 @@ fun createHttpClient(engine: HttpClientEngine, apiKey: String): HttpClient {
             )
         }
         // Set default headers for all requests
-        defaultRequest {
-            header("Helicone-Auth", "Bearer pk-helicone-56oieny-d7kuloa-r2jwiwq-mzb5rki")
-            header("Authorization", "Bearer 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")
-        }
+//        defaultRequest {
+//            header("Helicone-Auth", "Bearer pk-helicone-56oieny-d7kuloa-r2jwiwq-mzb5rki")
+//            header("Authorization", "Bearer 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")
+//        }
 //        install(Auth) {
 //            bearer {
 //                loadTokens { BearerTokens(apiKey, apiKey) }

@@ -15,11 +15,17 @@ data class ChatCompletionResponse(
 
 @Serializable
 data class Choice(
-    val logprobs: String? = null,
+    val logprobs: LogProbs? = null,
     @SerialName("finish_reason")
     val finishReason: String,
     val index: Int,
     val message: Message
+)
+
+@Serializable
+data class LogProbs(
+    val content: List<String> = emptyList(),
+    val refusal: List<String> = emptyList()
 )
 
 @Serializable
