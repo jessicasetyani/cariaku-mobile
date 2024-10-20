@@ -1,11 +1,9 @@
 package com.styletheory.cariaku.data.remote
 
+import com.styletheory.cariaku.util.Constant.HELICONE_API_KEY
+import com.styletheory.cariaku.util.Constant.OPENROUTER_API_KEY
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerAuthConfig
-import io.ktor.client.plugins.auth.providers.BearerTokens
-import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -15,7 +13,7 @@ import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-fun createHttpClient(engine: HttpClientEngine, apiKey: String): HttpClient {
+fun createHttpClient(engine: HttpClientEngine): HttpClient {
     return HttpClient(engine) {
         install(Logging) {
             level = LogLevel.ALL
@@ -28,10 +26,10 @@ fun createHttpClient(engine: HttpClientEngine, apiKey: String): HttpClient {
             )
         }
         // Set default headers for all requests
-//        defaultRequest {
-//            header("Helicone-Auth", "Bearer pk-helicone-56oieny-d7kuloa-r2jwiwq-mzb5rki")
-//            header("Authorization", "Bearer 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")
-//        }
+        defaultRequest {
+            header("Helicone-Auth", "Bearer ${HELICONE_API_KEY}")
+            header("Authorization", "Bearer ${OPENROUTER_API_KEY}")
+        }
 //        install(Auth) {
 //            bearer {
 //                loadTokens { BearerTokens(apiKey, apiKey) }

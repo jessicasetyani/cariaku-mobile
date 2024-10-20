@@ -22,8 +22,8 @@ class OpenRouterClient(private val httpClient: HttpClient) {
                 contentType(ContentType.Application.Json)
                 headers {
 //                    append(Constant.HEADER_X_TITLE, Constant.PROJECT_NAME_CARI_AKU)
-                    append("Authorization", "Bearer ${Constant.OPENROUTER_API_KEY}")
-                    append("Helicone-Auth", "Bearer ${Constant.HELICONE_API_KEY}")
+//                    append("Authorization", "Bearer ${Constant.OPENROUTER_API_KEY}")
+//                    append("Helicone-Auth", "Bearer ${Constant.HELICONE_API_KEY}")
                     append("HTTP-Referer", Constant.YOUR_SITE_URL) // Optional
                     append("X-Title", Constant.YOUR_SITE_NAME) // Optional
                 }

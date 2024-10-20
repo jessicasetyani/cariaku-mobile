@@ -30,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +48,6 @@ import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
 import com.styletheory.cariaku.util.Constant
-import com.styletheory.cariaku.util.Constant.API_KEY_OPEN_ROUTE
 import io.ktor.client.engine.okhttp.OkHttp
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -59,7 +57,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ChatScreen(onNavigateBack: () -> Unit) {
     val client = remember {
-        OpenRouterClient(createHttpClient(OkHttp.create(), API_KEY_OPEN_ROUTE))
+        OpenRouterClient(createHttpClient(OkHttp.create()))
     }
     val chatRepository = remember { ChatRepository(client) }
     val chatViewModel: ChatViewModel = viewModel(factory = ChatViewModelFactory(chatRepository))
