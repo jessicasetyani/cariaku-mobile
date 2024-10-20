@@ -4,7 +4,7 @@ package com.styletheory.cariaku.util
  * Created by Jessica Setyani on 15-09-2024.
  */
 object Constant {
-    const val MODEL_AI_HERMES = "perplexity/llama-3.1-sonar-small-128k-online"
+    const val MODEL_AI_HERMES = "meta-llama/llama-3.2-3b-instruct:free"
     const val MODEL_AI_LIQUID = "meta-llama/llama-3.2-1b-instruct:free"
     const val OPENROUTER_API_KEY = "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"
     const val HELICONE_API_KEY = "pk-helicone-56oieny-d7kuloa-r2jwiwq-mzb5rki"
@@ -12,7 +12,7 @@ object Constant {
     const val YOUR_SITE_NAME = "CariAku"
     const val PROJECT_NAME_CARI_AKU = "CariAku"
     const val HEADER_X_TITLE = "X-Title"
-    const val MAX_TOTAL_TOKEN = 4096
+    const val MAX_TOTAL_TOKEN = 2048
     const val BUFFER_TOKEN = 0.4 * MAX_TOTAL_TOKEN
     const val RENEW_TOKEN_QUOTA = MAX_TOTAL_TOKEN - BUFFER_TOKEN
     const val FORMAT_DATETIME_HH_MM_A = "hh:mm a"
