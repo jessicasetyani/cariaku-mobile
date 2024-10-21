@@ -43,6 +43,8 @@ kotlin {
             //put your multiplatform dependencies here
             implementation(libs.bundles.ktor)
             implementation(libs.kotlinx.coroutines.core)
+
+            //view image
             implementation(libs.coil.compose)
 
             //koin
