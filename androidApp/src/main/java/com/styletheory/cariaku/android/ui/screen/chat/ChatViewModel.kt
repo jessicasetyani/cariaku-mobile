@@ -3,9 +3,9 @@ package com.styletheory.cariaku.android.ui.screen.chat
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.styletheory.cariaku.android.util.DateFormatUtil
 import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.data.repository.ChatRepository
-import com.styletheory.cariaku.util.Constant
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -56,6 +56,6 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
     }
 
     private fun getCurrentTimestamp(): String {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A))
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateFormatUtil.FORMAT_DATETIME_HH_MM_A))
     }
 }

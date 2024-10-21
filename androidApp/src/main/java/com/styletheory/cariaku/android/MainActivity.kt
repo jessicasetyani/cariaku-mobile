@@ -32,9 +32,10 @@ private fun AppContent() {
         KoinContext {
             SetupNavGraph(
                 navController = rememberNavController(),
-                startDestination = Screen.Home
-//                if(ParseUser.getCurrentUser() != null) Screen.Home
-//                else Screen.Auth
+                startDestination = Screen.Auth
+                // check current user
+               // if() Screen.Home
+               // else Screen.Auth
             )
         }
     }

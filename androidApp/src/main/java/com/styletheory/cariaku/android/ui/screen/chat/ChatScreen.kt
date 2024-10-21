@@ -1,7 +1,6 @@
 package com.styletheory.cariaku.android.ui.screen.chat
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,7 +19,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -47,12 +45,8 @@ import com.styletheory.cariaku.data.model.ChatMessage
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
-import com.styletheory.cariaku.util.Constant
 import io.ktor.client.engine.okhttp.OkHttp
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(onNavigateBack: () -> Unit) {
@@ -94,7 +88,6 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
                     .padding(paddingValues)
                     .imePadding()
             ) {
-                // chatViewModel.saveAssistant()
                 ChatMessages(
                     chatMessages = chatMessages,
                     isLoading = isLoading,
@@ -132,10 +125,6 @@ fun ChatMessages(
     }
 }
 
-fun getCurrentTimestamp(): String {
-    return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Constant.FORMAT_DATETIME_HH_MM_A))
-}
-
 @Composable
 fun ChatInput(
     message: String,
@@ -158,13 +147,13 @@ fun ChatInput(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
             keyboardActions = KeyboardActions(onSend = {
                 onSend()
-                keyboardController?.hide() // Hide the keyboard
+                keyboardController?.hide()
             }),
             placeholder = { Text("Type a message") }
         )
         IconButton(onClick = {
             onSend()
-            keyboardController?.hide() // Hide the keyboard
+            keyboardController?.hide()
         }) {
             Icon(Icons.Default.Send, contentDescription = "Send")
         }

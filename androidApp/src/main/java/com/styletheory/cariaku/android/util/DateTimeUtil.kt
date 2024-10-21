@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter
 object DateFormatUtil {
 
     private val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+    const val FORMAT_DATETIME_HH_MM_A = "hh:mm a"
 
     fun formatTimeAgo(time: LocalTime): String {
         val currentTime = LocalTime.now()

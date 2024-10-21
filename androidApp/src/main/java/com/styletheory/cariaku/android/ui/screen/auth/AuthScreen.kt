@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
+import com.styletheory.cariaku.data.model.request.RegisterUserRequest
+import com.styletheory.cariaku.data.remote.BackForAppClient
+import com.styletheory.cariaku.data.remote.createHttpClientGeneral
+import com.styletheory.cariaku.util.NetworkError
+import com.styletheory.cariaku.util.onError
+import com.styletheory.cariaku.util.onSuccess
+import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,9 +43,18 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
     val dataStoreRepository = remember {
         DataStoreRepository(dataStore = createDataStore(context = context))
     }
+
+    val client = remember {
+        BackForAppClient(createHttpClientGeneral(OkHttp.create()))
+    }
+    var errorMessage by remember {
+        mutableStateOf<NetworkError?>(null)
+    }
+
     val viewModel = viewModel<AuthViewModel>()
     val myUsername by viewModel.myUsername
     val myPassword by viewModel.myPassword
+
 
     Column(
         modifier = Modifier
@@ -66,17 +84,30 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
         Spacer(modifier = Modifier.height(24.dp))
         Button(
             onClick = {
-                viewModel.onSignInClick(
-                    onSuccess = { userId ->
-                        onAuthenticated()
-                        scope.launch {
-                            dataStoreRepository.saveUserId(userId)
+                scope.launch {
+                    errorMessage = null
+                    client.signUpUser(RegisterUserRequest(username = myUsername, password = myPassword))
+                        .onSuccess {
+                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                            println("Back4App success $it")
                         }
-                    },
-                    onError = {
-                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                    }
-                )
+                        .onError {
+                            errorMessage = it
+                            println("Back4App error $it")
+                            Toast.makeText(context, it.name, Toast.LENGTH_LONG).show()
+                        }
+                }
+//                viewModel.onSignInClick(
+//                    onSuccess = { userId ->
+//                        onAuthenticated()
+//                        scope.launch {
+//                            dataStoreRepository.saveUserId(userId)
+//                        }
+//                    },
+//                    onError = {
+//                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+//                    }
+//                )
             }
         ) {
             Text(text = "Sign in")

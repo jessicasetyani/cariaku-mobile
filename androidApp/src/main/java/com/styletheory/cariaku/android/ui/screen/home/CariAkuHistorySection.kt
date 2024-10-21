@@ -28,7 +28,8 @@ import com.styletheory.cariaku.android.util.DateFormatUtil
 @Composable
 fun CariAkuHistorySection(
     color: Color = LightRed,
-    chatHistories: List<HistoryMenuItem>
+    chatHistories: List<HistoryMenuItem>,
+    onOpenChat: () -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -77,7 +78,10 @@ fun CariAkuHistorySection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)
-                    .clickable(onClick = { /* Continue chat */ }),
+                    .clickable(onClick = {
+                        /* Continue chat */
+                        onOpenChat()
+                    }),
                 colors = CardDefaults.elevatedCardColors(
                     containerColor = color,
                     contentColor = MaterialTheme.colorScheme.onSurface

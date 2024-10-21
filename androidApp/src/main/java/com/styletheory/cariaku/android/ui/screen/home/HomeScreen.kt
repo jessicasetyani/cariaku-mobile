@@ -61,10 +61,10 @@ fun HomeScreen(
     ) { innerPadding ->
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.onBackground)
                 .fillMaxSize()
         ) {
-            ContentArea(modifier = Modifier.padding(innerPadding), userName)
+            ContentArea(modifier = Modifier.padding(innerPadding), userName, onOpenChat)
             BottomMenu(
                 items = listOf(
                     BottomMenuContent("Home", Icons.Default.Home),
@@ -79,7 +79,7 @@ fun HomeScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ContentArea(modifier: Modifier = Modifier, userName: String) {
+fun ContentArea(modifier: Modifier = Modifier, userName: String, onOpenChat: () -> Unit) {
     val topAssistants = listOf(
         AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant, BlueViolet1, BlueViolet2, BlueViolet3),
         AssistantMenuContent(
@@ -114,7 +114,7 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String) {
 
         CariAkuAndalanSection(assistantList = topAssistants)
 
-        CariAkuHistorySection(chatHistories = chatHistories)
+        CariAkuHistorySection(chatHistories = chatHistories, onOpenChat = onOpenChat)
 
         TrendingTopicSection(topics = trendingTopics)
     }
