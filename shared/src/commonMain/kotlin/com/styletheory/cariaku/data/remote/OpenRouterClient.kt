@@ -17,7 +17,7 @@ class OpenRouterClient(private val httpClient: HttpClient) {
     suspend fun chatCompletion(chatCompletionRequest: ChatCompletionRequest): ChatCompletionResponse {
         try {
             val response = httpClient.post(
-                urlString = ApiRoute.baseUrlOpenRouter + "chat/completions"
+                urlString = ApiRoute.baseUrlOpenRouter + "/chat/completions"
             ) {
                 contentType(ContentType.Application.Json)
                 headers {
