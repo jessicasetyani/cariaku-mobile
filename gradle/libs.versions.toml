@@ -11,13 +11,10 @@ navigationCompose = "2.8.3"
 androidx-splashscreen = "1.0.1"
 ktor = "2.3.12"
 coroutines = "1.9.0"
-parse = "1.26.0"
-parselivequeryAndroid = "1.2.2"
 koin = "4.0.0"
 koinComposeMultiplatform = "4.0.0"
 lifecycleViewModel = "2.8.6"
 datastore = "1.1.1"
-core = "1.13.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
@@ -40,7 +37,6 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-splashscreen" }
-androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
@@ -49,9 +45,6 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-
-parse = { module = "com.github.parse-community.Parse-SDK-Android:parse", version.ref = "parse" }
-parselivequery-android = { module = "com.github.parse-community:ParseLiveQuery-Android", version.ref = "parselivequeryAndroid" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }

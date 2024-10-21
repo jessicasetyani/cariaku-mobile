@@ -4,7 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.parse.ParseUser
 
 class AuthViewModel() : ViewModel() {
 
@@ -27,30 +26,12 @@ class AuthViewModel() : ViewModel() {
         onError: (String) -> Unit
     ) {
         if(myUsername.value.isNotEmpty() && myPassword.value.isNotEmpty()) {
-            val user = ParseUser().apply {
-                username = myUsername.value
-                setPassword(myPassword.value)
-            }
-            user.signUpInBackground { exception ->
-                if(exception == null) {
-                    loginTheUser(
-                        onSuccess = onSuccess,
-                        onError = onError
-                    )
-                } else {
-                    ParseUser.logOut()
-                    if(exception.message != null) {
-                        if(exception.message!!.contains("Account already exists for this username.")) {
-                            loginTheUser(
-                                onSuccess = onSuccess,
-                                onError = onError
-                            )
-                        } else {
-                            onError(exception.message ?: "Fatal error.")
-                        }
-                    }
-                }
-            }
+            //check if the user already have an account or not
+            //if yes, login the user
+//                    loginTheUser(
+//                        onSuccess = onSuccess,
+//                        onError = onError
+//                    )
         } else {
             onError("Fields are empty.")
         }
@@ -60,16 +41,6 @@ class AuthViewModel() : ViewModel() {
         onSuccess: (String) -> Unit,
         onError: (String) -> Unit
     ) {
-        ParseUser.logInInBackground(
-            myUsername.value,
-            myPassword.value
-        ) { parseUser, parseException ->
-            if(parseUser != null) {
-                onSuccess(parseUser.objectId)
-            } else {
-                ParseUser.logOut()
-                onError(parseException.message ?: "Fatal error.")
-            }
-        }
+        //login the user
     }
 }

@@ -1,7 +1,6 @@
 package com.styletheory.cariaku.android.ui.screen.home
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,13 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.parse.ParseException
-import com.parse.ParseObject
-import com.parse.ParseQuery
-import com.parse.ParseUser
 import com.styletheory.cariaku.android.R
-import com.styletheory.cariaku.android.domain.UserProfileTable
-import com.styletheory.cariaku.android.domain.UserTable
 import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
@@ -60,48 +53,6 @@ fun HomeScreen(
         DataStoreRepository(dataStore = createDataStore(context = context))
     }
     var userName = remember { "" }
-
-    // Create a query for checking user name
-    val userQuery = ParseQuery.getQuery<ParseObject>(UserTable.TABLE_NAME)
-    userQuery.whereEqualTo(
-        UserTable.OBJECT_ID,
-        ParseUser.getCurrentUser().objectId
-    )
-
-    userQuery.findInBackground { users, messageError ->
-        if(messageError == null) {
-            if(users.isNullOrEmpty()) println("user profile name not fouund")
-            else {
-                val parseUser = users.map { user ->
-                    val userProfileObjectId = user.objectId
-                }
-                users.first().getParseUser(UserTable.USER_PROFILE)
-            }
-        } else {
-
-        }
-    }
-
-
-    val getUsersQuery = ParseQuery.getQuery<ParseObject>(UserTable.TABLE_NAME)
-    getUsersQuery.whereEqualTo(UserTable.OBJECT_ID, ParseUser.getCurrentUser().objectId)
-    try {
-        getUsersQuery.findInBackground { objects: List<ParseObject>?, e: ParseException? ->
-            if(e == null) {
-               val parseData = objects?.map { user->
-                   val userProfile = user.getMap<String>(
-                       UserProfileTable.OBJECT_ID
-                   ) ?: emptyMap()
-                       userName = userProfile.values.first().toString()
-               }
-            } else {
-                Toast.makeText(context, e.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
-    } catch(e: ParseException) {
-
-        e.printStackTrace()
-    }
 
     Scaffold(
         topBar = {

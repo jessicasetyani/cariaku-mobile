@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.parse.ParseUser
 import com.styletheory.cariaku.android.navigation.Screen
 import com.styletheory.cariaku.android.navigation.SetupNavGraph
 import org.koin.compose.KoinContext
@@ -33,8 +32,9 @@ private fun AppContent() {
         KoinContext {
             SetupNavGraph(
                 navController = rememberNavController(),
-                startDestination = if(ParseUser.getCurrentUser() != null) Screen.Home
-                else Screen.Auth
+                startDestination = Screen.Home
+//                if(ParseUser.getCurrentUser() != null) Screen.Home
+//                else Screen.Auth
             )
         }
     }

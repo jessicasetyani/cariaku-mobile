@@ -38,8 +38,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.parse)
-    implementation(libs.parselivequery.android)
     implementation(libs.kotlinx.serialization.json)
     implementation(projects.shared)
     implementation(libs.compose.ui)

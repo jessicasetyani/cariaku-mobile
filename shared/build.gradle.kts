@@ -33,11 +33,6 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
 
-            //back4app
-            implementation(libs.androidx.core)
-            implementation(libs.parse)
-            implementation(libs.parselivequery.android)
-
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
         }
