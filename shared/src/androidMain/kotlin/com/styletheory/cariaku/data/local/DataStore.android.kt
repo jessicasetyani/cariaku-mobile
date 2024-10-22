@@ -12,7 +12,7 @@ actual fun createDataStore(context: Any?): DataStore<Preferences> {
     return AppSettings.getDataStore(
         producePath = {
             context.filesDir
-                .resolve(dataStoreFileName)
+                .resolve(DATA_STORE_FILE_NAME)
                 .absolutePath
         }
     )

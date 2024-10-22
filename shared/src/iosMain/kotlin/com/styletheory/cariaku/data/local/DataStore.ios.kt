@@ -19,7 +19,7 @@ actual fun createDataStore(context: Any?): DataStore<Preferences> {
                 create = false,
                 error = null,
             )
-            requireNotNull(documentDirectory).path + "/$dataStoreFileName"
+            requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
         }
     )
 }

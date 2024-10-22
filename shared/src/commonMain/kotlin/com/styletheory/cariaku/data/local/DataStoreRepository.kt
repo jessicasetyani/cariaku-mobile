@@ -9,9 +9,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 
-class DataStoreRepository(
-    private val dataStore: DataStore<Preferences>
-) {
+class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
 
     companion object {
         val USER_ID_KEY = stringPreferencesKey(name = "user_id")
@@ -30,7 +28,7 @@ class DataStoreRepository(
             }
             true
         } catch(e: Exception) {
-            println("saveTimestamp() Error: $e")
+            println("saveUserId() Error: $e")
             false
         }
 

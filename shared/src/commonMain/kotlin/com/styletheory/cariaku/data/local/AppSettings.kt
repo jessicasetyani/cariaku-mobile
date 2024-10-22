@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import okio.Path.Companion.toPath
 
-internal const val dataStoreFileName = "settings.preferences_pb"
+internal const val DATA_STORE_FILE_NAME = "settings.preferences_pb"
 
 object AppSettings {
     private lateinit var dataStore: DataStore<Preferences>

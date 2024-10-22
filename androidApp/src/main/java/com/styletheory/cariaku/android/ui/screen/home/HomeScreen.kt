@@ -18,7 +18,11 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,6 +45,7 @@ import com.styletheory.cariaku.android.ui.theme.OrangeYellow2
 import com.styletheory.cariaku.android.ui.theme.OrangeYellow3
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
+import kotlinx.coroutines.flow.collectLatest
 import java.time.LocalTime
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -52,7 +57,13 @@ fun HomeScreen(
     val dataStoreRepository = remember {
         DataStoreRepository(dataStore = createDataStore(context = context))
     }
-    var userName = remember { "" }
+    var userName: String by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        dataStoreRepository.getUserId().collectLatest {
+            userName = it
+        }
+    }
 
     Scaffold(
         topBar = {
