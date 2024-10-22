@@ -1,5 +1,7 @@
 package com.styletheory.cariaku.android
 
+import com.styletheory.cariaku.ui.MainViewModel
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,22 +10,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.styletheory.cariaku.android.navigation.Screen
 import com.styletheory.cariaku.android.navigation.SetupNavGraph
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
-import kotlinx.coroutines.flow.collectLatest
+import com.styletheory.cariaku.data.remote.BackForAppClient
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.compose.KoinContext
 
 class MainActivity : ComponentActivity() {
@@ -46,24 +47,23 @@ private fun AppContent() {
     MyApplicationTheme {
         KoinContext {
             val context = LocalContext.current
-            val scope = rememberCoroutineScope()
             val dataStoreRepository = remember {
                 DataStoreRepository(dataStore = createDataStore(context = context))
             }
-            var userId: String? by remember { mutableStateOf(null) }
-            var isInitialized by remember { mutableStateOf(false) }
-
-            LaunchedEffect(Unit) {
-                dataStoreRepository.getUserId().collectLatest {
-                    userId = it
-                    isInitialized = true
-                }
+            val httpClient = HttpClient(OkHttp)
+            val backForAppClient = BackForAppClient(httpClient)
+            val viewModel: MainViewModel = viewModel {
+                MainViewModel(dataStoreRepository, backForAppClient)
             }
+
+            val userId by viewModel.userId
+            val userProfile by viewModel.userProfile
+            val isInitialized by viewModel.isInitialized
 
             if (isInitialized) {
                 SetupNavGraph(
                     navController = rememberNavController(),
-                    startDestination = if (userId.isNullOrEmpty()) Screen.Auth else Screen.Home
+                    startDestination = if (userId.isNullOrEmpty() || userProfile == null) Screen.Auth else Screen.Home
                 )
             } else {
                 Box(
@@ -76,3 +76,4 @@ private fun AppContent() {
         }
     }
 }
+

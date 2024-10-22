@@ -13,7 +13,6 @@ import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.onError
 import com.styletheory.cariaku.util.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -26,7 +25,6 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
     val myPassword: State<String> = _myPassword
 
     private val _errorMessage = MutableStateFlow<NetworkError?>(null)
-    val errorMessage: StateFlow<NetworkError?> = _errorMessage
 
     fun setUsername(text: String) {
         _myUsername.value = text
@@ -56,8 +54,8 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
                 .onSuccess { response ->
                     dataStoreRepository.saveUserId(response.objectId)
                     val sessionToken = response.sessionToken
-                    dataStoreRepository.saveSessionToken(sessionToken)
                     val currentUser: UserResponse = backForAppClient.getCurrentUser(sessionToken)
+                    dataStoreRepository.saveSessionToken(sessionToken)
                     currentUser.userProfile?.objectId?.let { objectId ->
                         val userProfile = backForAppClient.getUserProfile(ParameterDataRequest(objectId))
                         if(userProfile != null) {

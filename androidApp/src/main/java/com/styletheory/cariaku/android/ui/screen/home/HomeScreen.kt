@@ -45,6 +45,7 @@ import com.styletheory.cariaku.android.ui.theme.OrangeYellow2
 import com.styletheory.cariaku.android.ui.theme.OrangeYellow3
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
+import com.styletheory.cariaku.data.model.UserProfile
 import kotlinx.coroutines.flow.collectLatest
 import java.time.LocalTime
 
@@ -60,8 +61,8 @@ fun HomeScreen(
     var userName: String by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        dataStoreRepository.getUserId().collectLatest {
-            userName = it
+        dataStoreRepository.getUserProfile().collectLatest { userProfile ->
+            userName = userProfile?.name ?: ""
         }
     }
 
@@ -85,7 +86,6 @@ fun HomeScreen(
             )
         }
     }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)

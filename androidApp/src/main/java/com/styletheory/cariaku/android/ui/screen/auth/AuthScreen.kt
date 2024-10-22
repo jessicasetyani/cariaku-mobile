@@ -44,7 +44,6 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
     val viewModel = viewModel<AuthViewModel>(factory = AuthViewModelFactory(dataStoreRepository, backForAppClient))
     val myUsername by viewModel.myUsername
     val myPassword by viewModel.myPassword
-//    val errorMessage by viewModel.errorMessage.collectAsState(initial = null)
 
     LaunchedEffect(Unit) {
         dataStoreRepository.getUserProfile().collectLatest {
@@ -92,6 +91,5 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
         ) {
             Text(text = "Sign in")
         }
-//        Text(text = errorMessage?.toUserFriendlyMessage() ?: "No error")
     }
 }
