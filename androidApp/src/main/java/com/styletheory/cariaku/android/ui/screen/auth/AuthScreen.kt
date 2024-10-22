@@ -62,47 +62,48 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
             .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TextField(
+                value = myUsername,
+                placeholder = { Text(text = "Username") },
+                onValueChange = { viewModel.setUsername(it) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text
+                )
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            TextField(
+                value = myPassword,
+                placeholder = { Text(text = "Password") },
+                onValueChange = { viewModel.setPassword(it) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password
+                ),
+                visualTransformation = PasswordVisualTransformation()
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            Button(
+                onClick = {
+                    viewModel.onSignInClick(
+                        onAuthenticated = onAuthenticated,
+                        onError = { error ->
+                            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+                        }
+                    )
+                }
+            ) {
+                Text(text = "Sign in")
+            }
+        }
+
         if(isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(48.dp),
+                color = MaterialTheme.colorScheme.primary
             )
-        } else {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TextField(
-                    value = myUsername,
-                    placeholder = { Text(text = "Username") },
-                    onValueChange = { viewModel.setUsername(it) },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text
-                    )
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                TextField(
-                    value = myPassword,
-                    placeholder = { Text(text = "Password") },
-                    onValueChange = { viewModel.setPassword(it) },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Password
-                    ),
-                    visualTransformation = PasswordVisualTransformation()
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                Button(
-                    onClick = {
-                        viewModel.onSignInClick(
-                            onAuthenticated = onAuthenticated,
-                            onError = { error ->
-                                Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-                            }
-                        )
-                    }
-                ) {
-                    Text(text = "Sign in")
-                }
-            }
         }
     }
 }
