@@ -61,7 +61,7 @@ fun HomeScreen(
     ) { innerPadding ->
         Box(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.onBackground)
+                .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
         ) {
             ContentArea(modifier = Modifier.padding(innerPadding), userName, onOpenChat)

@@ -29,7 +29,7 @@ import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
 import com.styletheory.cariaku.data.model.request.RegisterUserRequest
 import com.styletheory.cariaku.data.remote.BackForAppClient
-import com.styletheory.cariaku.data.remote.createHttpClientGeneral
+import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.onError
 import com.styletheory.cariaku.util.onSuccess
@@ -45,7 +45,7 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
     }
 
     val client = remember {
-        BackForAppClient(createHttpClientGeneral(OkHttp.create()))
+        BackForAppClient(createHttpClient(OkHttp.create()))
     }
     var errorMessage by remember {
         mutableStateOf<NetworkError?>(null)
