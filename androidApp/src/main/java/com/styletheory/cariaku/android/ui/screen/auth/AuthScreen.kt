@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,21 +28,29 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
-import com.styletheory.cariaku.data.model.request.RegisterUserRequest
+import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.onError
 import com.styletheory.cariaku.util.onSuccess
 import io.ktor.client.engine.okhttp.OkHttp
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(onAuthenticated: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    var savedUserId: String = remember { "" }
     val dataStoreRepository = remember {
         DataStoreRepository(dataStore = createDataStore(context = context))
+    }
+
+    LaunchedEffect(Unit) {
+        dataStoreRepository.getUserId().collectLatest {
+            savedUserId = it
+        }
     }
 
     val client = remember {
@@ -86,10 +95,12 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
             onClick = {
                 scope.launch {
                     errorMessage = null
-                    client.signUpUser(RegisterUserRequest(username = myUsername, password = myPassword))
-                        .onSuccess {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                            println("Back4App success $it")
+                    client.loginUser(LoginUserRequest(username = myUsername, password = myPassword))
+                        .onSuccess { response ->
+                            scope.launch {
+                                dataStoreRepository.saveUserId(response.objectId)
+                            }
+                            onAuthenticated()
                         }
                         .onError {
                             errorMessage = it

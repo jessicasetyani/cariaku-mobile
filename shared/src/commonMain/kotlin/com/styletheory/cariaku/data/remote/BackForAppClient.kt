@@ -1,25 +1,28 @@
 package com.styletheory.cariaku.data.remote
 
-import com.styletheory.cariaku.data.model.request.RegisterUserRequest
+import com.styletheory.cariaku.data.model.request.LoginUserRequest
+import com.styletheory.cariaku.data.model.response.UserResponse
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_API_ID
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_REST_API_KEY
 import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.Result
 import io.ktor.client.HttpClient
-import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
 
 class BackForAppClient(private val httpClient: HttpClient) {
 
-    suspend fun signUpUser(registerUserRequest: RegisterUserRequest): Result<String, NetworkError> {
+    suspend fun loginUser(registerUserRequest: LoginUserRequest): Result<UserResponse, NetworkError> {
         val response = try {
-            httpClient.get(
+            httpClient.post(
                 urlString = ApiRoute.BASE_URL_BACK_4_APP + "/login"
             ) {
                 method = HttpMethod.Post
@@ -38,9 +41,9 @@ class BackForAppClient(private val httpClient: HttpClient) {
 
         return when(response.status.value) {
             in 200..299 -> {
-//                val censoredText = response.body<CensoredText>()
-//                Result.Success(censoredText.result)
-                Result.Success("berhasil")
+                val responseBody = response.bodyAsText()
+                val userResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserResponse>(responseBody)
+                Result.Success(userResponse)
             }
 
             401 -> Result.Error(NetworkError.UNAUTHORIZED)

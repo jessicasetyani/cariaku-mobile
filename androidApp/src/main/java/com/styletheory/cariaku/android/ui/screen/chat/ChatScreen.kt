@@ -46,6 +46,7 @@ import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
 import io.ktor.client.engine.okhttp.OkHttp
+import kotlinx.coroutines.flow.collectLatest
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -59,17 +60,6 @@ fun ChatScreen(onNavigateBack: () -> Unit) {
     val chatMessages by chatViewModel.chatMessages.collectAsState()
     val inputMessage by chatViewModel.inputMessage.collectAsState()
     val isLoading by chatViewModel.isLoading.collectAsState()
-
-    val context = LocalContext.current
-    var savedUserId: String = remember { "" }
-    val dataStoreRepository = remember {
-        DataStoreRepository(dataStore = createDataStore(context = context))
-    }
-
-    LaunchedEffect(Unit) {
-        savedUserId = dataStoreRepository.getUserId().orEmpty()
-    }
-
 
     Scaffold(
         topBar = {
