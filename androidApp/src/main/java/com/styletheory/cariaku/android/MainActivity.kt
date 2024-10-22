@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -11,6 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
@@ -46,17 +51,28 @@ private fun AppContent() {
                 DataStoreRepository(dataStore = createDataStore(context = context))
             }
             var userId: String? by remember { mutableStateOf(null) }
+            var isInitialized by remember { mutableStateOf(false) }
 
             LaunchedEffect(Unit) {
                 dataStoreRepository.getUserId().collectLatest {
                     userId = it
+                    isInitialized = true
                 }
             }
 
-            SetupNavGraph(
-                navController = rememberNavController(),
-                startDestination = if(userId.isNullOrEmpty()) Screen.Auth else Screen.Home
-            )
+            if (isInitialized) {
+                SetupNavGraph(
+                    navController = rememberNavController(),
+                    startDestination = if (userId.isNullOrEmpty()) Screen.Auth else Screen.Home
+                )
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
         }
     }
 }
