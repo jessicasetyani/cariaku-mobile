@@ -13,6 +13,7 @@ import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.onError
 import com.styletheory.cariaku.util.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,8 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
     val myPassword: State<String> = _myPassword
 
     private val _errorMessage = MutableStateFlow<NetworkError?>(null)
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
     fun setUsername(text: String) {
         _myUsername.value = text
@@ -50,6 +53,7 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
         onError: (String) -> Unit
     ) {
         viewModelScope.launch {
+            _isLoading.value = true
             backForAppClient.loginUser(LoginUserRequest(username = myUsername.value, password = myPassword.value))
                 .onSuccess { response ->
                     dataStoreRepository.saveUserId(response.objectId)
@@ -58,18 +62,18 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
                     dataStoreRepository.saveSessionToken(sessionToken)
                     currentUser.userProfile?.objectId?.let { objectId ->
                         val userProfile = backForAppClient.getUserProfile(ParameterDataRequest(objectId))
-                        if(userProfile != null) {
-                            dataStoreRepository.saveUserProfile(userProfile)
+                        userProfile?.let {
+                            dataStoreRepository.saveUserProfile(it)
                             onAuthenticated()
-                        } else {
-                            _errorMessage.value?.toUserFriendlyMessage()?.let { onError(it) }
-                        }
+                        } ?: onError("Failed to fetch user profile.")
                     }
                 }
                 .onError { errorMessage ->
                     _errorMessage.update { errorMessage }
                     onError(errorMessage.toUserFriendlyMessage())
                 }
+            _isLoading.value = false
         }
     }
 }
+
