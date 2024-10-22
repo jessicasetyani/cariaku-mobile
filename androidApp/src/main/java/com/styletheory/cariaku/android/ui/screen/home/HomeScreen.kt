@@ -1,6 +1,5 @@
 package com.styletheory.cariaku.android.ui.screen.home
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.styletheory.cariaku.android.R
@@ -45,11 +47,10 @@ import com.styletheory.cariaku.android.ui.theme.OrangeYellow2
 import com.styletheory.cariaku.android.ui.theme.OrangeYellow3
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
-import com.styletheory.cariaku.data.model.UserProfile
 import kotlinx.coroutines.flow.collectLatest
 import java.time.LocalTime
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 @Composable
 fun HomeScreen(
     onOpenChat: () -> Unit
@@ -66,6 +67,12 @@ fun HomeScreen(
         }
     }
 
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val contentAreaHeight = screenHeight * 1f
+    val contentAreaModifier = Modifier
+        .height(contentAreaHeight)
+        .verticalScroll(rememberScrollState())
+
     Scaffold(
         topBar = {
             CustomTopAppBar()
@@ -76,13 +83,18 @@ fun HomeScreen(
                 .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
         ) {
-            ContentArea(modifier = Modifier.padding(innerPadding), userName, onOpenChat)
+            ContentArea(
+                modifier = contentAreaModifier.padding(innerPadding),
+                userName = userName,
+                onOpenChat = onOpenChat
+            )
             BottomMenu(
                 items = listOf(
                     BottomMenuContent("Home", Icons.Default.Home),
                     BottomMenuContent("Favorite", Icons.Default.Favorite),
                     BottomMenuContent("Profile", Icons.Default.Person),
-                ), modifier = Modifier.align(Alignment.BottomCenter)
+                ),
+                modifier = Modifier.align(Alignment.BottomCenter)
             )
         }
     }
@@ -93,15 +105,9 @@ fun HomeScreen(
 fun ContentArea(modifier: Modifier = Modifier, userName: String, onOpenChat: () -> Unit) {
     val topAssistants = listOf(
         AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant, BlueViolet1, BlueViolet2, BlueViolet3),
-        AssistantMenuContent(
-            "Assistant 2", R.drawable.ic_placeholder_assistant, LightGreen1, LightGreen2, LightGreen3
-        ),
-        AssistantMenuContent(
-            "Assistant 3", R.drawable.ic_placeholder_assistant, OrangeYellow1, OrangeYellow2, OrangeYellow3
-        ),
-        AssistantMenuContent(
-            "Assistant 4", R.drawable.ic_placeholder_assistant, Beige1, Beige2, Beige3
-        )
+        AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant, LightGreen1, LightGreen2, LightGreen3),
+        AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant, OrangeYellow1, OrangeYellow2, OrangeYellow3),
+        AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant, Beige1, Beige2, Beige3)
     )
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
@@ -120,13 +126,31 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, onOpenChat: () 
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        GreetingSection(username = userName)
+        val contentAreaHeight = LocalConfiguration.current.screenHeightDp.dp * 0.7f
+        val andalanHeight = contentAreaHeight * 0.5f
+        val historyHeight = contentAreaHeight * 0.5f
+
+        GreetingSection(
+            username = userName
+        )
         Spacer(modifier = Modifier.height(8.dp))
 
-        CariAkuAndalanSection(assistantList = topAssistants)
+        CariAkuAndalanSection(
+            assistantList = topAssistants,
+            modifier = Modifier.height(andalanHeight)
+        )
 
-        CariAkuHistorySection(chatHistories = chatHistories, onOpenChat = onOpenChat)
+        Spacer(modifier = Modifier.height(8.dp))
 
-        TrendingTopicSection(topics = trendingTopics)
+        CariAkuHistorySection(
+            chatHistories = chatHistories,
+            onOpenChat = onOpenChat,
+            modifier = Modifier.height(historyHeight)
+        )
+
+        TrendingTopicSection(
+            topics = trendingTopics
+        )
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
