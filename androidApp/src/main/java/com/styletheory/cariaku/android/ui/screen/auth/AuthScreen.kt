@@ -29,6 +29,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
+import com.styletheory.cariaku.data.model.request.ParameterDataRequest
+import com.styletheory.cariaku.data.model.response.UserResponse
 import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.util.NetworkError
@@ -99,8 +101,18 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
                         .onSuccess { response ->
                             scope.launch {
                                 dataStoreRepository.saveUserId(response.objectId)
+                                val sessionToken = response.sessionToken
+                                dataStoreRepository.saveSessionToken(sessionToken)
+                                val currentUser: UserResponse = client.getCurrentUser(sessionToken)
+                                currentUser.userProfile?.objectId?.let { objectId ->
+                                    val userProfile = client.getUserProfile(ParameterDataRequest(objectId))
+                                    if (userProfile != null) {
+                                        onAuthenticated()
+                                    } else {
+                                        Toast.makeText(context, "User profile not found", Toast.LENGTH_LONG).show()
+                                    }
+                                }
                             }
-                            onAuthenticated()
                         }
                         .onError {
                             errorMessage = it
