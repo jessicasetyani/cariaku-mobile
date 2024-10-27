@@ -4,6 +4,8 @@ package com.styletheory.cariaku.util
  * Created by Jessica Setyani on 15-09-2024.
  */
 object Constant {
+    const val X_PARSE_APPLICATION_ID_HEADER = "X-Parse-Application-Id"
+    const val X_PARSE_REST_API_KEY_HEADER = "X-Parse-REST-API-Key"
     const val MODEL_AI_STREAMING = "meta-llama/llama-3.2-3b-instruct:free"
     const val MODEL_AI_WEAK = "meta-llama/llama-3.2-1b-instruct:free"
     const val OPENROUTER_API_KEY = "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"
