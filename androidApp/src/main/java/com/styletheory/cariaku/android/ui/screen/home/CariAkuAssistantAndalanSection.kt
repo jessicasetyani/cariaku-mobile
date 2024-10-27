@@ -112,12 +112,12 @@ fun FeatureItem(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(15.dp)
+                .padding(10.dp)
         ) {
             Text(
                 text = assistantMenu.assistantName,
                 style = MaterialTheme.typography.headlineSmall,
-                lineHeight = 26.sp,
+                lineHeight = 22.sp,
                 modifier = Modifier.align(Alignment.TopStart)
             )
             Icon(

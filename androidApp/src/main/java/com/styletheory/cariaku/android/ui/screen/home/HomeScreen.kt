@@ -127,7 +127,7 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, onOpenChat: () 
         horizontalAlignment = Alignment.Start
     ) {
         val contentAreaHeight = LocalConfiguration.current.screenHeightDp.dp * 0.7f
-        val andalanHeight = contentAreaHeight * 0.5f
+        val andalanHeight = contentAreaHeight * 0.6f
         val historyHeight = contentAreaHeight * 0.5f
 
         GreetingSection(
