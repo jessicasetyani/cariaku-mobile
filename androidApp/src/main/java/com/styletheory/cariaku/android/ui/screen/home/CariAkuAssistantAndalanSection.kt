@@ -33,11 +33,11 @@ import com.styletheory.cariaku.android.util.standardQuadFromTo
 
 @ExperimentalFoundationApi
 @Composable
-fun CariAkuAndalanSection(assistantList: List<AssistantMenuContent>) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+fun CariAkuAndalanSection(assistantList: List<AssistantMenuContent>, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.fillMaxWidth()) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(top = 16.dp, end = 7.5.dp, bottom = 16.dp)
+            contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)
         ) {
             items(assistantList.size) {
                 FeatureItem(assistantMenu = assistantList[it])
@@ -53,7 +53,7 @@ fun FeatureItem(
 ) {
     BoxWithConstraints(
         modifier = Modifier
-            .padding(7.5.dp)
+            .padding(6.dp)
             .aspectRatio(1f)
             .clip(RoundedCornerShape(10.dp))
             .background(assistantMenu.darkColor)
@@ -112,12 +112,12 @@ fun FeatureItem(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(15.dp)
+                .padding(10.dp)
         ) {
             Text(
                 text = assistantMenu.assistantName,
                 style = MaterialTheme.typography.headlineSmall,
-                lineHeight = 26.sp,
+                lineHeight = 22.sp,
                 modifier = Modifier.align(Alignment.TopStart)
             )
             Icon(

@@ -4,9 +4,12 @@ import com.styletheory.cariaku.data.model.UserProfile
 import com.styletheory.cariaku.data.model.UserProfileResponse
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
+import com.styletheory.cariaku.data.model.response.AssistantResponse
 import com.styletheory.cariaku.data.model.response.UserResponse
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_API_ID
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_REST_API_KEY
+import com.styletheory.cariaku.util.Constant.X_PARSE_APPLICATION_ID_HEADER
+import com.styletheory.cariaku.util.Constant.X_PARSE_REST_API_KEY_HEADER
 import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.Result
 import io.ktor.client.HttpClient
@@ -89,13 +92,13 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 mapOf("objectId" to requestData.objectId)
             )
             val response = httpClient.get(
-                urlString = ApiRoute.BASE_URL_BACK_4_APP + "/classes/UserProfile"
+                urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/UserProfile"
             ) {
                 contentType(ContentType.Application.Json)
                 headers {
                     contentType(ContentType.Application.Json)
-                    header("X-Parse-Application-Id", "${BACK_FOR_APP_API_ID}")
-                    header("X-Parse-REST-API-Key", "${BACK_FOR_APP_REST_API_KEY}")
+                    header(X_PARSE_APPLICATION_ID_HEADER, BACK_FOR_APP_API_ID)
+                    header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
                 }
                 parameter("where", whereJson)
             }
@@ -104,6 +107,32 @@ class BackForAppClient(private val httpClient: HttpClient) {
 
             val userProfileResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserProfileResponse>(responseBody)
             return userProfileResponse.results.firstOrNull()
+
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
+    suspend fun getTopFavoriteAssistant(requestData: ParameterDataRequest): AssistantResponse {
+        try {
+            val whereJson = Json { encodeDefaults = true }.encodeToString(
+                mapOf("objectId" to requestData.objectId)
+            )
+            val response = httpClient.get(
+                urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/Assistant"
+            ) {
+                contentType(ContentType.Application.Json)
+                headers {
+                    contentType(ContentType.Application.Json)
+                    header(X_PARSE_APPLICATION_ID_HEADER, BACK_FOR_APP_API_ID)
+                    header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
+                }
+                parameter("where", whereJson)
+            }
+            val responseBody = response.bodyAsText()
+            println("API Response: $responseBody") // Log the response body
+
+            return response.body<AssistantResponse>()
 
         } catch(e: Exception) {
             throw e

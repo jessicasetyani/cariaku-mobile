@@ -1,11 +1,13 @@
 package com.styletheory.cariaku.data.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserProfile(
     val objectId: String,
-    val DoB: Dob,
+    @SerialName("DoB")
+    val dob: Dob,
     val name: String,
     val language: String,
     val gender: String,
@@ -15,7 +17,8 @@ data class UserProfile(
 
 @Serializable
 data class Dob(
-    val __type: String,
+    @SerialName("__type")
+    val type: String,
     val iso: String
 )
 
