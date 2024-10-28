@@ -27,14 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.styletheory.cariaku.android.R
-import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
 import com.styletheory.cariaku.android.ui.screen.home.viewModel.HomeViewModel
-import com.styletheory.cariaku.android.ui.theme.BlueViolet1
-import com.styletheory.cariaku.android.ui.theme.BlueViolet2
-import com.styletheory.cariaku.android.ui.theme.BlueViolet3
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
 import com.styletheory.cariaku.data.model.Assistant
@@ -45,7 +40,7 @@ import java.time.LocalTime
 
 @Composable
 fun HomeScreen(
-    onOpenChat: () -> Unit
+    onOpenChat: (String) -> Unit
 ) {
     val context = LocalContext.current
     val dataStoreRepository = remember {
@@ -80,8 +75,8 @@ fun HomeScreen(
             ContentArea(
                 modifier = contentAreaModifier.padding(innerPadding),
                 userName = userName,
-                onOpenChat = onOpenChat,
                 topPopularAssistant = topPopularAssistant,
+                onOpenChat = onOpenChat
             )
             BottomMenu(
                 items = listOf(
@@ -101,7 +96,7 @@ fun ContentArea(
     modifier: Modifier = Modifier,
     userName: String,
     topPopularAssistant: List<Assistant>,
-    onOpenChat: () -> Unit
+    onOpenChat: (String) -> Unit
 ) {
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
@@ -122,7 +117,7 @@ fun ContentArea(
         horizontalAlignment = Alignment.Start
     ) {
         val contentAreaHeight = LocalConfiguration.current.screenHeightDp.dp * 0.7f
-        val andalanHeight = when (topPopularAssistant.size) {
+        val andalanHeight = when(topPopularAssistant.size) {
             in 2..4 -> contentAreaHeight * 0.6f
             else -> contentAreaHeight * 0.3f
         }
@@ -136,8 +131,7 @@ fun ContentArea(
         CariAkuAndalanSection(
             assistants = topPopularAssistant,
             onAssistantClick = { assistantId ->
-                // Handle the click, for example, open a chat with the selected assistant
-                onOpenChat()
+                onOpenChat(assistantId)
             },
             modifier = Modifier.height(andalanHeight)
         )

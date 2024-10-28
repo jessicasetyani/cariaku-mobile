@@ -2,9 +2,10 @@ package com.styletheory.cariaku.android.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.styletheory.cariaku.android.ui.screen.WelcomePage
+import androidx.navigation.navArgument
 import com.styletheory.cariaku.android.ui.screen.auth.AuthScreen
 import com.styletheory.cariaku.android.ui.screen.chat.ChatScreen
 import com.styletheory.cariaku.android.ui.screen.home.HomeScreen
@@ -26,13 +27,35 @@ fun SetupNavGraph(
                 }
             )
         }
-        composable<Screen.Home> {
+        composable(Screen.Home.route) {
             HomeScreen(
-                onOpenChat = {
-                    navController.navigate(Screen.Chat)
+                onOpenChat = { assistantId ->
+                    navController.navigate(Screen.Chat.createRoute(assistantId))
                 }
             )
         }
+        composable(
+            route = Screen.Chat("").route,
+            arguments = listOf(
+                navArgument("assistantId") {
+                    type = NavType.StringType
+                    nullable = false
+                }
+            )
+        ) { backStackEntry ->
+            val assistantId = backStackEntry.arguments?.getString("assistantId") ?: ""
+            ChatScreen(
+                onNavigateBack = { navController.popBackStack() },
+                assistantId = assistantId
+            )
+        }
+//        composable<Screen.Home> {
+//            HomeScreen(
+//                onOpenChat = {
+//                    navController.navigate(Screen.Chat)
+//                }
+//            )
+//        }
 //        composable<Screen.Home> {
 //            WelcomePage(
 //                onOpenChat = {
@@ -41,10 +64,10 @@ fun SetupNavGraph(
 //                navController = navController
 //            )
 //        }
-        composable<Screen.Chat> {
-            ChatScreen(
-                onNavigateBack = { navController.popBackStack() }
-            )
-        }
+//        composable<Screen.Chat> {
+//            ChatScreen(
+//                onNavigateBack = { navController.popBackStack() }
+//            )
+//        }
     }
 }

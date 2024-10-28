@@ -61,21 +61,24 @@ fun CariAkuAndalanSection(
                     id = assistant.objectId
                 )
             }
-            items(assistantList.size) {
+            items(assistantList.size) { index ->
                 FeatureItem(
-                    assistantMenu = assistantList[it],
-                    onAssistantClick = { onAssistantClick(assistantList[it].id) }
+                    assistantMenu = assistantList[index],
+                    onAssistantClick = { assistantId ->
+                        onAssistantClick(assistantId)
+                    }
                 )
             }
         }
     }
 }
 
+
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun FeatureItem(
     assistantMenu: AssistantMenuContent,
-    onAssistantClick: () -> Unit
+    onAssistantClick: (String) -> Unit
 ) {
     BoxWithConstraints(
         modifier = Modifier
@@ -83,6 +86,7 @@ fun FeatureItem(
             .aspectRatio(1f)
             .clip(RoundedCornerShape(10.dp))
             .background(assistantMenu.darkColor)
+            .clickable { onAssistantClick(assistantMenu.id) } // Add clickable modifier
     ) {
         val width = constraints.maxWidth
         val height = constraints.maxHeight
@@ -158,9 +162,6 @@ fun FeatureItem(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .clickable {
-                        onAssistantClick()
-                    }
                     .align(Alignment.BottomEnd)
                     .clip(RoundedCornerShape(10.dp))
                     .background(ButtonBlue)

@@ -3,11 +3,19 @@ package com.styletheory.cariaku.android.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Screen {
+sealed class Screen(val route: String) {
     @Serializable
-    data object Auth: Screen()
+    object Auth : Screen("auth")
+
     @Serializable
-    data object Home : Screen()
+    object Home : Screen("home")
+
     @Serializable
-    data object Chat : Screen()
+    data class Chat(val assistantId: String = "") : Screen("chat/{assistantId}") {
+        companion object {
+            fun createRoute(assistantId: String): String {
+                return "chat/$assistantId"
+            }
+        }
+    }
 }
