@@ -20,11 +20,8 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -34,6 +31,7 @@ import com.styletheory.cariaku.android.R
 import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
+import com.styletheory.cariaku.android.ui.screen.home.viewModel.HomeViewModel
 import com.styletheory.cariaku.android.ui.theme.BlueViolet1
 import com.styletheory.cariaku.android.ui.theme.BlueViolet2
 import com.styletheory.cariaku.android.ui.theme.BlueViolet3
@@ -43,9 +41,7 @@ import com.styletheory.cariaku.data.model.Assistant
 import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import io.ktor.client.engine.okhttp.OkHttp
-import kotlinx.coroutines.flow.collectLatest
 import java.time.LocalTime
-
 
 @Composable
 fun HomeScreen(
@@ -55,20 +51,15 @@ fun HomeScreen(
     val dataStoreRepository = remember {
         DataStoreRepository(dataStore = createDataStore(context = context))
     }
-    var userName: String by remember { mutableStateOf("") }
     val backForAppClient = remember {
         BackForAppClient(createHttpClient(OkHttp.create()))
     }
-
-    var topPopularAssistant: List<Assistant> by remember { mutableStateOf(emptyList()) }
-
-    LaunchedEffect(Unit) {
-        val response = backForAppClient.getTopFavoriteAssistant()
-        topPopularAssistant = response.results.take(4)
-        dataStoreRepository.getUserProfile().collectLatest { userProfile ->
-            userName = userProfile?.name ?: ""
-        }
+    val viewModel = remember {
+        HomeViewModel(dataStoreRepository, backForAppClient)
     }
+
+    val userName by viewModel.userName
+    val topPopularAssistant by viewModel.topPopularAssistant
 
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val contentAreaHeight = screenHeight * 1f
