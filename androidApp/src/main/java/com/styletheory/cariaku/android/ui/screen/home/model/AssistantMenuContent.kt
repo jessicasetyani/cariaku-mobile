@@ -7,5 +7,6 @@ data class AssistantMenuContent(
     val assistantImage: Int,
     val lightColor: Color,
     val mediumColor: Color,
-    val darkColor: Color
+    val darkColor: Color,
+    val id: String
 )

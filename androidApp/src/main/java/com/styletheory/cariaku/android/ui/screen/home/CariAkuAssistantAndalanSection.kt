@@ -5,10 +5,13 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -27,20 +30,42 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.styletheory.cariaku.android.R
 import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
+import com.styletheory.cariaku.android.ui.theme.BlueViolet1
+import com.styletheory.cariaku.android.ui.theme.BlueViolet2
+import com.styletheory.cariaku.android.ui.theme.BlueViolet3
 import com.styletheory.cariaku.android.ui.theme.ButtonBlue
 import com.styletheory.cariaku.android.util.standardQuadFromTo
+import com.styletheory.cariaku.data.model.Assistant
 
 @ExperimentalFoundationApi
 @Composable
-fun CariAkuAndalanSection(assistantList: List<AssistantMenuContent>, modifier: Modifier = Modifier) {
+fun CariAkuAndalanSection(
+    assistants: List<Assistant>,
+    onAssistantClick: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(modifier = modifier.fillMaxWidth()) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)
         ) {
+            val assistantList = assistants.map { assistant ->
+                AssistantMenuContent(
+                    assistantName = assistant.name,
+                    assistantImage = R.drawable.ic_placeholder_assistant,
+                    lightColor = BlueViolet1,
+                    mediumColor = BlueViolet2,
+                    darkColor = BlueViolet3,
+                    id = assistant.objectId
+                )
+            }
             items(assistantList.size) {
-                FeatureItem(assistantMenu = assistantList[it])
+                FeatureItem(
+                    assistantMenu = assistantList[it],
+                    onAssistantClick = { onAssistantClick(assistantList[it].id) }
+                )
             }
         }
     }
@@ -49,7 +74,8 @@ fun CariAkuAndalanSection(assistantList: List<AssistantMenuContent>, modifier: M
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun FeatureItem(
-    assistantMenu: AssistantMenuContent
+    assistantMenu: AssistantMenuContent,
+    onAssistantClick: () -> Unit
 ) {
     BoxWithConstraints(
         modifier = Modifier
@@ -133,7 +159,7 @@ fun FeatureItem(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .clickable {
-                        // Handle the click
+                        onAssistantClick()
                     }
                     .align(Alignment.BottomEnd)
                     .clip(RoundedCornerShape(10.dp))

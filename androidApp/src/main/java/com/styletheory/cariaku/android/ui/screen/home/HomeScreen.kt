@@ -97,17 +97,12 @@ fun HomeScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssistant: List<Assistant>, onOpenChat: () -> Unit) {
-    val topAssistants = topPopularAssistant.map { assistant ->
-        AssistantMenuContent(
-            assistantName = assistant.name,
-            assistantImage = R.drawable.ic_placeholder_assistant,
-            lightColor = BlueViolet1,
-            mediumColor = BlueViolet2,
-            darkColor = BlueViolet3
-        )
-    }
-
+fun ContentArea(
+    modifier: Modifier = Modifier,
+    userName: String,
+    topPopularAssistant: List<Assistant>,
+    onOpenChat: () -> Unit
+) {
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
         HistoryMenuItem("Chat 2: Movie recommendations?", "This is summaries of Movie recommendations?", LocalTime.now().minusHours(1)),
@@ -127,7 +122,7 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssis
         horizontalAlignment = Alignment.Start
     ) {
         val contentAreaHeight = LocalConfiguration.current.screenHeightDp.dp * 0.7f
-        val andalanHeight = when(topAssistants.size) {
+        val andalanHeight = when (topPopularAssistant.size) {
             in 2..4 -> contentAreaHeight * 0.6f
             else -> contentAreaHeight * 0.3f
         }
@@ -139,7 +134,11 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssis
         Spacer(modifier = Modifier.height(8.dp))
 
         CariAkuAndalanSection(
-            assistantList = topAssistants,
+            assistants = topPopularAssistant,
+            onAssistantClick = { assistantId ->
+                // Handle the click, for example, open a chat with the selected assistant
+                onOpenChat()
+            },
             modifier = Modifier.height(andalanHeight)
         )
         Spacer(modifier = Modifier.height(16.dp))
