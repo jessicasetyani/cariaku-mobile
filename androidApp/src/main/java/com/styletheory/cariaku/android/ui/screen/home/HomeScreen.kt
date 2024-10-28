@@ -33,20 +33,15 @@ import com.styletheory.cariaku.android.R
 import com.styletheory.cariaku.android.ui.screen.home.model.AssistantMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
-import com.styletheory.cariaku.android.ui.theme.Beige1
-import com.styletheory.cariaku.android.ui.theme.Beige2
-import com.styletheory.cariaku.android.ui.theme.Beige3
 import com.styletheory.cariaku.android.ui.theme.BlueViolet1
 import com.styletheory.cariaku.android.ui.theme.BlueViolet2
 import com.styletheory.cariaku.android.ui.theme.BlueViolet3
-import com.styletheory.cariaku.android.ui.theme.LightGreen1
-import com.styletheory.cariaku.android.ui.theme.LightGreen2
-import com.styletheory.cariaku.android.ui.theme.LightGreen3
-import com.styletheory.cariaku.android.ui.theme.OrangeYellow1
-import com.styletheory.cariaku.android.ui.theme.OrangeYellow2
-import com.styletheory.cariaku.android.ui.theme.OrangeYellow3
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
+import com.styletheory.cariaku.data.model.Assistant
+import com.styletheory.cariaku.data.remote.BackForAppClient
+import com.styletheory.cariaku.data.remote.createHttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.flow.collectLatest
 import java.time.LocalTime
 
@@ -60,8 +55,15 @@ fun HomeScreen(
         DataStoreRepository(dataStore = createDataStore(context = context))
     }
     var userName: String by remember { mutableStateOf("") }
+    val backForAppClient = remember {
+        BackForAppClient(createHttpClient(OkHttp.create()))
+    }
+
+    var topPopularAssistant: List<Assistant> by remember { mutableStateOf(emptyList()) }
 
     LaunchedEffect(Unit) {
+        val response = backForAppClient.getTopFavoriteAssistant()
+        topPopularAssistant = response.results.take(4)
         dataStoreRepository.getUserProfile().collectLatest { userProfile ->
             userName = userProfile?.name ?: ""
         }
@@ -86,7 +88,8 @@ fun HomeScreen(
             ContentArea(
                 modifier = contentAreaModifier.padding(innerPadding),
                 userName = userName,
-                onOpenChat = onOpenChat
+                onOpenChat = onOpenChat,
+                topPopularAssistant = topPopularAssistant,
             )
             BottomMenu(
                 items = listOf(
@@ -102,13 +105,22 @@ fun HomeScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ContentArea(modifier: Modifier = Modifier, userName: String, onOpenChat: () -> Unit) {
-    val topAssistants = listOf(
-        AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant, BlueViolet1, BlueViolet2, BlueViolet3),
-        AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant, LightGreen1, LightGreen2, LightGreen3),
-        AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant, OrangeYellow1, OrangeYellow2, OrangeYellow3),
-        AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant, Beige1, Beige2, Beige3)
-    )
+fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssistant: List<Assistant>, onOpenChat: () -> Unit) {
+    val topAssistants = topPopularAssistant.map { assistant ->
+        AssistantMenuContent(
+            assistantName = assistant.name,
+            assistantImage = R.drawable.ic_placeholder_assistant,
+            lightColor = BlueViolet1, // You can use a mapping or default colors
+            mediumColor = BlueViolet2,
+            darkColor = BlueViolet3
+        )
+    }
+//    val topAssistants = listOf(
+//        AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant, BlueViolet1, BlueViolet2, BlueViolet3),
+//        AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant, LightGreen1, LightGreen2, LightGreen3),
+//        AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant, OrangeYellow1, OrangeYellow2, OrangeYellow3),
+//        AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant, Beige1, Beige2, Beige3)
+//    )
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
         HistoryMenuItem("Chat 2: Movie recommendations?", "This is summaries of Movie recommendations?", LocalTime.now().minusHours(1)),
