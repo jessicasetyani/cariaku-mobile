@@ -113,11 +113,8 @@ class BackForAppClient(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun getTopFavoriteAssistant(requestData: ParameterDataRequest): AssistantResponse {
+    suspend fun getTopFavoriteAssistant(): AssistantResponse {
         try {
-            val whereJson = Json { encodeDefaults = true }.encodeToString(
-                mapOf("objectId" to requestData.objectId)
-            )
             val response = httpClient.get(
                 urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/Assistant"
             ) {
@@ -127,7 +124,6 @@ class BackForAppClient(private val httpClient: HttpClient) {
                     header(X_PARSE_APPLICATION_ID_HEADER, BACK_FOR_APP_API_ID)
                     header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
                 }
-                parameter("where", whereJson)
             }
             val responseBody = response.bodyAsText()
             println("API Response: $responseBody") // Log the response body
