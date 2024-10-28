@@ -24,7 +24,7 @@ fun CariAkuHistorySection(
     Column(modifier = modifier) {
         Text(
             text = "Riwayat Chat",
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
         )

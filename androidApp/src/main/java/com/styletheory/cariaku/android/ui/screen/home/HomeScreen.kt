@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -110,17 +111,12 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssis
         AssistantMenuContent(
             assistantName = assistant.name,
             assistantImage = R.drawable.ic_placeholder_assistant,
-            lightColor = BlueViolet1, // You can use a mapping or default colors
+            lightColor = BlueViolet1,
             mediumColor = BlueViolet2,
             darkColor = BlueViolet3
         )
     }
-//    val topAssistants = listOf(
-//        AssistantMenuContent("Assistant 1", R.drawable.ic_placeholder_assistant, BlueViolet1, BlueViolet2, BlueViolet3),
-//        AssistantMenuContent("Assistant 2", R.drawable.ic_placeholder_assistant, LightGreen1, LightGreen2, LightGreen3),
-//        AssistantMenuContent("Assistant 3", R.drawable.ic_placeholder_assistant, OrangeYellow1, OrangeYellow2, OrangeYellow3),
-//        AssistantMenuContent("Assistant 4", R.drawable.ic_placeholder_assistant, Beige1, Beige2, Beige3)
-//    )
+
     val chatHistories = listOf(
         HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
         HistoryMenuItem("Chat 2: Movie recommendations?", "This is summaries of Movie recommendations?", LocalTime.now().minusHours(1)),
@@ -134,12 +130,16 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssis
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .wrapContentHeight()
             .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
         val contentAreaHeight = LocalConfiguration.current.screenHeightDp.dp * 0.7f
-        val andalanHeight = contentAreaHeight * 0.6f
+        val andalanHeight = when(topAssistants.size) {
+            in 2..4 -> contentAreaHeight * 0.6f
+            else -> contentAreaHeight * 0.3f
+        }
         val historyHeight = contentAreaHeight * 0.5f
 
         GreetingSection(
@@ -151,8 +151,7 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssis
             assistantList = topAssistants,
             modifier = Modifier.height(andalanHeight)
         )
-
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         CariAkuHistorySection(
             chatHistories = chatHistories,
@@ -160,6 +159,7 @@ fun ContentArea(modifier: Modifier = Modifier, userName: String, topPopularAssis
             modifier = Modifier.height(historyHeight)
         )
 
+        Spacer(modifier = Modifier.height(16.dp))
         TrendingTopicSection(
             topics = trendingTopics
         )
