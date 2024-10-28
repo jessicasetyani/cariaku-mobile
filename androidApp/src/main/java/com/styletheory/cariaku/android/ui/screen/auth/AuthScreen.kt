@@ -49,8 +49,8 @@ fun AuthScreen(onAuthenticated: () -> Unit) {
     val isLoading by viewModel.isLoading.collectAsState()
 
     LaunchedEffect(Unit) {
-        dataStoreRepository.getUserProfile().collectLatest {
-            if(it != null) {
+        dataStoreRepository.getUserProfile().collectLatest { userProfile ->
+            if(userProfile != null) {
                 onAuthenticated()
             }
         }

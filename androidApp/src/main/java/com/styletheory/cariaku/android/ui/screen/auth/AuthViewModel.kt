@@ -54,10 +54,11 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
     ) {
         viewModelScope.launch {
             _isLoading.value = true
-            backForAppClient.loginUser(LoginUserRequest(username = myUsername.value, password = myPassword.value))
-                .onSuccess { response ->
-                    dataStoreRepository.saveUserId(response.objectId)
-                    val sessionToken = response.sessionToken
+            try {
+                val response = backForAppClient.loginUser(LoginUserRequest(username = myUsername.value, password = myPassword.value))
+                response.onSuccess { loginResponse ->
+                    dataStoreRepository.saveUserId(loginResponse.objectId)
+                    val sessionToken = loginResponse.sessionToken
                     val currentUser: UserResponse = backForAppClient.getCurrentUser(sessionToken)
                     dataStoreRepository.saveSessionToken(sessionToken)
                     currentUser.userProfile?.objectId?.let { objectId ->
@@ -67,13 +68,16 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
                             onAuthenticated()
                         } ?: onError("Failed to fetch user profile.")
                     }
-                }
-                .onError { errorMessage ->
+                }.onError { errorMessage ->
                     _errorMessage.update { errorMessage }
                     onError(errorMessage.toUserFriendlyMessage())
                 }
-            _isLoading.value = false
+            } catch(e: Exception) {
+                onError("An error occurred: ${e.message}")
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
-}
 
+}
