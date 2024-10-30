@@ -1,7 +1,5 @@
 package com.styletheory.cariaku.android
 
-import com.styletheory.cariaku.ui.MainViewModel
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +21,7 @@ import com.styletheory.cariaku.android.navigation.SetupNavGraph
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.local.createDataStore
 import com.styletheory.cariaku.data.remote.BackForAppClient
+import com.styletheory.cariaku.ui.MainViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.compose.KoinContext
