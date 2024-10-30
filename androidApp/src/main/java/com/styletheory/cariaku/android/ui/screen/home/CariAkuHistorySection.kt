@@ -18,7 +18,7 @@ import com.styletheory.cariaku.android.util.DateFormatUtil
 @Composable
 fun CariAkuHistorySection(
     chatHistories: List<HistoryMenuItem>,
-    onOpenChat: () -> Unit,
+    onOpenChat: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -29,14 +29,15 @@ fun CariAkuHistorySection(
             modifier = Modifier.padding(bottom = 8.dp)
         )
         LazyColumn {
-            items(chatHistories.size) {
+            items(chatHistories.size) { index ->
                 ElevatedCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 4.dp)
-                        .clickable(onClick = {
-                            onOpenChat()
-                        }),
+                        .clickable(
+                            onClick = {
+                                onOpenChat(chatHistories[index].id)
+                            }),
                     colors = CardDefaults.elevatedCardColors(
                         containerColor = MaterialTheme.colorScheme.surface,
                         contentColor = MaterialTheme.colorScheme.onSurface
@@ -47,19 +48,19 @@ fun CariAkuHistorySection(
                             .padding(8.dp)
                     ) {
                         Text(
-                            text = chatHistories[it].title,
+                            text = chatHistories[index].title,
                             style = MaterialTheme.typography.headlineSmall,
                             color = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.padding(bottom = 2.dp)
                         )
                         Text(
-                            text = chatHistories[it].summary,
+                            text = chatHistories[index].summary,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.surfaceVariant,
                             modifier = Modifier.padding(bottom = 2.dp)
                         )
 
-                        val formattedTimeAgo = DateFormatUtil.formatTimeAgo(chatHistories[it].lastAccess)
+                        val formattedTimeAgo = DateFormatUtil.formatTimeAgo(chatHistories[index].lastAccess)
 
                         Text(
                             text = "Diskusi Terakhir $formattedTimeAgo",

@@ -40,7 +40,7 @@ import java.time.LocalTime
 
 @Composable
 fun HomeScreen(
-    onOpenChat: (String) -> Unit
+    onChatRoomSelect: (String) -> Unit
 ) {
     val context = LocalContext.current
     val dataStoreRepository = remember {
@@ -76,7 +76,7 @@ fun HomeScreen(
                 modifier = contentAreaModifier.padding(innerPadding),
                 userName = userName,
                 topPopularAssistant = topPopularAssistant,
-                onOpenChat = onOpenChat
+                onOpenChat = onChatRoomSelect
             )
             BottomMenu(
                 items = listOf(
@@ -99,8 +99,18 @@ fun ContentArea(
     onOpenChat: (String) -> Unit
 ) {
     val chatHistories = listOf(
-        HistoryMenuItem("Chat 1: How to save money?", "This is summaries of How to save money?", LocalTime.now().minusMinutes(5)),
-        HistoryMenuItem("Chat 2: Movie recommendations?", "This is summaries of Movie recommendations?", LocalTime.now().minusHours(1)),
+        HistoryMenuItem(
+            "chatId1",
+            "Chat 1: How to save money?",
+            "This is summaries of How to save money?",
+            LocalTime.now().minusMinutes(5)
+        ),
+        HistoryMenuItem(
+            "chatId1",
+            "Chat 2: Movie recommendations?",
+            "This is summaries of Movie recommendations?",
+            LocalTime.now().minusHours(1)
+        ),
     )
     val trendingTopics = listOf(
         "Cara hemat uang jajan? CariAku tau nih!",
@@ -139,7 +149,9 @@ fun ContentArea(
 
         CariAkuHistorySection(
             chatHistories = chatHistories,
-            onOpenChat = onOpenChat,
+            onOpenChat = { assistantId ->
+                onOpenChat(assistantId)
+            },
             modifier = Modifier.height(historyHeight)
         )
 
