@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.SupportAgent
@@ -59,37 +58,50 @@ fun HomeScreen(
 
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val contentAreaHeight = screenHeight * 1f
-    val contentAreaModifier = Modifier
-        .height(contentAreaHeight)
-        .verticalScroll(rememberScrollState())
 
     Scaffold(
         topBar = {
             CustomTopAppBar()
         }
     ) { innerPadding ->
-        Box(
+        Column(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.background)
                 .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(innerPadding)
         ) {
-            ContentArea(
-                modifier = contentAreaModifier.padding(innerPadding),
-                userName = userName,
-                topPopularAssistant = topPopularAssistant,
-                onOpenChat = onChatRoomSelect
-            )
-            BottomMenu(
-                items = listOf(
-                    BottomMenuContent("Home", Icons.Default.Home),
-                    BottomMenuContent("Assistans", Icons.Default.SupportAgent),
-                    BottomMenuContent("Profile", Icons.Default.Person),
-                ),
-                modifier = Modifier.align(Alignment.BottomCenter)
-            )
+            // ContentArea with vertical scroll
+            Box(
+                modifier = Modifier
+                    .weight(1f) // This will take up the remaining space
+                    .verticalScroll(rememberScrollState())
+            ) {
+                ContentArea(
+                    modifier = Modifier.fillMaxSize(),
+                    userName = userName,
+                    topPopularAssistant = topPopularAssistant,
+                    onOpenChat = onChatRoomSelect
+                )
+            }
+
+            // BottomMenu
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp) // Add some padding at the bottom if needed
+            ) {
+                BottomMenu(
+                    items = listOf(
+                        BottomMenuContent("Home", Icons.Default.Home),
+                        BottomMenuContent("Assistans", Icons.Default.SupportAgent),
+                        BottomMenuContent("Profile", Icons.Default.Person),
+                    )
+                )
+            }
         }
     }
 }
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -160,6 +172,5 @@ fun ContentArea(
         TrendingTopicSection(
             topics = trendingTopics
         )
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
