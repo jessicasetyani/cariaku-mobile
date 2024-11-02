@@ -45,7 +45,10 @@ import io.ktor.client.engine.okhttp.OkHttp
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ChatScreen(onNavigateBack: () -> Unit) {
+fun ChatScreen(
+    assistantId: String,
+    onNavigateBack: () -> Unit
+) {
     val client = remember {
         OpenRouterClient(createHttpClient(OkHttp.create()))
     }

@@ -27,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.styletheory.cariaku.android.navigation.Screen
 import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 import com.styletheory.cariaku.android.ui.screen.home.model.HistoryMenuItem
 import com.styletheory.cariaku.android.ui.screen.home.viewModel.HomeViewModel
@@ -40,7 +42,9 @@ import java.time.LocalTime
 
 @Composable
 fun HomeScreen(
-    onChatRoomSelect: (String) -> Unit
+    onNavigateBack: () -> Unit,
+    onChatRoomSelect: (String) -> Unit,
+    navController: NavHostController
 ) {
     val context = LocalContext.current
     val dataStoreRepository = remember {
@@ -80,7 +84,9 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxSize(),
                     userName = userName,
                     topPopularAssistant = topPopularAssistant,
-                    onOpenChat = onChatRoomSelect
+                    onOpenChat = { assistantId ->
+                        navController.navigate("${Screen.Chat.route}".replace("{assistantId}", assistantId))
+                    }
                 )
             }
 

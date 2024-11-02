@@ -21,19 +21,25 @@ fun SetupNavGraph(
             AuthScreen(
                 onAuthenticated = {
                     navController.popBackStack()
-                    navController.navigate(Screen.Home)
+                    navController.navigate(Screen.Home.route)
                 }
             )
         }
-        composable<Screen.Home> {
+        composable<Screen.Home> { entry ->
             HomeScreen(
-                onChatRoomSelect = {
-                    navController.navigate(Screen.Chat(id = it))
-                }
+                onNavigateBack = { navController.navigateUp() },
+                onChatRoomSelect = { assistantId ->
+                    navController.navigate("${Screen.Chat.route}".replace("{assistantId}", assistantId))
+                },
+                navController = navController
             )
         }
-        composable<Screen.Chat> {
-            ChatScreen(onNavigateBack = { navController.navigateUp() })
+        composable(Screen.Chat.route) { backStackEntry ->
+            val assistantId = backStackEntry.arguments?.getString("assistantId") ?: ""
+            ChatScreen(
+                assistantId = assistantId,
+                onNavigateBack = { navController.navigateUp() }
+            )
         }
     }
 }
