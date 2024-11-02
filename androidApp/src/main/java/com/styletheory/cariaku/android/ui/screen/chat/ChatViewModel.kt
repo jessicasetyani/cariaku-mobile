@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.styletheory.cariaku.android.util.DateFormatUtil
 import com.styletheory.cariaku.data.model.ChatMessage
+import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.repository.ChatRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +13,13 @@ import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
+class ChatViewModel(
+    private val chatRepository: ChatRepository,
+    private val backForAppClient: BackForAppClient
+) : ViewModel() {
+    private val _assistantName = MutableStateFlow("")
+    val assistantName: StateFlow<String> = _assistantName
+
     private val _chatMessages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val chatMessages: StateFlow<List<ChatMessage>> = _chatMessages
 
@@ -21,6 +28,17 @@ class ChatViewModel(private val chatRepository: ChatRepository) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+
+    fun fetchAssistantDetails(assistantId: String) {
+        viewModelScope.launch {
+            try {
+                val assistant = backForAppClient.getAssistantDetailById(assistantId)
+                _assistantName.value = assistant?.name ?: "DAN"
+            } catch(e: Exception) {
+                // Handle error
+            }
+        }
+    }
 
     fun sendMessage(message: String) {
         if(message.isNotBlank()) {

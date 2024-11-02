@@ -33,7 +33,12 @@ import com.styletheory.cariaku.android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boolean, modifier: Modifier = Modifier) {
+fun HeaderChatScreen(
+    onNavigateBack: () -> Unit,
+    title: String,
+    isLoading: Boolean,
+    modifier: Modifier = Modifier
+) {
     var displayedText by remember { mutableStateOf(title) }
     var thinkingTextVisible by remember { mutableStateOf(false) }
     val thinkingText = "Thinking..."
@@ -51,48 +56,42 @@ fun HeaderChatScreen(onNavigateBack: () -> Unit, title: String, isLoading: Boole
         }
     }
 
-    TopAppBar(
-        title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_placeholder_assistant),
-                    contentDescription = "Assistant Icon",
-                    modifier = Modifier.size(48.dp)
-                )
+    TopAppBar(title = {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_placeholder_assistant),
+                contentDescription = "Assistant Icon",
+                modifier = Modifier.size(48.dp)
+            )
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.CenterVertically)
-                ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(
+                    modifier = Modifier.padding(start = 8.dp), text = displayedText, style = MaterialTheme.typography.headlineSmall
+                )
+                if(thinkingTextVisible) {
                     Text(
-                        modifier = Modifier.padding(start = 8.dp),
-                        text = displayedText,
-                        style = MaterialTheme.typography.headlineSmall
+                        modifier = Modifier
+                            .padding(start = 16.dp)
+                            .graphicsLayer(scaleX = scale, scaleY = scale)
+                            .animateContentSize(),
+                        text = thinkingText,
+                        style = MaterialTheme.typography.bodySmall
                     )
-                    if(thinkingTextVisible) {
-                        Text(
-                            modifier = Modifier
-                                .padding(start = 16.dp)
-                                .graphicsLayer(scaleX = scale, scaleY = scale)
-                                .animateContentSize(),
-                            text = thinkingText,
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
                 }
             }
-        },
-        navigationIcon = {
-            IconButton(onClick = onNavigateBack) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back Arrow Icon"
-                )
-            }
-        },
-        modifier = modifier
+        }
+    }, navigationIcon = {
+        IconButton(onClick = onNavigateBack) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack, contentDescription = "Back Arrow Icon"
+            )
+        }
+    }, modifier = modifier
     )
 }

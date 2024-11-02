@@ -25,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -38,6 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.android.ui.components.HeaderChatScreen
 import com.styletheory.cariaku.android.ui.components.MessageBubble
 import com.styletheory.cariaku.data.model.ChatMessage
+import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
 import com.styletheory.cariaku.data.repository.ChatRepository
@@ -52,18 +54,30 @@ fun ChatScreen(
     val client = remember {
         OpenRouterClient(createHttpClient(OkHttp.create()))
     }
+    val clientBackForApp = remember {
+        BackForAppClient(createHttpClient(OkHttp.create()))
+    }
+
     val chatRepository = remember { ChatRepository(client) }
-    val chatViewModel: ChatViewModel = viewModel(factory = ChatViewModelFactory(chatRepository))
+    val chatViewModel: ChatViewModel = viewModel(
+        factory = ChatViewModelFactory(chatRepository, clientBackForApp)
+    )
 
     val chatMessages by chatViewModel.chatMessages.collectAsState()
     val inputMessage by chatViewModel.inputMessage.collectAsState()
     val isLoading by chatViewModel.isLoading.collectAsState()
 
+    LaunchedEffect(objectId) {
+        chatViewModel.fetchAssistantDetails(objectId)
+    }
+
+    val assistantName by chatViewModel.assistantName.collectAsState()
+
     Scaffold(
         topBar = {
             HeaderChatScreen(
                 onNavigateBack = onNavigateBack,
-                title = objectId,
+                title = assistantName,
                 isLoading = isLoading,
                 modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars)
             )

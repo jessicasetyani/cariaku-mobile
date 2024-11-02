@@ -2,7 +2,6 @@ package com.styletheory.cariaku.data.remote
 
 import com.styletheory.cariaku.data.model.Assistant
 import com.styletheory.cariaku.data.model.UserProfile
-import com.styletheory.cariaku.data.model.UserProfileResponse
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
 import com.styletheory.cariaku.data.model.response.AllAssistantsResponse
@@ -19,6 +18,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
+import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
@@ -30,6 +30,13 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class BackForAppClient(private val httpClient: HttpClient) {
+    private val json = Json { ignoreUnknownKeys = true }
+
+    private suspend inline fun <reified T> parseResponse(response: HttpResponse): T {
+        val responseBody = response.bodyAsText()
+        println("API Response: $responseBody") // Log the response body
+        return json.decodeFromString(responseBody)
+    }
 
     suspend fun loginUser(registerUserRequest: LoginUserRequest): Result<UserResponse, NetworkError> {
         val response = try {
@@ -103,11 +110,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 }
                 parameter("where", whereJson)
             }
-            val responseBody = response.bodyAsText()
-            println("API Response: $responseBody") // Log the response body
-
-            val userProfileResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserProfileResponse>(responseBody)
-            return userProfileResponse.results.firstOrNull()
+            return parseResponse(response)
 
         } catch(e: Exception) {
             throw e
@@ -136,7 +139,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun getAssistantDetailById(assistantId: String): Assistant {
+    suspend fun getAssistantDetailById(assistantId: String): Assistant? {
         try {
             val whereJson = Json { encodeDefaults = true }.encodeToString(
                 mapOf("objectId" to assistantId)
@@ -152,10 +155,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 }
                 parameter("where", whereJson)
             }
-            val responseBody = response.bodyAsText()
-            println("API Response: $responseBody") // Log the response body
-
-            return response.body<Assistant>()
+            return parseResponse(response)
 
         } catch(e: Exception) {
             throw e
