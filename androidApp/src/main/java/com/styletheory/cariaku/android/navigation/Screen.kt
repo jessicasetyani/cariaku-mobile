@@ -9,5 +9,5 @@ sealed class Screen(val route: String) {
     @Serializable
     object Home : Screen("home")
     @Serializable
-    object Chat : Screen("chat/{assistantId}")
+    object Chat : Screen("chat/{objectId}")
 }

@@ -28,16 +28,16 @@ fun SetupNavGraph(
         composable<Screen.Home> { entry ->
             HomeScreen(
                 onNavigateBack = { navController.navigateUp() },
-                onChatRoomSelect = { assistantId ->
-                    navController.navigate("${Screen.Chat.route}".replace("{assistantId}", assistantId))
+                onChatRoomSelect = { objectId ->
+                    navController.navigate("${Screen.Chat.route}".replace("{objectId}", objectId))
                 },
                 navController = navController
             )
         }
         composable(Screen.Chat.route) { backStackEntry ->
-            val assistantId = backStackEntry.arguments?.getString("assistantId") ?: ""
+            val objectId = backStackEntry.arguments?.getString("objectId") ?: ""
             ChatScreen(
-                assistantId = assistantId,
+                objectId = objectId,
                 onNavigateBack = { navController.navigateUp() }
             )
         }

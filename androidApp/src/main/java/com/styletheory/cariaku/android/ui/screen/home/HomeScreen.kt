@@ -84,8 +84,8 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxSize(),
                     userName = userName,
                     topPopularAssistant = topPopularAssistant,
-                    onOpenChat = { assistantId ->
-                        navController.navigate("${Screen.Chat.route}".replace("{assistantId}", assistantId))
+                    onOpenChat = { objectId ->
+                        navController.navigate("${Screen.Chat.route}".replace("{objectId}", objectId))
                     }
                 )
             }

@@ -46,7 +46,7 @@ import io.ktor.client.engine.okhttp.OkHttp
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChatScreen(
-    assistantId: String,
+    objectId: String,
     onNavigateBack: () -> Unit
 ) {
     val client = remember {
@@ -63,7 +63,7 @@ fun ChatScreen(
         topBar = {
             HeaderChatScreen(
                 onNavigateBack = onNavigateBack,
-                title = "Assistant Name",
+                title = objectId,
                 isLoading = isLoading,
                 modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars)
             )
