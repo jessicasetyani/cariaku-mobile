@@ -99,7 +99,7 @@ fun HomeScreen(
                 BottomMenu(
                     items = listOf(
                         BottomMenuContent("Home", Icons.Default.Home),
-                        BottomMenuContent("Assistans", Icons.Default.SupportAgent),
+                        BottomMenuContent("Assistants", Icons.Default.SupportAgent),
                         BottomMenuContent("Profile", Icons.Default.Person),
                     )
                 )

@@ -3,6 +3,7 @@ package com.styletheory.cariaku.android.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val TextWhite = Color(0xffeeeeee)
+val LightBlue = Color(0xFF87CEEB)
 val DeepBlue = Color(0xff06164c)
 val ButtonBlue = Color(0xff505cf3)
 val DarkerButtonBlue = Color(0xff566894)

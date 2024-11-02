@@ -29,9 +29,6 @@ import com.styletheory.cariaku.android.ui.screen.home.model.BottomMenuContent
 fun BottomMenu(
     items: List<BottomMenuContent>,
     modifier: Modifier = Modifier,
-    activeHighlightColor: Color = MaterialTheme.colorScheme.onPrimary,
-    activeTextColor: Color = MaterialTheme.colorScheme.primary,
-    inactiveTextColor: Color = MaterialTheme.colorScheme.onPrimary,
     initialSelectedItemIndex: Int = 0
 ) {
     var selectedItemIndex by remember {
@@ -42,16 +39,13 @@ fun BottomMenu(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.onBackground)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(15.dp)
     ) {
         items.forEachIndexed { index, item ->
             BottomMenuItem(
                 item = item,
-                isSelected = index == selectedItemIndex,
-                activeHighlightColor = activeHighlightColor,
-                activeTextColor = activeTextColor,
-                inactiveTextColor = inactiveTextColor
+                isSelected = index == selectedItemIndex
             ) {
                 selectedItemIndex = index
             }
@@ -63,17 +57,20 @@ fun BottomMenu(
 fun BottomMenuItem(
     item: BottomMenuContent,
     isSelected: Boolean = false,
-    activeHighlightColor: Color = MaterialTheme.colorScheme.onPrimary,
-    activeTextColor: Color = MaterialTheme.colorScheme.primary,
-    inactiveTextColor: Color = MaterialTheme.colorScheme.onPrimary,
     onItemClick: () -> Unit
 ) {
+    val activeHighlightColor = MaterialTheme.colorScheme.onBackground
+    val activeTextColor = MaterialTheme.colorScheme.onBackground
+    val inactiveTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+    val activateIcon = MaterialTheme.colorScheme.primary
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.clickable {
-            onItemClick()
-        }
+        modifier = Modifier
+            .clickable {
+                onItemClick()
+            }
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -85,7 +82,7 @@ fun BottomMenuItem(
             Icon(
                 item.icon,
                 contentDescription = item.title,
-                tint = if(isSelected) activeTextColor else inactiveTextColor,
+                tint = if(isSelected) activateIcon else inactiveTextColor,
                 modifier = Modifier.size(20.dp)
             )
         }

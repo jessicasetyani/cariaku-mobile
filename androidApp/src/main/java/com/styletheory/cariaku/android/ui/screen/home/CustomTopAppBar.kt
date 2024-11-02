@@ -20,7 +20,10 @@ import com.styletheory.cariaku.android.R
 fun CustomTopAppBar() {
     TopAppBar(
         title = {
-            Text(text = "CariAku")
+            Text(
+                text = "CariAku",
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         }, navigationIcon = {
             IconButton(onClick = { /* Handle icon click */ }) {
                 Icon(
@@ -38,12 +41,13 @@ fun CustomTopAppBar() {
             ) {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Search icon"
+                    contentDescription = "Search icon",
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.onBackground,
+            containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary,
             actionIconContentColor = MaterialTheme.colorScheme.onPrimary
         )
