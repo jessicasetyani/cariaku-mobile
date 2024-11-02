@@ -26,7 +26,7 @@ class ChatViewModel(
     private val _inputMessage = MutableStateFlow("")
     val inputMessage: StateFlow<String> = _inputMessage
 
-    private val _isLoading = MutableStateFlow(false)
+    private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
 
     fun fetchAssistantDetails(assistantId: String) {
@@ -34,6 +34,7 @@ class ChatViewModel(
             try {
                 val assistant = backForAppClient.getAssistantDetailById(assistantId)
                 _assistantName.value = assistant?.name ?: "DAN"
+                _isLoading.value = false
             } catch(e: Exception) {
                 // Handle error
             }

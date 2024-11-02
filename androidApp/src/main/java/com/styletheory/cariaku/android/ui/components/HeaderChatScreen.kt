@@ -49,10 +49,11 @@ fun HeaderChatScreen(
     )
 
     LaunchedEffect(isLoading) {
-        thinkingTextVisible = if(isLoading) {
-            true
-        } else {
-            false
+        thinkingTextVisible = isLoading
+
+        // Update title when loading is finished
+        if (!isLoading) {
+            displayedText = title
         }
     }
 

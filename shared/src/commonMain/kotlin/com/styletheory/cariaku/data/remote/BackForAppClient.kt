@@ -2,6 +2,7 @@ package com.styletheory.cariaku.data.remote
 
 import com.styletheory.cariaku.data.model.Assistant
 import com.styletheory.cariaku.data.model.UserProfile
+import com.styletheory.cariaku.data.model.UserProfileResponse
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
 import com.styletheory.cariaku.data.model.response.AllAssistantsResponse
@@ -30,13 +31,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class BackForAppClient(private val httpClient: HttpClient) {
-    private val json = Json { ignoreUnknownKeys = true }
-
-    private suspend inline fun <reified T> parseResponse(response: HttpResponse): T {
-        val responseBody = response.bodyAsText()
-        println("API Response: $responseBody") // Log the response body
-        return json.decodeFromString(responseBody)
-    }
 
     suspend fun loginUser(registerUserRequest: LoginUserRequest): Result<UserResponse, NetworkError> {
         val response = try {
@@ -110,8 +104,11 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 }
                 parameter("where", whereJson)
             }
-            return parseResponse(response)
+            val responseBody = response.bodyAsText()
+            println("API Response: $responseBody") // Log the response body
 
+            val userProfileResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserProfileResponse>(responseBody)
+            return userProfileResponse.results.firstOrNull()
         } catch(e: Exception) {
             throw e
         }
@@ -155,7 +152,12 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 }
                 parameter("where", whereJson)
             }
-            return parseResponse(response)
+            val responseBody = response.bodyAsText()
+            println("API Response: $responseBody") // Log the response body
+
+            val assistantsResponse = Json { ignoreUnknownKeys = true }.decodeFromString<AllAssistantsResponse>(responseBody)
+            return assistantsResponse.results.firstOrNull()
+
 
         } catch(e: Exception) {
             throw e
