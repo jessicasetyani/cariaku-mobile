@@ -5,6 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -49,7 +50,9 @@ fun CariAkuAndalanSection(
     Column(modifier = modifier.fillMaxWidth()) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)
+            contentPadding = PaddingValues(0.dp), // No outer padding
+            horizontalArrangement = Arrangement.spacedBy(16.dp), // Padding between columns
+            verticalArrangement = Arrangement.spacedBy(16.dp) // Padding between rows
         ) {
             val assistantList = assistants.map { assistant ->
                 AssistantMenuContent(
@@ -73,7 +76,6 @@ fun CariAkuAndalanSection(
     }
 }
 
-
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun FeatureItem(
@@ -82,7 +84,7 @@ fun FeatureItem(
 ) {
     BoxWithConstraints(
         modifier = Modifier
-            .padding(6.dp)
+            .padding(0.dp) // No padding, handled by LazyVerticalGrid
             .aspectRatio(1f)
             .clip(RoundedCornerShape(10.dp))
             .background(assistantMenu.darkColor)

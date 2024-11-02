@@ -113,7 +113,29 @@ class BackForAppClient(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun getTopFavoriteAssistant(): AssistantResponse {
+    suspend fun getTopFavoriteAssistants(): AssistantResponse {
+        try {
+            val response = httpClient.get(
+                urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/Assistant"
+            ) {
+                contentType(ContentType.Application.Json)
+                headers {
+                    contentType(ContentType.Application.Json)
+                    header(X_PARSE_APPLICATION_ID_HEADER, BACK_FOR_APP_API_ID)
+                    header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
+                }
+            }
+            val responseBody = response.bodyAsText()
+            println("API Response: $responseBody") // Log the response body
+
+            return response.body<AssistantResponse>()
+
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
+    suspend fun getAssistantById(): AssistantResponse {
         try {
             val response = httpClient.get(
                 urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/Assistant"

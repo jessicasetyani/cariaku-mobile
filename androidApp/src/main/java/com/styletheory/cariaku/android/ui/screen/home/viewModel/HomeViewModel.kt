@@ -24,13 +24,13 @@ class HomeViewModel(
     val topPopularAssistant: State<List<Assistant>> = _topPopularAssistant
 
     init {
-        fetchTopPopularAssistants()
+        fetchTopFavoriteAssistants()
         fetchUserProfile()
     }
 
-    private fun fetchTopPopularAssistants() {
+    private fun fetchTopFavoriteAssistants() {
         viewModelScope.launch {
-            val response = backForAppClient.getTopFavoriteAssistant()
+            val response = backForAppClient.getTopFavoriteAssistants()
             _topPopularAssistant.value = response.results.take(4)
         }
     }

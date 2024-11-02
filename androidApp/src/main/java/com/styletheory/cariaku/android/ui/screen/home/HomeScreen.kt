@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.SupportAgent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -81,7 +82,7 @@ fun HomeScreen(
             BottomMenu(
                 items = listOf(
                     BottomMenuContent("Home", Icons.Default.Home),
-                    BottomMenuContent("Favorite", Icons.Default.Favorite),
+                    BottomMenuContent("Assistans", Icons.Default.SupportAgent),
                     BottomMenuContent("Profile", Icons.Default.Person),
                 ),
                 modifier = Modifier.align(Alignment.BottomCenter)
