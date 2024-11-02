@@ -4,6 +4,6 @@ import com.styletheory.cariaku.data.model.Assistant
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AssistantResponse(
+data class AllAssistantsResponse(
     val results: List<Assistant>
 )
