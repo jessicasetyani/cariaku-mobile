@@ -25,7 +25,7 @@ fun CariAkuHistorySection(
         Text(
             text = "Riwayat Chat",
             style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         LazyColumn {
@@ -40,7 +40,7 @@ fun CariAkuHistorySection(
                             }),
                     colors = CardDefaults.elevatedCardColors(
                         containerColor = MaterialTheme.colorScheme.surface,
-                        contentColor = MaterialTheme.colorScheme.onSurface
+                        contentColor = MaterialTheme.colorScheme.onBackground
                     )
                 ) {
                     Column(
@@ -50,13 +50,13 @@ fun CariAkuHistorySection(
                         Text(
                             text = chatHistories[index].title,
                             style = MaterialTheme.typography.headlineSmall,
-                            color = MaterialTheme.colorScheme.onSurface,
+                            color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.padding(bottom = 2.dp)
                         )
                         Text(
                             text = chatHistories[index].summary,
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.padding(bottom = 2.dp)
                         )
 
@@ -65,7 +65,7 @@ fun CariAkuHistorySection(
                         Text(
                             text = "Diskusi Terakhir $formattedTimeAgo",
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.padding(top = 4.dp)
                         )
                     }

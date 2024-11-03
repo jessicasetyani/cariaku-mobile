@@ -46,7 +46,7 @@ fun TrendingTopicSection(
                     )
                     .padding(15.dp)
             ) {
-                Text(text = topics[it], color = MaterialTheme.colorScheme.onPrimary)
+                Text(text = topics[it], color = MaterialTheme.colorScheme.onBackground)
             }
         }
     }

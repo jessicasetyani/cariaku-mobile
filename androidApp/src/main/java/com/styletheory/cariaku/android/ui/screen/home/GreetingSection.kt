@@ -30,13 +30,13 @@ fun GreetingSection(
             Text(
                 text = "${getGreeting()}, $username!",
                 style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = "Masih semangat nih? CariAku siap bantu kamu 24/7 loh!",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier.padding(top = 4.dp)
             )

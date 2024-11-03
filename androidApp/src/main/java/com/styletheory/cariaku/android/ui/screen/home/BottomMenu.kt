@@ -59,9 +59,9 @@ fun BottomMenuItem(
     isSelected: Boolean = false,
     onItemClick: () -> Unit
 ) {
-    val activeHighlightColor = MaterialTheme.colorScheme.onBackground
-    val activeTextColor = MaterialTheme.colorScheme.onBackground
-    val inactiveTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+    val activeHighlightColor = MaterialTheme.colorScheme.background
+    val activeTextColor = MaterialTheme.colorScheme.background
+    val inactiveTextColor = MaterialTheme.colorScheme.background
     val activateIcon = MaterialTheme.colorScheme.primary
 
     Column(

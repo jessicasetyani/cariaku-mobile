@@ -160,7 +160,7 @@ fun FeatureItem(
             )
             Text(
                 text = "Chat",
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
