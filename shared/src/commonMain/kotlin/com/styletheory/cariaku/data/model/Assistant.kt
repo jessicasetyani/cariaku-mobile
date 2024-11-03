@@ -15,7 +15,7 @@ data class Assistant(
     val customPrompt: String,
     val createdAt: String,
     val updatedAt: String,
-    val category: Pointer,
+    val category: TypePointer,
     @SerialName("assistant_capability")
-    val assistantCapability: Pointer
+    val assistantCapability: TypePointer
 )

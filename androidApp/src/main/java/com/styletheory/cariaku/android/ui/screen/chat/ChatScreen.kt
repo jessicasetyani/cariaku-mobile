@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.android.ui.components.HeaderChatScreen
 import com.styletheory.cariaku.android.ui.components.MessageBubble
-import com.styletheory.cariaku.data.model.ChatMessage
+import com.styletheory.cariaku.data.model.ChatMessageOpenAi
 import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.data.remote.createHttpClient
@@ -110,7 +110,7 @@ fun ChatScreen(
 
 @Composable
 fun ChatMessages(
-    chatMessages: List<ChatMessage>,
+    chatMessages: List<ChatMessageOpenAi>,
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {

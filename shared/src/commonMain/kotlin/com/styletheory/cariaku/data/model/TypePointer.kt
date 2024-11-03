@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Pointer(
+data class TypePointer(
     @Serializable(with = PointerSerializer::class)
     @SerialName("__type")
     val type: String = "Pointer",

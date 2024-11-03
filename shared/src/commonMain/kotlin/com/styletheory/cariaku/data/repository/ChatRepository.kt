@@ -1,31 +1,31 @@
 package com.styletheory.cariaku.data.repository
 
-import com.styletheory.cariaku.data.remote.OpenRouterClient
-import com.styletheory.cariaku.data.model.Message
+import com.styletheory.cariaku.data.model.MessageOpenAi
 import com.styletheory.cariaku.data.model.request.ChatCompletionRequest
+import com.styletheory.cariaku.data.remote.OpenRouterClient
 import com.styletheory.cariaku.util.Constant
 
 class ChatRepository(private val openRouterClient: OpenRouterClient) {
     private val chatRequestMessages = mutableListOf(
-        Message(
+        MessageOpenAi(
             role = Constant.ROLE_SYSTEM,
             content = Constant.SYSTEM_PROMPT_INITIAL
         )
     )
 
-    suspend fun sendMessageToAI(userMessage: String): String {
-        chatRequestMessages.add(Message(role = Constant.ROLE_USER, content = userMessage))
+    suspend fun sendMessageToAI(userMessage: String, userAiModel: String?): String {
+        chatRequestMessages.add(MessageOpenAi(role = Constant.ROLE_USER, content = userMessage))
 
         val chatRequest = ChatCompletionRequest(
-            model = Constant.MODEL_AI_STREAMING,
+            model = userAiModel ?: Constant.MODEL_AI_STREAMING,
             messages = chatRequestMessages
         )
 
         val response = openRouterClient.chatCompletion(chatRequest)
         val aiMessageContent = response.choices.first().message.content
-        val totalTokenInfo = "\nTotal token: " +response.usage.totalTokens
+        val totalTokenInfo = "\nTotal token: " + response.usage.totalTokens
 
-        chatRequestMessages.add(Message(role = Constant.ROLE_ASSISTANT, content = aiMessageContent))
+        chatRequestMessages.add(MessageOpenAi(role = Constant.ROLE_ASSISTANT, content = aiMessageContent))
 
         if(response.usage.totalTokens >= Constant.RENEW_TOKEN_QUOTA) {
             summarizeConversation()
@@ -41,8 +41,8 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         val summaryRequest = ChatCompletionRequest(
             model = Constant.MODEL_AI_WEAK,
             messages = listOf(
-                Message(role = Constant.ROLE_SYSTEM, content = Constant.SYSTEM_PROMPT_SUMMARY),
-                Message(role = Constant.ROLE_USER, content = Constant.USER_PROMPT_SUMMARY + conversationSummary)
+                MessageOpenAi(role = Constant.ROLE_SYSTEM, content = Constant.SYSTEM_PROMPT_SUMMARY),
+                MessageOpenAi(role = Constant.ROLE_USER, content = Constant.USER_PROMPT_SUMMARY + conversationSummary)
             )
         )
 
@@ -50,7 +50,7 @@ class ChatRepository(private val openRouterClient: OpenRouterClient) {
         val summary = summaryResponse.choices.first().message.content
 
         chatRequestMessages.clear()
-        chatRequestMessages.add(Message(role = Constant.ROLE_SYSTEM, content = Constant.SYSTEM_PROMPT_INITIAL))
-        chatRequestMessages.add(Message(role = Constant.ROLE_ASSISTANT, content = summary))
+        chatRequestMessages.add(MessageOpenAi(role = Constant.ROLE_SYSTEM, content = Constant.SYSTEM_PROMPT_INITIAL))
+        chatRequestMessages.add(MessageOpenAi(role = Constant.ROLE_ASSISTANT, content = summary))
     }
 }

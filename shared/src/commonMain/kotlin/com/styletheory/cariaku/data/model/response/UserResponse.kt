@@ -1,6 +1,6 @@
 package com.styletheory.cariaku.data.model.response
 
-import com.styletheory.cariaku.data.model.Pointer
+import com.styletheory.cariaku.data.model.TypePointer
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,5 +10,5 @@ data class UserResponse(
     val sessionToken: String,
     val email: String? = null,
     val emailVerified: Boolean = false,
-    val userProfile: Pointer? = null
+    val userProfile: TypePointer? = null
 )

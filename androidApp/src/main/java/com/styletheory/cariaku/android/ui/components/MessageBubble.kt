@@ -18,10 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.styletheory.cariaku.data.model.ChatMessage
+import com.styletheory.cariaku.data.model.ChatMessageOpenAi
 
 @Composable
-fun MessageBubble(chatMessage: ChatMessage) {
+fun MessageBubble(chatMessage: ChatMessageOpenAi) {
     val alignment = if(chatMessage.isUser) Alignment.End else Alignment.Start
     val backgroundColor = if(chatMessage.isUser)
         MaterialTheme.colorScheme.primaryContainer

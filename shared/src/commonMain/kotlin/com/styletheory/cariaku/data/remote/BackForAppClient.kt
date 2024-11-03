@@ -6,6 +6,7 @@ import com.styletheory.cariaku.data.model.UserProfileResponse
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
 import com.styletheory.cariaku.data.model.response.AllAssistantsResponse
+import com.styletheory.cariaku.data.model.response.CreateObjectResponse
 import com.styletheory.cariaku.data.model.response.UserResponse
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_API_ID
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_REST_API_KEY
@@ -125,9 +126,6 @@ class BackForAppClient(private val httpClient: HttpClient) {
                     header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
                 }
             }
-            val responseBody = response.bodyAsText()
-            println("API Response: $responseBody") // Log the response body
-
             return response.body<AllAssistantsResponse>()
 
         } catch(e: Exception) {
@@ -163,6 +161,30 @@ class BackForAppClient(private val httpClient: HttpClient) {
         }
     }
 
+    suspend fun createRoomChat(title: String): CreateObjectResponse {
+        try {
+            val whereJson = Json { encodeDefaults = true }.encodeToString(
+                mapOf("title" to title)
+            )
+            val response = httpClient.get(
+                urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/Assistant"
+            ) {
+                contentType(ContentType.Application.Json)
+                headers {
+                    contentType(ContentType.Application.Json)
+                    header(X_PARSE_APPLICATION_ID_HEADER, BACK_FOR_APP_API_ID)
+                    header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
+                }
+                parameter("where", whereJson)
+            }
+            val responseBody = response.bodyAsText()
+            println("API Response: $responseBody") // Log the response body
 
+            return response.body<CreateObjectResponse>()
+
+        } catch(e: Exception) {
+            throw e
+        }
+    }
 
 }

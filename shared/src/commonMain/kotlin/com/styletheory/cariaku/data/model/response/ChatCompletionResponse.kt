@@ -1,6 +1,6 @@
 package com.styletheory.cariaku.data.model.response
 
-import com.styletheory.cariaku.data.model.Message
+import com.styletheory.cariaku.data.model.MessageOpenAi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,7 +19,7 @@ data class Choice(
     @SerialName("finish_reason")
     val finishReason: String,
     val index: Int,
-    val message: Message
+    val message: MessageOpenAi
 )
 
 @Serializable

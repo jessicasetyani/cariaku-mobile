@@ -94,7 +94,6 @@ fun HomeScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp) // Add some padding at the bottom if needed
             ) {
                 BottomMenu(
                     items = listOf(
