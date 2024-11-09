@@ -4,9 +4,9 @@ import com.styletheory.cariaku.data.model.TypePointer
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserResponse(
+data class UserClass(
     val objectId: String,
-    val username: String,
+    val username: String? = "",
     val sessionToken: String,
     val email: String? = null,
     val emailVerified: Boolean = false,

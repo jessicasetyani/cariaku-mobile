@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CreateObjectResponse(
-    val objectId: String,
-    val createdAt: String
+    val objectId: String? = null,
+    val createdAt: String? = null
 )

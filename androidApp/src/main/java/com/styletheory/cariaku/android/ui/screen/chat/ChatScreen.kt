@@ -33,12 +33,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.styletheory.cariaku.android.ui.components.HeaderChatScreen
 import com.styletheory.cariaku.android.ui.components.MessageBubble
+import com.styletheory.cariaku.data.local.DataStoreRepository
+import com.styletheory.cariaku.data.local.createDataStore
 import com.styletheory.cariaku.data.model.ChatMessageOpenAi
 import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.data.remote.OpenRouterClient
@@ -58,11 +61,18 @@ fun ChatScreen(
     val clientBackForApp = remember {
         BackForAppClient(createHttpClient(OkHttp.create()))
     }
+    val context = LocalContext.current
+    val dataStoreRepository = remember {
+        DataStoreRepository(dataStore = createDataStore(context = context))
+    }
 
     val chatRepository = remember { ChatRepository(client) }
     val chatViewModel: ChatViewModel = viewModel(
-        factory = ChatViewModelFactory(chatRepository, clientBackForApp)
+        factory = ChatViewModelFactory(chatRepository, clientBackForApp, dataStoreRepository)
     )
+//    val chatViewModel = remember {
+//        ChatViewModel(chatRepository, clientBackForApp, dataStoreRepository)
+//    }
 
     val chatMessages by chatViewModel.chatMessages.collectAsState()
     val inputMessage by chatViewModel.inputMessage.collectAsState()
@@ -152,7 +162,7 @@ fun ChatInput(
                 onSend()
                 keyboardController?.hide()
             }),
-            placeholder = { Text("Type a message") }
+            placeholder = { Text("Ask me anything...") }
         )
         IconButton(onClick = {
             onSend()

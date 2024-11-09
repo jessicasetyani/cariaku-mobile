@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
-import com.styletheory.cariaku.data.model.response.UserResponse
+import com.styletheory.cariaku.data.model.response.UserClass
 import com.styletheory.cariaku.data.remote.BackForAppClient
 import com.styletheory.cariaku.util.NetworkError
 import com.styletheory.cariaku.util.onError
@@ -59,7 +59,7 @@ class AuthViewModel(private val dataStoreRepository: DataStoreRepository, privat
                 response.onSuccess { loginResponse ->
                     dataStoreRepository.saveUserId(loginResponse.objectId)
                     val sessionToken = loginResponse.sessionToken
-                    val currentUser: UserResponse = backForAppClient.getCurrentUser(sessionToken)
+                    val currentUser: UserClass = backForAppClient.getCurrentUser(sessionToken)
                     dataStoreRepository.saveSessionToken(sessionToken)
                     currentUser.userProfile?.objectId?.let { objectId ->
                         val userProfile = backForAppClient.getUserProfile(ParameterDataRequest(objectId))
