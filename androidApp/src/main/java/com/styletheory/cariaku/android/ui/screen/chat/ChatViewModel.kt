@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.styletheory.cariaku.android.util.DateFormatUtil
+import com.styletheory.cariaku.data.local.DataStoreRepository
 import com.styletheory.cariaku.data.model.Assistant
 import com.styletheory.cariaku.data.model.ChatMessageOpenAi
 import com.styletheory.cariaku.data.remote.BackForAppClient
@@ -18,7 +19,8 @@ import kotlin.Boolean
 
 class ChatViewModel(
     private val chatRepository: ChatRepository,
-    private val backForAppClient: BackForAppClient
+    private val backForAppClient: BackForAppClient,
+    private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
     private val _assistant = MutableStateFlow<Assistant?>(null)
     val assistant: StateFlow<Assistant?> = _assistant

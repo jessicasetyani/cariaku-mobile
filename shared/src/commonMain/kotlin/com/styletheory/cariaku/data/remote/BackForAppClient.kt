@@ -7,7 +7,7 @@ import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
 import com.styletheory.cariaku.data.model.response.AllAssistantsResponse
 import com.styletheory.cariaku.data.model.response.CreateObjectResponse
-import com.styletheory.cariaku.data.model.response.UserResponse
+import com.styletheory.cariaku.data.model.response.UserClass
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_API_ID
 import com.styletheory.cariaku.util.Constant.BACK_FOR_APP_REST_API_KEY
 import com.styletheory.cariaku.util.Constant.X_PARSE_APPLICATION_ID_HEADER
@@ -32,7 +32,7 @@ import kotlinx.serialization.json.Json
 
 class BackForAppClient(private val httpClient: HttpClient) {
 
-    suspend fun loginUser(registerUserRequest: LoginUserRequest): Result<UserResponse, NetworkError> {
+    suspend fun loginUser(registerUserRequest: LoginUserRequest): Result<UserClass, NetworkError> {
         val response = try {
             httpClient.post(
                 urlString = ApiRoute.BASE_URL_BACK_4_APP + "/login"
@@ -54,7 +54,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
         return when(response.status.value) {
             in 200..299 -> {
                 val responseBody = response.bodyAsText()
-                val userResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserResponse>(responseBody)
+                val userResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserClass>(responseBody)
                 Result.Success(userResponse)
             }
 
@@ -67,7 +67,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun getCurrentUser(sessionToken: String): UserResponse {
+    suspend fun getCurrentUser(sessionToken: String): UserClass {
         try {
             val response = httpClient.get(
                 urlString = ApiRoute.BASE_URL_BACK_4_APP + "/users/me"
@@ -81,7 +81,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 }
             }
 
-            return response.body<UserResponse>()
+            return response.body<UserClass>()
 
         } catch(e: Exception) {
             throw e
