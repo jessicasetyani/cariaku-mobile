@@ -3,6 +3,7 @@ package com.styletheory.cariaku.data.remote
 import com.styletheory.cariaku.data.model.Assistant
 import com.styletheory.cariaku.data.model.UserProfile
 import com.styletheory.cariaku.data.model.UserProfileResponse
+import com.styletheory.cariaku.data.model.request.CreateRoomChatRequest
 import com.styletheory.cariaku.data.model.request.LoginUserRequest
 import com.styletheory.cariaku.data.model.request.ParameterDataRequest
 import com.styletheory.cariaku.data.model.response.AllAssistantsResponse
@@ -20,6 +21,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
@@ -31,6 +33,12 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class BackForAppClient(private val httpClient: HttpClient) {
+
+    val json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+        encodeDefaults = true
+    }
 
     suspend fun loginUser(registerUserRequest: LoginUserRequest): Result<UserClass, NetworkError> {
         val response = try {
@@ -105,7 +113,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 parameter("where", whereJson)
             }
             val responseBody = response.bodyAsText()
-            println("API Response: $responseBody") // Log the response body
+            println("API Response getUserProfile: $responseBody") // Log the response body
 
             val userProfileResponse = Json { ignoreUnknownKeys = true }.decodeFromString<UserProfileResponse>(responseBody)
             return userProfileResponse.results.firstOrNull()
@@ -150,7 +158,7 @@ class BackForAppClient(private val httpClient: HttpClient) {
                 parameter("where", whereJson)
             }
             val responseBody = response.bodyAsText()
-            println("API Response: $responseBody") // Log the response body
+            println("API Response getAssistantDetailById: $responseBody") // Log the response body
 
             val assistantsResponse = Json { ignoreUnknownKeys = true }.decodeFromString<AllAssistantsResponse>(responseBody)
             return assistantsResponse.results.firstOrNull()
@@ -161,12 +169,12 @@ class BackForAppClient(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun createRoomChat(title: String): CreateObjectResponse {
+    suspend fun createRoomChat(requestData: CreateRoomChatRequest): CreateObjectResponse {
         try {
-            val whereJson = Json { encodeDefaults = true }.encodeToString(
-                mapOf("title" to title)
-            )
-            val response = httpClient.get(
+            val requestBody = json.encodeToString(requestData)
+            println("API Request createRoomChat: $requestBody") // Log the request body
+
+            val response = httpClient.post(
                 urlString = ApiRoute.BASE_URL_BACK_4_APP + ApiRoute.CLASSES_PATH_NAME + "/Assistant"
             ) {
                 contentType(ContentType.Application.Json)
@@ -175,10 +183,10 @@ class BackForAppClient(private val httpClient: HttpClient) {
                     header(X_PARSE_APPLICATION_ID_HEADER, BACK_FOR_APP_API_ID)
                     header(X_PARSE_REST_API_KEY_HEADER, BACK_FOR_APP_REST_API_KEY)
                 }
-                parameter("where", whereJson)
+                setBody(requestBody)
             }
             val responseBody = response.bodyAsText()
-            println("API Response: $responseBody") // Log the response body
+            println("API Response createRoomChat: $responseBody") // Log the response body
 
             return response.body<CreateObjectResponse>()
 
