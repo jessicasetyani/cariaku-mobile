@@ -21,7 +21,7 @@ captures
 local.properties
 
 # Virtual environments
-venv
+.venv
 
 # Kotlin metadata and session files
 .kotlin
