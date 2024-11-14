@@ -62,7 +62,7 @@ private fun AppContent() {
             if (isInitialized) {
                 SetupNavGraph(
                     navController = rememberNavController(),
-                    startDestination = if (userId.isEmpty() || userProfile == null) Screen.Auth else Screen.Home
+                    startDestination = if(userId.isEmpty() || userProfile == null) Screen.Auth.route else Screen.Home.route
                 )
             } else {
                 Box(

@@ -9,5 +9,9 @@ sealed class Screen(val route: String) {
     @Serializable
     object Home : Screen("home")
     @Serializable
-    object Chat : Screen("chat/{objectId}")
+    object Chat : Screen("chat/{objectId}") {
+        fun withArgs(objectId: String): String {
+            return "chat/$objectId"
+        }
+    }
 }

@@ -11,25 +11,28 @@ import com.styletheory.cariaku.android.ui.screen.home.HomeScreen
 @Composable
 fun SetupNavGraph(
     navController: NavHostController,
-    startDestination: Screen
+    startDestination: String
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable<Screen.Auth> {
+        composable(Screen.Auth.route) {
             AuthScreen(
                 onAuthenticated = {
-                    navController.popBackStack()
-                    navController.navigate(Screen.Home.route)
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Auth.route) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
-        composable<Screen.Home> { entry ->
+        composable(Screen.Home.route) {
             HomeScreen(
                 onNavigateBack = { navController.navigateUp() },
                 onChatRoomSelect = { objectId ->
-                    navController.navigate("${Screen.Chat.route}".replace("{objectId}", objectId))
+                    navController.navigate(Screen.Chat.withArgs(objectId))
                 },
                 navController = navController
             )
